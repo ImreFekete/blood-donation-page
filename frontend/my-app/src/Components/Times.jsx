@@ -22,7 +22,7 @@ function Times({showTime, date}) {
                 )
             })}
             <div>
-                {info ? `Your appointment is set to ${event} ${props.date.toDateString()}` : null}
+                {info ? `Your appointment is set to ${event} ${date.toDateString()}` : null}
             </div>
         </div>
     )
