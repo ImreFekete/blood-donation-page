@@ -12,7 +12,14 @@ const CalendarComp = () => {
         <div className="calendar">
             <h1 className="header">IMF Blood Calendar</h1>
             <div>
-                <Calendar onChange={setDate} value={date} onClickDay={() => setShowTime(true)}/>
+                <Calendar
+                    onChange={setDate}
+                    value={date}
+                    onClickDay={() => setShowTime(true)}
+                    tileDisabled={({ date}) => {
+                        return date.getDay() === 0 || date.getDay() === 6;
+                    }}
+                />
             </div>
             {date.length > 0 ? (
                 <p>
