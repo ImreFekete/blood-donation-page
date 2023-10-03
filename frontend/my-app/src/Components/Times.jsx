@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const times = ['08:00','09:00','10:00','14:00','15:00'];
+const times = ['08:00', '09:00', '10:00', '14:00', '15:00'];
 
 function Times({showTime, date}) {
 
@@ -17,7 +17,7 @@ function Times({showTime, date}) {
             {times.map(time => {
                 return (
                     <div key={time}>
-                        <button onClick={(e)=> displayInfo(e)}> {time} </button>
+                        <button onClick={(e) => displayInfo(e)}> {time} </button>
                     </div>
                 )
             })}
