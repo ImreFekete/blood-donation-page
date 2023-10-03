@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import {useState} from "react";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
 
 const CalendarComp = () => {
 
-    const [date, setDate] = useState(new Date())
-    const [showTime, setShowTime] = useState(false)
+    const [date, setDate] = useState(new Date());
+    const [showTime, setShowTime] = useState(false);
+
     return (
         <div className="calendar">
             <h1 className="header">IMF Blood Calendar</h1>

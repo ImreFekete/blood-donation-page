@@ -1,10 +1,7 @@
-import { useState } from 'react'
-
 import './App.css'
 import CalendarComp from "./Components/CalendarComp.jsx";
 
 function App() {
-
 
   return (
     <>
