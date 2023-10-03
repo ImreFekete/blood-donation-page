@@ -1,10 +1,12 @@
 import Times from "./Times.jsx";
 
-function Time(props) {
+function Time({showTime, date}) {
+    console.log(showTime);
+    console.log(date);
 
     return (
         <div>
-            {props.showTime ? <Times date={props.date}/> : null}
+            {showTime ? <Times date={date}/> : null}
         </div>
     )
 }

@@ -2,7 +2,7 @@ import {useState} from 'react';
 
 const times = ['08:00','09:00','10:00','14:00','15:00'];
 
-function Times(props) {
+function Times({showTime, date}) {
 
     const [event, setEvent] = useState(null);
     const [info, setInfo] = useState(false);
