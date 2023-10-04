@@ -7,7 +7,7 @@ function filterWeekends(date) {
     return date.getDay() === 0 || date.getDay() === 6;
 }
 
-const CalendarComp = ({handleSelectedDay}) => {
+const CalendarComp = ({handleSelectedDay, bookedAppointments}) => {
 
     const [date, setDate] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
@@ -43,7 +43,11 @@ const CalendarComp = ({handleSelectedDay}) => {
                 </p>
             )
             }
-            <Time showTime={showTime} date={date}/>
+            <Time
+                showTime={showTime}
+                date={date}
+                bookedAppointments = {bookedAppointments}
+            />
         </div>
     );
 };

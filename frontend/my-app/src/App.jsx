@@ -22,9 +22,9 @@ function App() {
             })
     }, []);
 
-    // const handleSelectDay = (selectedDay) => {
-    //     setSelectedDay(selectedDay);
-    // }
+    const handleSelectDay = (selectedDay) => {
+        setSelectedDay(selectedDay);
+    }
 
     return (
         <>
@@ -33,7 +33,8 @@ function App() {
             </button>
             <div>
                 <CalendarComp
-                // handleSelectedDay={handleSelectDay}
+                     handleSelectedDay={handleSelectDay}
+                     bookedAppointments = {bookedAppointments}
                 />
             </div>
         </>
