@@ -19,8 +19,8 @@ public class AppointmentService {
         this.appointmentDAO = appointmentDAO;
     }
 
-    public List<AppointmentDTO> getAllAppointmentsForDay() {
-        List<Appointment> appointmentDAOList = appointmentDAO.getAllForDay();
+    public List<AppointmentDTO> getAllAppointmentsForDay(String id) {
+        List<Appointment> appointmentDAOList = appointmentDAO.getAllForDay(id);
         List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
 
         for (Appointment appointmentDAO : appointmentDAOList) {

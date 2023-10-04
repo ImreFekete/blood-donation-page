@@ -4,6 +4,7 @@ import com.codecool.imf.controller.dto.AppointmentDTO;
 import com.codecool.imf.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,9 +21,9 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/allforday")
-    public List<AppointmentDTO> getAllAppointmentsForDay() {
-        return appointmentService.getAllAppointmentsForDay();
+    @GetMapping("/allforday/{id}")
+    public List<AppointmentDTO> getAllAppointmentsForDay(@PathVariable String id) {
+        return appointmentService.getAllAppointmentsForDay(id);
     }
 
 

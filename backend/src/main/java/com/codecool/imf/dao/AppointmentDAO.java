@@ -12,7 +12,7 @@ public interface AppointmentDAO {
     // READ
     Appointment get();
     // READ ALL
-    List<Appointment> getAllForDay();
+    List<Appointment> getAllForDay(String id);
     // UPDATE
     void update();
     // DELETE
