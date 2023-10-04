@@ -7,7 +7,7 @@ function filterWeekends(date) {
     return date.getDay() === 0 || date.getDay() === 6;
 }
 
-const CalendarComp = () => {
+const CalendarComp = ({handleSelectedDay}) => {
 
     const [date, setDate] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
@@ -19,7 +19,9 @@ const CalendarComp = () => {
                 <Calendar
                     onChange={setDate}
                     value={date}
-                    onClickDay={() => setShowTime(true)}
+                    onClickDay={() => {
+                        handleSelectedDay(date);
+                        setShowTime(true)}}
                     tileDisabled={({ date}) => {
                         const currentDate = new Date();
                         currentDate.setHours(0, 0, 0, 0);
