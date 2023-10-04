@@ -17,19 +17,19 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     public AppointmentDAOImpl() {
         this.bookedAppointmentsLocalDates = Arrays.asList(
                 LocalDateTime.of(2023, Month.OCTOBER, 5, 9, 0),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 9, 30),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 10, 0),
+               // LocalDateTime.of(2023, Month.OCTOBER, 5, 9, 30),
+               // LocalDateTime.of(2023, Month.OCTOBER, 5, 10, 0),
                 LocalDateTime.of(2023, Month.OCTOBER, 5, 10, 30),
                 LocalDateTime.of(2023, Month.OCTOBER, 5, 11, 30),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 12, 0),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 13, 0),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 13, 30),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 14, 30),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 15, 0),
+               // LocalDateTime.of(2023, Month.OCTOBER, 5, 12, 0),
+               // LocalDateTime.of(2023, Month.OCTOBER, 5, 13, 0),
+               // LocalDateTime.of(2023, Month.OCTOBER, 5, 13, 30),
+              //  LocalDateTime.of(2023, Month.OCTOBER, 5, 14, 30),
+              //  LocalDateTime.of(2023, Month.OCTOBER, 5, 15, 0),
                 LocalDateTime.of(2023, Month.OCTOBER, 5, 15, 30),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 16, 0),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 16, 30),
-                LocalDateTime.of(2023, Month.OCTOBER, 5, 17, 0)
+                LocalDateTime.of(2023, Month.OCTOBER, 5, 16, 0)
+              //  LocalDateTime.of(2023, Month.OCTOBER, 5, 16, 30),
+              //  LocalDateTime.of(2023, Month.OCTOBER, 5, 17, 0)
         );
     }
 

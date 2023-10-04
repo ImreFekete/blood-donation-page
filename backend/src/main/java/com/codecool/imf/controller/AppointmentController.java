@@ -23,8 +23,10 @@ public class AppointmentController {
 
     @GetMapping("/allforday/{id}")
     public List<AppointmentDTO> getAllAppointmentsForDay(@PathVariable String id) {
-        return appointmentService.getAllAppointmentsForDay(id);
+        System.out.println(id);
+        List<AppointmentDTO> allAppointmentsForDay = appointmentService.getAllAppointmentsForDay(id);
+        System.out.println("APPS: " + allAppointmentsForDay);
+        return allAppointmentsForDay;
     }
-
 
 }
