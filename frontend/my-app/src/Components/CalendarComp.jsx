@@ -3,6 +3,10 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
 
+function filterWeekends(date) {
+    return date.getDay() === 0 || date.getDay() === 6;
+}
+
 const CalendarComp = () => {
 
     const [date, setDate] = useState(new Date());
@@ -17,7 +21,9 @@ const CalendarComp = () => {
                     value={date}
                     onClickDay={() => setShowTime(true)}
                     tileDisabled={({ date}) => {
-                        return date.getDay() === 0 || date.getDay() === 6;
+                        const currentDate = new Date();
+                        currentDate.setHours(0, 0, 0, 0);
+                        return currentDate > date || filterWeekends(date);
                     }}
                 />
             </div>
