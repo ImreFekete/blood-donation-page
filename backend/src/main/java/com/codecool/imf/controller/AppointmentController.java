@@ -3,11 +3,9 @@ package com.codecool.imf.controller;
 import com.codecool.imf.controller.dto.AppointmentDTO;
 import com.codecool.imf.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,10 +21,11 @@ public class AppointmentController {
 
     @GetMapping("/allforday/{id}")
     public List<AppointmentDTO> getAllAppointmentsForDay(@PathVariable String id) {
-        System.out.println(id);
-        List<AppointmentDTO> allAppointmentsForDay = appointmentService.getAllAppointmentsForDay(id);
-        System.out.println("APPS: " + allAppointmentsForDay);
-        return allAppointmentsForDay;
+        return appointmentService.getAllAppointmentsForDay(id);
     }
 
+    @PostMapping("/allforday")
+    public List<AppointmentDTO> addNewAppointment(@RequestBody LocalDateTime appointmentDTO) {
+        return appointmentService.addNewAppointment(new AppointmentDTO(appointmentDTO));
+    }
 }

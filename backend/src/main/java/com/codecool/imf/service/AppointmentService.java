@@ -29,4 +29,11 @@ public class AppointmentService {
 
         return appointmentDTOList;
     }
+
+    public List<AppointmentDTO> addNewAppointment(AppointmentDTO appointmentDTO) {
+        appointmentDAO.add(appointmentDTO.appointment());
+        String id = appointmentDTO.appointment().toString();
+
+        return getAllAppointmentsForDay(id);
+    }
 }
