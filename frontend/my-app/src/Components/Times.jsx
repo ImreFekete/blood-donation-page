@@ -4,24 +4,29 @@ const times = ['08:30', '09:00', '09:30','10:00', '10:30',
     '11:00', '11:30', '12:00','12:30', '13:00',
     '13:30', '14:00','14:30', '15:00'];
 
+const createAppointment = (appointment) => {
+    return fetch("/api/appointments/allforday", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(appointment),
+    }).then((res) => res.json());
+}
+
 function Times({showTime, date, bookedAppointments}) {
+    const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
+    const [info, setInfo] = useState(false);
 
     const bookedTimes = bookedAppointments.map(item => {
         return item.appointment.substring(11, 16);
     });
 
-    console.log("bookedTimes", bookedTimes);
-
     const availableTimes = times.filter(time => !bookedTimes.includes(time));
-    console.log("available", availableTimes);
-
-
-    const [event, setEvent] = useState(null);
-    const [info, setInfo] = useState(false);
 
     function displayInfo(e) {
         setInfo(true);
-        setEvent(e.target.innerText);
+        setSelectedTimeSlot(e.target.innerText);
     }
 
     return (
@@ -34,8 +39,12 @@ function Times({showTime, date, bookedAppointments}) {
                 )
             })}
             <div>
-                {info ? `Your appointment is set to ${event} ${date.toDateString()}` : null}
+                {info ? `Your appointment is set to ${selectedTimeSlot} ${date.toDateString()}` : null}
             </div>
+            <button type="submit" onClick={() => {
+                const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTimeSlot + ":00";
+                return createAppointment(isoFormatTime)
+            }}>SUBMIT</button>
         </div>
     )
 }
