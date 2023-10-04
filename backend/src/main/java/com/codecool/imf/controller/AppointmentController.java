@@ -20,7 +20,7 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/allperday")
+    @GetMapping("/allforday")
     public List<AppointmentDTO> getAllAppointmentsForDay() {
         return appointmentService.getAllAppointmentsForDay();
     }

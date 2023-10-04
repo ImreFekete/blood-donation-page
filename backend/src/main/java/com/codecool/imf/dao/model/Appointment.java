@@ -1,6 +1,13 @@
 package com.codecool.imf.dao.model;
 
-public record Appointment() {
+import java.time.LocalDateTime;
 
+public record Appointment(LocalDateTime appointment) {
 
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "appointment=" + appointment +
+                '}';
+    }
 }

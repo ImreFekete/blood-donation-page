@@ -1,6 +1,13 @@
 package com.codecool.imf.controller.dto;
 
-public class AppointmentDTO {
+import java.time.LocalDateTime;
 
+public record AppointmentDTO(LocalDateTime appointment) {
 
+    @Override
+    public String toString() {
+        return "AppointmentDTO{" +
+                "appointment=" + appointment +
+                '}';
+    }
 }
