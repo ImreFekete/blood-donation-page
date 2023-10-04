@@ -15,7 +15,6 @@
     "react-calendar": "^4.6.0",
     "react-dom": "^18.2.0"
   },
-  "proxy": "http://localhost:8080",
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",

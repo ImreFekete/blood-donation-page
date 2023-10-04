@@ -3,29 +3,28 @@ import {useEffect, useState} from "react";
 import CalendarComp from "./Components/CalendarComp.jsx";
 
 const fetchAppointmentsForDay = (id) => {
-    console.log("id", id);
-    return fetch(`/appointments/allforday/${id}`).then((res) => {
-        console.log("resbody", res.body);
-        console.log("res", res);
-        return res.json()});
+    console.log(id);
+    return fetch(`/api/appointments/allforday/${id}`).then((res) => {
+        console.log(res.body);
+        return res.json()
+    });
 }
 
 function App() {
     const [bookedAppointments, setBookedAppointments] = useState([]);
     const [selectedDay, setSelectedDay] = useState(new Date());
-    console.log("Day", selectedDay);
 
     useEffect(() => {
-        fetchAppointmentsForDay(selectedDay)
+        fetchAppointmentsForDay("fetch")
             .then((bookedAppointments) => {
-                console.log("booked", bookedAppointments);
+                console.log(bookedAppointments);
                 setBookedAppointments(bookedAppointments);
             })
-    }, [selectedDay]);
+    }, []);
 
-    const handleSelectDay = (selectedDay) => {
-        setSelectedDay(selectedDay);
-    }
+    // const handleSelectDay = (selectedDay) => {
+    //     setSelectedDay(selectedDay);
+    // }
 
     return (
         <>
@@ -34,7 +33,7 @@ function App() {
             </button>
             <div>
                 <CalendarComp
-                handleSelectedDay={handleSelectDay}
+                // handleSelectedDay={handleSelectDay}
                 />
             </div>
         </>
