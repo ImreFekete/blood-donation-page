@@ -16,7 +16,7 @@ public interface AppointmentDAO {
     // UPDATE
     void update();
     // DELETE
-    boolean delete();
+    boolean delete(LocalDateTime id);
     // DELETE ALL
     boolean deleteAll();
 }

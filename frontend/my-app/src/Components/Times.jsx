@@ -14,9 +14,18 @@ const createAppointment = (appointment) => {
     }).then((res) => res.json());
 }
 
+
+const deleteAppointment = (id) => {
+    // ENDPOINT?
+    return fetch(`/api/appointments/${id}`, { method: "DELETE" }).then((res) =>
+        res.json()
+    );
+}
+
 function Times({showTime, date, bookedAppointments}) {
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
     const [info, setInfo] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false)
 
     const bookedTimes = bookedAppointments.map(item => {
         return item.appointment.substring(11, 16);
@@ -31,20 +40,39 @@ function Times({showTime, date, bookedAppointments}) {
 
     return (
         <div className="times">
-            {availableTimes.map(time => {
-                return (
-                    <div key={time}>
-                        <button onClick={(e) => displayInfo(e)}> {time} </button>
+            <div>
+                {!isSubmitted ?
+                availableTimes.map(time => {
+                    return (
+                        <div key={time}>
+                            <button onClick={(e) => displayInfo(e)}> {time} </button>
+                        </div>
+                    )
+                }) :
+                     <div>
+                        <button onClick={(e) => displayInfo(e)}> {selectedTimeSlot} </button>
                     </div>
-                )
-            })}
+                }
+            </div>
             <div>
                 {info ? `Your appointment is set to ${selectedTimeSlot} ${date.toDateString()}` : null}
             </div>
-            <button type="submit" onClick={() => {
-                const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTimeSlot + ":00";
-                return createAppointment(isoFormatTime)
-            }}>SUBMIT</button>
+
+            <div>
+                {!isSubmitted ?
+                <button type="submit" onClick={() => {
+                    setIsSubmitted(true);
+                    const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTimeSlot + ":00";
+                    return createAppointment(isoFormatTime)
+                }}>SUBMIT</button>
+                    :
+                    <button type="submit" onClick={() => {
+                        setIsSubmitted(false);
+                        const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTimeSlot + ":00";
+                        return deleteAppointment(isoFormatTime)
+                    }}>DELETE</button>
+                }
+            </div>
         </div>
     )
 }

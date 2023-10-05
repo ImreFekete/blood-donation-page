@@ -28,4 +28,11 @@ public class AppointmentController {
     public List<AppointmentDTO> addNewAppointment(@RequestBody LocalDateTime appointmentDTO) {
         return appointmentService.addNewAppointment(new AppointmentDTO(appointmentDTO));
     }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteAppointment(@PathVariable LocalDateTime id) {
+        System.out.println(id);
+        return appointmentService.deleteAppointment(id);
+
+    }
 }
