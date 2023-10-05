@@ -32,7 +32,7 @@ public class AppointmentService {
     }
 
     public List<AppointmentDTO> addNewAppointment(AppointmentDTO appointmentDTO) {
-        appointmentDAO.add(appointmentDTO.appointment());
+        appointmentDAO.add(appointmentDTO);
         String id = appointmentDTO.appointment().toString();
 
         return getAllAppointmentsForDay(id);

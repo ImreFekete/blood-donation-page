@@ -1,5 +1,6 @@
 package com.codecool.imf.dao;
 
+import com.codecool.imf.controller.dto.AppointmentDTO;
 import com.codecool.imf.dao.model.Appointment;
 import org.springframework.stereotype.Repository;
 
@@ -32,8 +33,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     }
 
     @Override
-    public void add(LocalDateTime appointment) {
-        bookedAppointmentsLocalDates.add(appointment);
+    public void add(AppointmentDTO appointment) {
+        bookedAppointmentsLocalDates.add(appointment.appointment());
     }
 
     @Override
@@ -58,8 +59,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     }
 
     @Override
-    public boolean delete(LocalDateTime id) {
-        return bookedAppointmentsLocalDates.removeIf(id::isEqual);
+    public boolean delete(LocalDateTime appointmentDTO) {
+        return bookedAppointmentsLocalDates.removeIf(appointmentDTO::isEqual);
     }
 
     @Override

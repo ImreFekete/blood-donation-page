@@ -1,5 +1,6 @@
 package com.codecool.imf.dao;
 
+import com.codecool.imf.controller.dto.AppointmentDTO;
 import com.codecool.imf.dao.model.Appointment;
 
 import java.time.LocalDateTime;
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface AppointmentDAO {
     // CREATE
-    void add(LocalDateTime appointment);
+    void add(AppointmentDTO appointment);
     // READ
     Appointment get();
     // READ ALL

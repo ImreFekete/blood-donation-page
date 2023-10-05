@@ -5,12 +5,13 @@ const times = ['08:30', '09:00', '09:30', '10:00', '10:30',
     '13:30', '14:00', '14:30', '15:00'];
 
 const createAppointment = (appointment) => {
+    const requestBody = { appointment: appointment};
     return fetch("/api/appointments/allforday", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(appointment),
+        body: JSON.stringify(requestBody),
     }).then((res) => res.json());
 }
 
