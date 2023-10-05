@@ -57,12 +57,11 @@ const CalendarComp = () => {
         <div className="calendar">
             <h2 className="header">IMF Blood Calendar</h2>
             <div className="flexboxCalendar">
-                <div className="calendarBox"> {/*NAPTÁR*/}
+                <div className="calendarBox">
                     <Calendar
                         onChange={setDate}
                         value={date}
                         onClickDay={() => {
-                            //handleSelectedDay(date);
                             setShowTime(true)
                         }}
                         tileDisabled={({date}) => {

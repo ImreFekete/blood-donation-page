@@ -23,8 +23,7 @@ const deleteAppointment = (id) => {
 
 function Times({showTime, date, bookedAppointments, handleSelectedTime, info, setInfo, isSubmitted}) {
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
-    //const [info, setInfo] = useState(false);
-   // const [isSubmitted, setIsSubmitted] = useState(false)
+
 
     const bookedTimes = bookedAppointments.map(item => {
         return item.appointment.substring(11, 16);
@@ -60,32 +59,6 @@ function Times({showTime, date, bookedAppointments, handleSelectedTime, info, se
                     </div>)
                 }
             </div>
-
-            {/*<div className="textAppointmentSet">
-                {info ? `Your appointment is set to ${selectedTimeSlot} ${date.toDateString()}` : null}
-            </div>
-
-            <div className="submitOrDeleteButton">
-                {!isSubmitted ?
-                    (<button type="submit" onClick={() => {
-                            setIsSubmitted(true);
-                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTimeSlot + ":00";
-                            return createAppointment(isoFormatTime)
-                        }}>
-                            SUBMIT
-                        </button>
-                    )
-                    :
-                    (<button type="submit" onClick={() => {
-                            setIsSubmitted(false);
-                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTimeSlot + ":00";
-                            return deleteAppointment(isoFormatTime)
-                        }}>
-                            DELETE
-                        </button>
-                    )
-                }
-            </div>*/}
         </div>
     )
 }
