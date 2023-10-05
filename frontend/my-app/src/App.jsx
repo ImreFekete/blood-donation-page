@@ -3,9 +3,7 @@ import {useEffect, useState} from "react";
 import CalendarComp from "./Components/CalendarComp.jsx";
 
 const fetchAppointmentsForDay = (id) => {
-    console.log(id);
     return fetch(`/api/appointments/allforday/${id}`).then((res) => {
-        console.log(res.body);
         return res.json()
     });
 }

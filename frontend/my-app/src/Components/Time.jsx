@@ -1,8 +1,6 @@
 import Times from "./Times.jsx";
 
 function Time({showTime, date, bookedAppointments}) {
-    console.log(showTime);
-    console.log(date);
 
     return (
         <div>
