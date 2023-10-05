@@ -4,8 +4,8 @@ const times = ['08:30', '09:00', '09:30', '10:00', '10:30',
     '11:00', '11:30', '12:00', '12:30', '13:00',
     '13:30', '14:00', '14:30', '15:00'];
 
-const createAppointment = (appointment) => {
-    const requestBody = { appointment: appointment};
+const createAppointment = (time) => {
+    const requestBody = { appointment: time};
     return fetch("/api/appointments/allforday", {
         method: "POST",
         headers: {
