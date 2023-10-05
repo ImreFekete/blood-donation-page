@@ -59,8 +59,8 @@ public class AppointmentDAOImpl implements AppointmentDAO {
     }
 
     @Override
-    public boolean delete(LocalDateTime appointmentDTO) {
-        return bookedAppointmentsLocalDates.removeIf(appointmentDTO::isEqual);
+    public boolean delete(LocalDateTime appointment) {
+        return bookedAppointmentsLocalDates.removeIf(appointment::isEqual);
     }
 
     @Override
