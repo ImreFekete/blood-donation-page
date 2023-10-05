@@ -4,8 +4,12 @@ import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
 import {Link} from "react-router-dom";
 
-function filterWeekends(date) {
+const filterWeekends = (date) => {
     return date.getDay() === 0 || date.getDay() === 6;
+}
+
+const filterPastDates = (currentDate, date) => {
+    return currentDate > date;
 }
 
 const fetchAppointmentsForDay = (id) => {
@@ -13,6 +17,7 @@ const fetchAppointmentsForDay = (id) => {
         return res.json()
     });
 }
+
 const createAppointment = (time) => {
     const requestBody = {appointment: time};
     return fetch("/api/appointments/allforday", {
@@ -29,6 +34,7 @@ const deleteAppointment = (id) => {
         res.json()
     );
 }
+
 const CalendarComp = () => {
     const [date, setDate] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
@@ -56,6 +62,7 @@ const CalendarComp = () => {
     return (
         <div className="calendar">
             <h2 className="header">IMF Blood Calendar</h2>
+
             <div className="flexboxCalendar">
                 <div className="calendarBox"> {/*NAPTÁR*/}
                     <Calendar
@@ -68,22 +75,24 @@ const CalendarComp = () => {
                         tileDisabled={({date}) => {
                             const currentDate = new Date();
                             currentDate.setHours(0, 0, 0, 0);
-                            return currentDate > date || filterWeekends(date);
+                            return filterPastDates(currentDate, date) || filterWeekends(date);
                         }}
                     />
                 </div>
+
                 <div className="showTime">
                     <Time
                         showTime={showTime}
                         date={date}
                         bookedAppointments={bookedAppointments}
-                        handleSelectedTime = {handleSeledtedTime}
+                        handleSelectedTime={handleSeledtedTime}
                         info={info}
                         setInfo={setInfo}
-                        isSubmitted = {isSubmitted}
+                        isSubmitted={isSubmitted}
                     />
                 </div>
             </div>
+
             <div className="flexboxTime">
                 {date.length > 0 ? (
                     <p>
@@ -98,39 +107,42 @@ const CalendarComp = () => {
                         <span>Selected date: </span>{date.toDateString()}.
                     </p>
                 )}
+
                 <div className="textAppointmentSet">
                     {info ? `Your appointment is set to ${selectedTime}.` : null}
                 </div>
 
                 <div className="submitOrDeleteButton">
-                    { info ?
+                    {info ?
                         (!isSubmitted ?
-                        (<button type="submit" onClick={() => {
-                                setIsSubmitted(true);
-                                const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
-                                return createAppointment(isoFormatTime)
-                            }}>
-                                SUBMIT
-                            </button>
+                                (<button type="submit" onClick={() => {
+                                        setIsSubmitted(true);
+                                        const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
+                                        return createAppointment(isoFormatTime)
+                                    }}>
+                                        SUBMIT
+                                    </button>
+                                )
+                                :
+                                (<button type="submit" onClick={() => {
+                                        setIsSubmitted(false);
+                                        const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
+                                        return deleteAppointment(isoFormatTime)
+                                    }}>
+                                        DELETE
+                                    </button>
+                                )
                         )
                         :
-                        (<button type="submit" onClick={() => {
-                                setIsSubmitted(false);
-                                const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
-                                return deleteAppointment(isoFormatTime)
-                            }}>
-                                DELETE
-                            </button>
-                        )
-                        )
-                    :
                         null
                     }
                 </div>
             </div>
+
             <Link to="/">
                 <button className='backButton' type="button">BACK</button>
             </Link>
+
         </div>
     );
 };
