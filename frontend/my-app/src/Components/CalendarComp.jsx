@@ -13,7 +13,6 @@ const fetchAppointmentsForDay = (id) => {
         return res.json()
     });
 }
-time-display-variation
 const createAppointment = (time) => {
     const requestBody = {appointment: time};
     return fetch("/api/appointments/allforday", {
@@ -30,13 +29,6 @@ const deleteAppointment = (id) => {
         res.json()
     );
 }
-
-
-function filterPastDates(currentDate, date) {
-    return currentDate > date;
-}
-
-development
 const CalendarComp = () => {
     const [date, setDate] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
@@ -65,21 +57,18 @@ const CalendarComp = () => {
         <div className="calendar">
             <h2 className="header">IMF Blood Calendar</h2>
             <div className="flexboxCalendar">
-time-display-variation
-                <div className="calendarBox">
-
-                <div>
-development
+                <div className="calendarBox"> {/*NAPTÁR*/}
                     <Calendar
                         onChange={setDate}
                         value={date}
                         onClickDay={() => {
+                            //handleSelectedDay(date);
                             setShowTime(true)
                         }}
                         tileDisabled={({date}) => {
                             const currentDate = new Date();
                             currentDate.setHours(0, 0, 0, 0);
-                            return filterPastDates(currentDate, date) || filterWeekends(date);
+                            return currentDate > date || filterWeekends(date);
                         }}
                     />
                 </div>
@@ -96,44 +85,44 @@ development
                 </div>
             </div>
             <div className="flexboxTime">
-            {date.length > 0 ? (
-                <p>
-                    <span>Start:</span>
-                    {date[0].toDateString()}
-                    &nbsp;
-                    &nbsp;
-                    <span>End:</span>{date[1].toDateString()}
-                </p>
-            ) : (
-                <p className="textSelectedDate">
-                    <span>Selected date: </span>{date.toDateString()}.
-                </p>
-            )}
-            <div className="textAppointmentSet">
-                {info ? `Your appointment is set to ${selectedTime}.` : null}
-            </div>
+                {date.length > 0 ? (
+                    <p>
+                        <span>Start:</span>
+                        {date[0].toDateString()}
+                        &nbsp;
+                        &nbsp;
+                        <span>End:</span>{date[1].toDateString()}
+                    </p>
+                ) : (
+                    <p className="textSelectedDate">
+                        <span>Selected date: </span>{date.toDateString()}.
+                    </p>
+                )}
+                <div className="textAppointmentSet">
+                    {info ? `Your appointment is set to ${selectedTime}.` : null}
+                </div>
 
-            <div className="submitOrDeleteButton">
-                {!isSubmitted ?
-                    (<button type="submit" onClick={() => {
-                            setIsSubmitted(true);
-                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
-                            return createAppointment(isoFormatTime)
-                        }}>
-                            SUBMIT
-                        </button>
-                    )
-                    :
-                    (<button type="submit" onClick={() => {
-                            setIsSubmitted(false);
-                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
-                            return deleteAppointment(isoFormatTime)
-                        }}>
-                            DELETE
-                        </button>
-                    )
-                }
-            </div>
+                <div className="submitOrDeleteButton">
+                    {!isSubmitted ?
+                        (<button type="submit" onClick={() => {
+                                setIsSubmitted(true);
+                                const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
+                                return createAppointment(isoFormatTime)
+                            }}>
+                                SUBMIT
+                            </button>
+                        )
+                        :
+                        (<button type="submit" onClick={() => {
+                                setIsSubmitted(false);
+                                const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
+                                return deleteAppointment(isoFormatTime)
+                            }}>
+                                DELETE
+                            </button>
+                        )
+                    }
+                </div>
             </div>
             <Link to="/">
                 <button className='backButton' type="button">BACK</button>
