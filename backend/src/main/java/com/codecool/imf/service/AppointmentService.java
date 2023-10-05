@@ -6,6 +6,7 @@ import com.codecool.imf.dao.model.Appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +32,13 @@ public class AppointmentService {
     }
 
     public List<AppointmentDTO> addNewAppointment(AppointmentDTO appointmentDTO) {
-        appointmentDAO.add(appointmentDTO.appointment());
+        appointmentDAO.add(appointmentDTO);
         String id = appointmentDTO.appointment().toString();
 
         return getAllAppointmentsForDay(id);
+    }
+
+    public boolean deleteAppointment(LocalDateTime id) {
+        return appointmentDAO.delete(id);
     }
 }

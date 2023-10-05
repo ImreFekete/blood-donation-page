@@ -25,7 +25,13 @@ public class AppointmentController {
     }
 
     @PostMapping("/allforday")
-    public List<AppointmentDTO> addNewAppointment(@RequestBody LocalDateTime appointmentDTO) {
-        return appointmentService.addNewAppointment(new AppointmentDTO(appointmentDTO));
+    public List<AppointmentDTO> addNewAppointment(@RequestBody AppointmentDTO appointmentTimeSlot) {
+        System.out.println(appointmentTimeSlot);
+        return appointmentService.addNewAppointment(appointmentTimeSlot);
+    }
+
+    @DeleteMapping("/{appointmentId}")
+    public boolean deleteAppointment(@PathVariable LocalDateTime appointmentId) {
+        return appointmentService.deleteAppointment(appointmentId);
     }
 }
