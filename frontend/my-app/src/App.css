@@ -10,9 +10,17 @@
 }
 
 .flexboxCalendar {
+  height: 300px;
   display: flex;
   justify-content: center;
   align-content: center;
   align-items: center;
   flex-direction: row;
+}
+.calendarBox{
+  padding-left: 10px;
+}
+.showTime {
+  max-height: 300px;
+  overflow-y: scroll;
 }

@@ -4,7 +4,7 @@ const times = ['08:30', '09:00', '09:30', '10:00', '10:30',
     '11:00', '11:30', '12:00', '12:30', '13:00',
     '13:30', '14:00', '14:30', '15:00'];
 
-const createAppointment = (time) => {
+/*const createAppointment = (time) => {
     const requestBody = {appointment: time};
     return fetch("/api/appointments/allforday", {
         method: "POST",
@@ -19,12 +19,12 @@ const deleteAppointment = (id) => {
     return fetch(`/api/appointments/${id}`, {method: "DELETE"}).then((res) =>
         res.json()
     );
-}
+}*/
 
-function Times({showTime, date, bookedAppointments}) {
+function Times({showTime, date, bookedAppointments, handleSelectedTime}) {
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
     const [info, setInfo] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false)
+   // const [isSubmitted, setIsSubmitted] = useState(false)
 
     const bookedTimes = bookedAppointments.map(item => {
         return item.appointment.substring(11, 16);
@@ -44,7 +44,9 @@ function Times({showTime, date, bookedAppointments}) {
                     (availableTimes.map(time => {
                         return (
                             <div key={time}>
-                                <button onClick={(e) => displayInfo(e)}>
+                                <button onClick={(e) => {
+                                    handleSelectedTime(time);
+                                    displayInfo(e)}}>
                                     {time}
                                 </button>
                             </div>
@@ -59,11 +61,11 @@ function Times({showTime, date, bookedAppointments}) {
                 }
             </div>
 
-            <div>
+            {/*<div className="textAppointmentSet">
                 {info ? `Your appointment is set to ${selectedTimeSlot} ${date.toDateString()}` : null}
             </div>
 
-            <div>
+            <div className="submitOrDeleteButton">
                 {!isSubmitted ?
                     (<button type="submit" onClick={() => {
                             setIsSubmitted(true);
@@ -83,7 +85,7 @@ function Times({showTime, date, bookedAppointments}) {
                         </button>
                     )
                 }
-            </div>
+            </div>*/}
         </div>
     )
 }
