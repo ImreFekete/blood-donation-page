@@ -14,7 +14,6 @@ const createAppointment = (appointment) => {
     }).then((res) => res.json());
 }
 
-
 const deleteAppointment = (id) => {
     return fetch(`/api/appointments/${id}`, {method: "DELETE"}).then((res) =>
         res.json()
