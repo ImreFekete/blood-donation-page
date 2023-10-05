@@ -103,7 +103,8 @@ const CalendarComp = () => {
                 </div>
 
                 <div className="submitOrDeleteButton">
-                    {!isSubmitted ?
+                    { info ?
+                        (!isSubmitted ?
                         (<button type="submit" onClick={() => {
                                 setIsSubmitted(true);
                                 const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
@@ -121,6 +122,9 @@ const CalendarComp = () => {
                                 DELETE
                             </button>
                         )
+                        )
+                    :
+                        null
                     }
                 </div>
             </div>
