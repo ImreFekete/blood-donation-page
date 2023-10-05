@@ -13,6 +13,7 @@ const fetchAppointmentsForDay = (id) => {
         return res.json()
     });
 }
+time-display-variation
 const createAppointment = (time) => {
     const requestBody = {appointment: time};
     return fetch("/api/appointments/allforday", {
@@ -29,6 +30,13 @@ const deleteAppointment = (id) => {
         res.json()
     );
 }
+
+
+function filterPastDates(currentDate, date) {
+    return currentDate > date;
+}
+
+development
 const CalendarComp = () => {
     const [date, setDate] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
@@ -57,7 +65,11 @@ const CalendarComp = () => {
         <div className="calendar">
             <h2 className="header">IMF Blood Calendar</h2>
             <div className="flexboxCalendar">
+time-display-variation
                 <div className="calendarBox">
+
+                <div>
+development
                     <Calendar
                         onChange={setDate}
                         value={date}
@@ -67,7 +79,7 @@ const CalendarComp = () => {
                         tileDisabled={({date}) => {
                             const currentDate = new Date();
                             currentDate.setHours(0, 0, 0, 0);
-                            return currentDate > date || filterWeekends(date);
+                            return filterPastDates(currentDate, date) || filterWeekends(date);
                         }}
                     />
                 </div>
