@@ -36,6 +36,7 @@ const CalendarComp = () => {
     const [selectedDay, setSelectedDay] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [info, setInfo] = useState(false);
 
     useEffect(() => {
         fetchAppointmentsForDay("fetch") // HARD CODED VALUE ONLY FOR TESTING PURPOSE
@@ -77,9 +78,13 @@ const CalendarComp = () => {
                         date={date}
                         bookedAppointments={bookedAppointments}
                         handleSelectedTime = {handleSeledtedTime}
+                        info={info}
+                        setInfo={setInfo}
+                        isSubmitted = {isSubmitted}
                     />
                 </div>
             </div>
+            <div className="flexboxTime">
             {date.length > 0 ? (
                 <p>
                     <span>Start:</span>
@@ -89,19 +94,19 @@ const CalendarComp = () => {
                     <span>End:</span>{date[1].toDateString()}
                 </p>
             ) : (
-                <p>
-                    <span>Default selected date: </span>{date.toDateString()}
+                <p className="textSelectedDate">
+                    <span>Selected date: </span>{date.toDateString()}.
                 </p>
             )}
             <div className="textAppointmentSet">
-                {info ? `Your appointment is set to ${selectedTimeSlot} ${date.toDateString()}` : null}
+                {info ? `Your appointment is set to ${selectedTime}.` : null}
             </div>
 
             <div className="submitOrDeleteButton">
                 {!isSubmitted ?
                     (<button type="submit" onClick={() => {
                             setIsSubmitted(true);
-                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTimeSlot + ":00";
+                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
                             return createAppointment(isoFormatTime)
                         }}>
                             SUBMIT
@@ -110,13 +115,14 @@ const CalendarComp = () => {
                     :
                     (<button type="submit" onClick={() => {
                             setIsSubmitted(false);
-                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTimeSlot + ":00";
+                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
                             return deleteAppointment(isoFormatTime)
                         }}>
                             DELETE
                         </button>
                     )
                 }
+            </div>
             </div>
             <Link to="/">
                 <button className='backButton' type="button">BACK</button>

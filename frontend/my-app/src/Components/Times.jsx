@@ -21,9 +21,9 @@ const deleteAppointment = (id) => {
     );
 }*/
 
-function Times({showTime, date, bookedAppointments, handleSelectedTime}) {
+function Times({showTime, date, bookedAppointments, handleSelectedTime, info, setInfo, isSubmitted}) {
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
-    const [info, setInfo] = useState(false);
+    //const [info, setInfo] = useState(false);
    // const [isSubmitted, setIsSubmitted] = useState(false)
 
     const bookedTimes = bookedAppointments.map(item => {
