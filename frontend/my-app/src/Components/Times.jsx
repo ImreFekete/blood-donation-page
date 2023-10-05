@@ -57,6 +57,7 @@ function Times({showTime, date, bookedAppointments}) {
                     </div>)
                 }
             </div>
+
             <div>
                 {info ? `Your appointment is set to ${selectedTimeSlot} ${date.toDateString()}` : null}
             </div>
