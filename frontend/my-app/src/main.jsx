@@ -5,7 +5,6 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import App from './App.jsx'
 import CalendarComp from "./Components/CalendarComp.jsx";
 
-
 const router = createBrowserRouter([
     {
         path: "/",
