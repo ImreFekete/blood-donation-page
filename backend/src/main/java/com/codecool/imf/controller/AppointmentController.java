@@ -26,7 +26,6 @@ public class AppointmentController {
 
     @PostMapping("/allforday")
     public List<AppointmentDTO> addNewAppointment(@RequestBody AppointmentDTO appointmentTimeSlot) {
-        System.out.println(appointmentTimeSlot);
         return appointmentService.addNewAppointment(appointmentTimeSlot);
     }
 
