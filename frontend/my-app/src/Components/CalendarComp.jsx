@@ -3,14 +3,9 @@ import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
 import {Link} from "react-router-dom";
 import CalendarBox from "./CalendarBox.jsx";
-
-const filterWeekends = (date) => {
-    return date.getDay() === 0 || date.getDay() === 6;
-}
-
-const filterPastDates = (currentDate, date) => {
-    return currentDate > date;
-}
+import SubmitOrDeleteButton from "./SubmitOrDeleteButton.jsx";
+import SelectedDateInfo from "./SelectedDateInfo.jsx";
+import SetTextAppointment from "./SetTextAppointment.jsx";
 
 const fetchAppointmentsForDay = (id) => {
     return fetch(`/api/appointments/allforday/${id}`).then((res) => {
@@ -35,11 +30,15 @@ const deleteAppointment = (id) => {
     );
 }
 
-function getTileDisabledTiles() {
+const filterDates = (currentDate, date) => {
+    return currentDate > date || date.getDay() === 0 || date.getDay() === 6;
+}
+
+function getDisabledTiles() {
     return ({date}) => {
         const currentDate = new Date();
         currentDate.setHours(0, 0, 0, 0);
-        return filterPastDates(currentDate, date) || filterWeekends(date);
+        return filterDates(currentDate, date);
     };
 }
 
@@ -77,15 +76,13 @@ const CalendarComp = () => {
     return (
         <div className="calendar">
             <h2 className="header">IMF Blood Calendar</h2>
-
             <div className="flexboxCalendar">
                 <CalendarBox
                     onChange={setDate}
                     value={date}
                     onClickDay={getOnClickDay(handleSelectedDay, date, setShowTime)}
-                    tileDisabled={getTileDisabledTiles()}
+                    tileDisabled={getDisabledTiles()}
                 />
-
                 <div className="showTime">
                     <Time
                         showTime={showTime}
@@ -100,43 +97,18 @@ const CalendarComp = () => {
             </div>
 
             <div className="flexboxTime">
-                {date.length > 0 ? (
-                    <p>
-                        <span>Start:</span>
-                        {date[0].toDateString()}
-                        &nbsp;
-                        &nbsp;
-                        <span>End:</span>{date[1].toDateString()}
-                    </p>
-                ) : (
-                    <p className="textSelectedDate">
-                        <span>Selected date: </span>{date.toDateString()}.
-                    </p>
-                )}
-
-                <div className="textAppointmentSet">
-                    {info ? `Your appointment is set to ${selectedTime}.` : null}
-                </div>
-
-                <div className="submitOrDeleteButton">
-                    {info ?
-                        <button type="submit" onClick={() => {
-                            setIsSubmitted(!isSubmitted);
-                            const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
-                            return !isSubmitted ? createAppointment(isoFormatTime) : deleteAppointment(isoFormatTime);
-                        }}>
-                            {!isSubmitted ? "SUBMIT" : "DELETE"}
-                        </button>
-                        :
-                        null
-                    }
-                </div>
+                <SelectedDateInfo date={date}/>
+                <SetTextAppointment info={info} selectedTime={selectedTime}/>
+                <SubmitOrDeleteButton info={info} onClick={() => {
+                    setIsSubmitted(!isSubmitted);
+                    const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
+                    return !isSubmitted ? createAppointment(isoFormatTime) : deleteAppointment(isoFormatTime);
+                }} submitted={isSubmitted}/>
             </div>
 
             <Link to="/">
                 <button className='backButton' type="button">BACK</button>
             </Link>
-
         </div>
     );
 };
