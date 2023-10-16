@@ -37,6 +37,7 @@ class AppointmentServiceTest {
         bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 16, 0));
 
         for (LocalDateTime bookedAppointmentsLocalDate : bookedAppointmentsLocalDates) {
+            // FIXME: new repository was given, this test is out dated
             bookedAppointments.add(new Appointment(bookedAppointmentsLocalDate));
         }
 
