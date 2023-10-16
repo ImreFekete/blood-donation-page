@@ -1,8 +1,8 @@
 package com.codecool.imf.service;
 
-import com.codecool.imf.controller.dto.AppointmentDTO;
+import com.codecool.imf.dto.AppointmentDTO;
 import com.codecool.imf.repository.AppointmentRepository;
-import com.codecool.imf.repository.model.Appointment;
+import com.codecool.imf.model.Appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,24 +21,32 @@ public class AppointmentService {
     }
 
     public List<AppointmentDTO> getAllAppointmentsForDay(String id) {
-        List<Appointment> appointmentDAOList = appointmentRepository.getAllForDay(id);
+        // TODO: Fix method
+//        List<Appointment> appointmentDAOList = appointmentRepository.getAllForDay(id);
         List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
 
-        for (Appointment appointmentDAO : appointmentDAOList) {
-            appointmentDTOList.add(new AppointmentDTO(appointmentDAO.appointment()));
-        }
+//        for (Appointment appointmentDAO : appointmentDAOList) {
+//            appointmentDTOList.add(new AppointmentDTO(appointmentDAO.appointment()));
+//        }
 
         return appointmentDTOList;
     }
 
     public List<AppointmentDTO> addNewAppointment(AppointmentDTO appointmentDTO) {
-        appointmentRepository.add(appointmentDTO);
-        String id = appointmentDTO.appointment().toString();
+        // TODO: Implement normally
+        appointmentRepository.save(Appointment.builder()
+                .id(appointmentDTO.getId())
+                .localDateTime(appointmentDTO.getAppointment())
+                .build());
 
+        String id = appointmentDTO.getAppointment().toString();
         return getAllAppointmentsForDay(id);
     }
 
     public boolean deleteAppointment(LocalDateTime id) {
-        return appointmentRepository.delete(id);
+        // TODO: Implement normally
+        appointmentRepository.deleteById(1L);
+        return true;
+
     }
 }

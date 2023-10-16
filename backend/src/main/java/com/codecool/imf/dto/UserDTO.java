@@ -1,6 +1,5 @@
-package com.codecool.imf.repository.model;
+package com.codecool.imf.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,17 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+public class UserDTO {
     private Long id;
-
     private String name;
-
     private String password;
-
     private String email;
 }

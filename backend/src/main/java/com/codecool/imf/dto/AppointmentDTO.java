@@ -1,4 +1,4 @@
-package com.codecool.imf.controller.dto;
+package com.codecool.imf.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
