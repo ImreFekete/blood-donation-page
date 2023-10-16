@@ -1,15 +1,12 @@
 package com.codecool.imf.service;
 
 import com.codecool.imf.controller.dto.AppointmentDTO;
-import com.codecool.imf.dao.AppointmentDAO;
-import com.codecool.imf.dao.AppointmentDAOImpl;
-import com.codecool.imf.dao.model.Appointment;
+import com.codecool.imf.repository.AppointmentRepository;
+import com.codecool.imf.repository.model.Appointment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
@@ -24,14 +21,14 @@ import static org.mockito.Mockito.when;
 class AppointmentServiceTest {
 
     @Mock
-    private AppointmentDAO mockAppointmentDAO;
+    private AppointmentRepository mockAppointmentRepository;
     private AppointmentService appointmentService;
     private final List<Appointment> bookedAppointments = new ArrayList<>();
     private final List<LocalDateTime> bookedAppointmentsLocalDates = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
-        appointmentService = new AppointmentService(mockAppointmentDAO);
+        appointmentService = new AppointmentService(mockAppointmentRepository);
 
         bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 9, 0));
         bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 10, 30));
@@ -51,7 +48,7 @@ class AppointmentServiceTest {
     void getAllAppointmentsForDay() {
         // ARRANGE
         String test = "test";
-        when(mockAppointmentDAO.getAllForDay(test)).thenReturn(bookedAppointments);
+        when(mockAppointmentRepository.getAllForDay(test)).thenReturn(bookedAppointments);
         // ACT
         List<AppointmentDTO> result = appointmentService.getAllAppointmentsForDay(test);
         int expected = bookedAppointments.size();
