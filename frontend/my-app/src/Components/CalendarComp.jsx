@@ -1,16 +1,11 @@
-import {useEffect, useState} from "react";
-import Calendar from 'react-calendar';
+import {Component, useEffect, useState} from "react";
 import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
 import {Link} from "react-router-dom";
-
-const filterWeekends = (date) => {
-    return date.getDay() === 0 || date.getDay() === 6;
-}
-
-const filterPastDates = (currentDate, date) => {
-    return currentDate > date;
-}
+import CalendarBox from "./CalendarBox.jsx";
+import SubmitOrDeleteButton from "./SubmitOrDeleteButton.jsx";
+import SelectedDateInfo from "./SelectedDateInfo.jsx";
+import SetTextAppointment from "./SetTextAppointment.jsx";
 
 const fetchAppointmentsForDay = (id) => {
     return fetch(`/api/appointments/allforday/${id}`).then((res) => {
@@ -35,6 +30,25 @@ const deleteAppointment = (id) => {
     );
 }
 
+const filterDates = (currentDate, date) => {
+    return currentDate > date || date.getDay() === 0 || date.getDay() === 6;
+}
+
+function getDisabledTiles() {
+    return ({date}) => {
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+        return filterDates(currentDate, date);
+    };
+}
+
+function getOnClickDay(handleSelectedDay, date, setShowTime) {
+    return () => {
+        handleSelectedDay(date);
+        setShowTime(true)
+    };
+}
+
 const CalendarComp = () => {
     const [date, setDate] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
@@ -55,37 +69,26 @@ const CalendarComp = () => {
     const handleSelectedDay = (selectedDay) => {
         setSelectedDay(selectedDay);
     }
-    const handleSeledtedTime = (selectedTime) => {
+    const handleSelectedTime = (selectedTime) => {
         setSelectedTime(selectedTime);
     }
 
     return (
         <div className="calendar">
             <h2 className="header">IMF Blood Calendar</h2>
-
             <div className="flexboxCalendar">
-                <div className="calendarBox">
-                    <Calendar
-                        onChange={setDate}
-                        value={date}
-                        onClickDay={() => {
-                            handleSelectedDay(date);
-                            setShowTime(true)
-                        }}
-                        tileDisabled={({date}) => {
-                            const currentDate = new Date();
-                            currentDate.setHours(0, 0, 0, 0);
-                            return filterPastDates(currentDate, date) || filterWeekends(date);
-                        }}
-                    />
-                </div>
-
+                <CalendarBox
+                    onChange={setDate}
+                    value={date}
+                    onClickDay={getOnClickDay(handleSelectedDay, date, setShowTime)}
+                    tileDisabled={getDisabledTiles()}
+                />
                 <div className="showTime">
                     <Time
                         showTime={showTime}
                         date={date}
                         bookedAppointments={bookedAppointments}
-                        handleSelectedTime={handleSeledtedTime}
+                        handleSelectedTime={handleSelectedTime}
                         info={info}
                         setInfo={setInfo}
                         isSubmitted={isSubmitted}
@@ -94,55 +97,18 @@ const CalendarComp = () => {
             </div>
 
             <div className="flexboxTime">
-                {date.length > 0 ? (
-                    <p>
-                        <span>Start:</span>
-                        {date[0].toDateString()}
-                        &nbsp;
-                        &nbsp;
-                        <span>End:</span>{date[1].toDateString()}
-                    </p>
-                ) : (
-                    <p className="textSelectedDate">
-                        <span>Selected date: </span>{date.toDateString()}.
-                    </p>
-                )}
-
-                <div className="textAppointmentSet">
-                    {info ? `Your appointment is set to ${selectedTime}.` : null}
-                </div>
-
-                <div className="submitOrDeleteButton">
-                    {info ?
-                        (!isSubmitted ?
-                                (<button type="submit" onClick={() => {
-                                        setIsSubmitted(true);
-                                        const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
-                                        return createAppointment(isoFormatTime)
-                                    }}>
-                                        SUBMIT
-                                    </button>
-                                )
-                                :
-                                (<button type="submit" onClick={() => {
-                                        setIsSubmitted(false);
-                                        const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
-                                        return deleteAppointment(isoFormatTime)
-                                    }}>
-                                        DELETE
-                                    </button>
-                                )
-                        )
-                        :
-                        null
-                    }
-                </div>
+                <SelectedDateInfo date={date}/>
+                <SetTextAppointment info={info} selectedTime={selectedTime}/>
+                <SubmitOrDeleteButton info={info} onClick={() => {
+                    setIsSubmitted(!isSubmitted);
+                    const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
+                    return !isSubmitted ? createAppointment(isoFormatTime) : deleteAppointment(isoFormatTime);
+                }} submitted={isSubmitted}/>
             </div>
 
             <Link to="/">
                 <button className='backButton' type="button">BACK</button>
             </Link>
-
         </div>
     );
 };
