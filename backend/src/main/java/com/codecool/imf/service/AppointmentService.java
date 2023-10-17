@@ -1,8 +1,8 @@
 package com.codecool.imf.service;
 
-import com.codecool.imf.controller.dto.AppointmentDTO;
-import com.codecool.imf.dao.AppointmentDAO;
-import com.codecool.imf.dao.model.Appointment;
+import com.codecool.imf.dto.AppointmentDTO;
+import com.codecool.imf.repository.AppointmentRepository;
+import com.codecool.imf.model.Appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,32 +13,40 @@ import java.util.List;
 @Service
 public class AppointmentService {
 
-    private final AppointmentDAO appointmentDAO;
+    private final AppointmentRepository appointmentRepository;
 
     @Autowired
-    public AppointmentService(AppointmentDAO appointmentDAO) {
-        this.appointmentDAO = appointmentDAO;
+    public AppointmentService(AppointmentRepository appointmentRepository) {
+        this.appointmentRepository = appointmentRepository;
     }
 
     public List<AppointmentDTO> getAllAppointmentsForDay(String id) {
-        List<Appointment> appointmentDAOList = appointmentDAO.getAllForDay(id);
+        // TODO: Fix method
+//        List<Appointment> appointmentDAOList = appointmentRepository.getAllForDay(id);
         List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
 
-        for (Appointment appointmentDAO : appointmentDAOList) {
-            appointmentDTOList.add(new AppointmentDTO(appointmentDAO.appointment()));
-        }
+//        for (Appointment appointmentDAO : appointmentDAOList) {
+//            appointmentDTOList.add(new AppointmentDTO(appointmentDAO.appointment()));
+//        }
 
         return appointmentDTOList;
     }
 
     public List<AppointmentDTO> addNewAppointment(AppointmentDTO appointmentDTO) {
-        appointmentDAO.add(appointmentDTO);
-        String id = appointmentDTO.appointment().toString();
+        // TODO: Implement normally
+        appointmentRepository.save(Appointment.builder()
+                .id(appointmentDTO.getId())
+                .localDateTime(appointmentDTO.getAppointment())
+                .build());
 
+        String id = appointmentDTO.getAppointment().toString();
         return getAllAppointmentsForDay(id);
     }
 
     public boolean deleteAppointment(LocalDateTime id) {
-        return appointmentDAO.delete(id);
+        // TODO: Implement normally
+        appointmentRepository.deleteById(1L);
+        return true;
+
     }
 }

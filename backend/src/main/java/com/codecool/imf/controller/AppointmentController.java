@@ -1,6 +1,6 @@
 package com.codecool.imf.controller;
 
-import com.codecool.imf.controller.dto.AppointmentDTO;
+import com.codecool.imf.dto.AppointmentDTO;
 import com.codecool.imf.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
