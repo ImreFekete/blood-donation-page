@@ -11,11 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/{id}")
+    public UserDTO getUserById(@PathVariable("id") Long id) {
+        System.out.println("ID IN GET USER BY ID: " + id);
+        return userService.getUserById(id);
     }
 
     @PostMapping("/login")
