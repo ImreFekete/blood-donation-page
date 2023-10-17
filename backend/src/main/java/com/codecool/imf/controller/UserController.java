@@ -1,16 +1,12 @@
 package com.codecool.imf.controller;
 
-
 import com.codecool.imf.dto.UserDTO;
 import com.codecool.imf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("users")
 public class UserController {
 
     private UserService userService;
@@ -20,9 +16,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{email}/")
-    public UserDTO getUserByEmail(@PathVariable String email) {
-        System.out.println(email);
-        return userService.getUserByEmail(email);
+    @PostMapping("/login")
+    public UserDTO getUserByEmail(@RequestBody UserDTO user) {
+        System.out.println(user);
+        return null;
     }
 }

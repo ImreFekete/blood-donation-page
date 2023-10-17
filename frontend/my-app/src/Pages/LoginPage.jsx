@@ -3,8 +3,15 @@ import Loading from "../Components/Loading";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
-const fetchUser = (userId) => {
-    return fetch(`/users/${userId}`).then((res) => res.json());
+const fetchUser = (user) => {
+    console.log(user)
+    return fetch("/users/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+    }).then((res) => res.json());
 };
 
 const LoginPage = () => {
@@ -15,7 +22,7 @@ const LoginPage = () => {
         console.log(user)
         setLoading(true);
 
-        fetchUser(user.email)
+        fetchUser(user)
             .then(() => {
                 setLoading(false);
                 navigate("/");
