@@ -19,9 +19,15 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/allforday/{id}")
-    public List<AppointmentDTO> getAllAppointmentsForDay(@PathVariable String id) {
-        return appointmentService.getAllAppointmentsForDay(id);
+
+    @GetMapping("/allforday")
+    public List<AppointmentDTO> getAllAppointmentsForDay(
+            @RequestParam String year,
+            @RequestParam String month,
+            @RequestParam String day
+    ) {
+        System.out.println("ID: " + year);
+        return appointmentService.getAllAppointmentsForDay(year, month, day);
     }
 
     @PostMapping("/allforday")

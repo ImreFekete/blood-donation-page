@@ -6,7 +6,9 @@ import com.codecool.imf.model.Appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +22,22 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public List<AppointmentDTO> getAllAppointmentsForDay(String id) {
-        // TODO: Fix method
-//        List<Appointment> appointmentDAOList = appointmentRepository.getAllForDay(id);
-        List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
+    public List<AppointmentDTO> getAllAppointmentsForDay(String year, String month, String day) {
+        int yearValue = Integer.parseInt(year);
+        int monthValue = Integer.parseInt(month);
+        int dayValue = Integer.parseInt(day);
+        LocalDateTime searchedDay = LocalDateTime.of(yearValue, monthValue, dayValue, 12, 0, 0);
+        System.out.println(searchedDay);
 
-//        for (Appointment appointmentDAO : appointmentDAOList) {
-//            appointmentDTOList.add(new AppointmentDTO(appointmentDAO.appointment()));
-//        }
+        // TODO: Fix method
+        List<Appointment> appointmentDAOList = appointmentRepository.findAll();
+        List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
+        for (Appointment appointment : appointmentDAOList) {
+            LocalDateTime localDateTime = appointment.getLocalDateTime();
+            if (localDateTime.getYear() == searchedDay.getYear() && localDateTime.getMonth() == searchedDay.getMonth()) {
+                System.out.println("HELLO");
+            }
+        }
 
         return appointmentDTOList;
     }
@@ -40,7 +50,9 @@ public class AppointmentService {
                 .build());
 
         String id = appointmentDTO.getAppointment().toString();
-        return getAllAppointmentsForDay(id);
+        // FIXME:
+//        return getAllAppointmentsForDay(id);
+        return null;
     }
 
     public boolean deleteAppointment(LocalDateTime id) {
