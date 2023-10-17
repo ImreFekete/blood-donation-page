@@ -5,7 +5,7 @@ import {useState} from "react";
 
 const fetchUser = (user) => {
     console.log(user)
-    return fetch("/users/login", {
+    return fetch("/api/users/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

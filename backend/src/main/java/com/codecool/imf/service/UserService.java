@@ -27,10 +27,8 @@ public class UserService {
             return UserDTO.builder()
                     .email(user.getEmail())
                     .password(user.getPassword())
-
                     .build();
         }
         return null;
     }
-
 }
