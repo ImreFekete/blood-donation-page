@@ -1,6 +1,8 @@
 package com.codecool.imf.service;
 
+import com.codecool.imf.dto.AppointmentDTO;
 import com.codecool.imf.dto.UserDTO;
+import com.codecool.imf.model.Appointment;
 import com.codecool.imf.model.User;
 import com.codecool.imf.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +20,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO getUserByEmail(String email) {
-        Optional<User> userOptional = userRepository.getUserByEmail(email);
-        System.out.println(userOptional);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            System.out.println(user);
-            return UserDTO.builder()
-                    .email(user.getEmail())
-                    .password(user.getPassword())
+    public AppointmentDTO getUserAppointmentByEmail(String email) {
+        Optional<Appointment> appointmentOptional = userRepository.getUserAppointmentByEmail(email);
+        System.out.println(appointmentOptional);
+        if (appointmentOptional.isPresent()) {
+            Appointment appointment = appointmentOptional.get();
+            return AppointmentDTO.builder()
+                    .id(appointment.getId())
+                    .appointment(appointment.getLocalDateTime())
                     .build();
         }
+//        TODO: exception handling
         return null;
     }
 }
