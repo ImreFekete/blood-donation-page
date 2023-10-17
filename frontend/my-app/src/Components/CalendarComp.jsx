@@ -1,14 +1,21 @@
-import {Component, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import CalendarBox from "./CalendarBox.jsx";
 import SubmitOrDeleteButton from "./SubmitOrDeleteButton.jsx";
 import SelectedDateInfo from "./SelectedDateInfo.jsx";
 import SetTextAppointment from "./SetTextAppointment.jsx";
 
-const fetchAppointmentsForDay = (id) => {
-    return fetch(`/api/appointments/allforday/${id}`).then((res) => {
+const fetchAppointmentForUser = (id) => {
+    return fetch(`/api/users/${id}`).then((res) => {
+        return res.json();
+    });
+}
+
+const fetchAppointmentsForDay = (year, month, day) => {
+    // FIXME: SELECTED DAY is not today!!!!???????
+    return fetch(`/api/appointments/allforday?year=${year}&month=${month}&day=${day}`).then((res) => {
         return res.json()
     });
 }
@@ -25,9 +32,7 @@ const createAppointment = (time) => {
 }
 
 const deleteAppointment = (id) => {
-    return fetch(`/api/appointments/${id}`, {method: "DELETE"}).then((res) =>
-        res.json()
-    );
+    return fetch(`/api/appointments/${id}`, {method: "DELETE"}).then((res) => res.json());
 }
 
 const filterDates = (currentDate, date) => {
@@ -45,26 +50,42 @@ function getDisabledTiles() {
 function getOnClickDay(handleSelectedDay, date, setShowTime) {
     return () => {
         handleSelectedDay(date);
-        setShowTime(true)
+        setShowTime(true);
     };
 }
 
 const CalendarComp = () => {
+    const {id} = useParams();
+    console.log("ID IN CALENDAR COMP.: ", id);
+
     const [date, setDate] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
-    const [bookedAppointments, setBookedAppointments] = useState([]);
+    const [userBookedAppointment, setUserBookedAppointment] = useState(null);
     const [selectedDay, setSelectedDay] = useState(new Date());
     const [selectedTime, setSelectedTime] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [info, setInfo] = useState(false);
+    const [user, setUser] = useState(null);
+    const [bookedAppointments, setBookAppointments] = useState([]);
+
+    console.log("BOOKED APP.:", userBookedAppointment);
+    console.log("SELECTED DAY:",  selectedDay.getFullYear().toString() + selectedDay.getMonth().toString() + selectedDay.getDay().toString());
 
     useEffect(() => {
-        fetchAppointmentsForDay("fetch") // HARD CODED VALUE ONLY FOR TESTING PURPOSE
-            .then((bookedAppointments) => {
-                console.log(bookedAppointments);
-                setBookedAppointments(bookedAppointments);
+        // TODO: Check double fetch order
+        fetchAppointmentForUser(id)
+            .then(({email, password, appointmentDTO}) => {
+                setUser({email, password, appointmentDTO});
+                setUserBookedAppointment(appointmentDTO.appointment);
             })
-    }, []);
+            .then(() =>
+                fetchAppointmentsForDay(selectedDay.getFullYear(), selectedDay.getMonth(), selectedDay.getDay())
+                    .then((bookedAppointments) => {
+                            console.log("BOOKED APPOINTMENTS", bookedAppointments);
+                            setBookAppointments(bookedAppointments)
+                        }
+                    ))
+    }, [id, selectedDay]);
 
     const handleSelectedDay = (selectedDay) => {
         setSelectedDay(selectedDay);
@@ -87,7 +108,7 @@ const CalendarComp = () => {
                     <Time
                         showTime={showTime}
                         date={date}
-                        bookedAppointments={bookedAppointments}
+                        bookedAppointments={userBookedAppointment}
                         handleSelectedTime={handleSelectedTime}
                         info={info}
                         setInfo={setInfo}
@@ -101,7 +122,7 @@ const CalendarComp = () => {
                 <SetTextAppointment info={info} selectedTime={selectedTime}/>
                 <SubmitOrDeleteButton info={info} onClick={() => {
                     setIsSubmitted(!isSubmitted);
-                    const isoFormatTime = bookedAppointments[0].appointment.substring(0, 11) + selectedTime + ":00";
+                    const isoFormatTime = userBookedAppointment[0].appointment.substring(0, 11) + selectedTime + ":00";
                     return !isSubmitted ? createAppointment(isoFormatTime) : deleteAppointment(isoFormatTime);
                 }} submitted={isSubmitted}/>
             </div>

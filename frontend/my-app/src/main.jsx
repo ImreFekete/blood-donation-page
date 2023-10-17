@@ -18,7 +18,7 @@ const router = createBrowserRouter([
                 element: <App/>,
             },
             {
-                path: "/calendar",
+                path: "/calendar/:id",
                 element: <CalendarComp/>,
             },
             {
@@ -28,7 +28,11 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <RegisterPage/>,
-            }
+            },
+            {
+                path: "/user/:id",
+                element: <App />,
+            },
         ],
     },
 ]);

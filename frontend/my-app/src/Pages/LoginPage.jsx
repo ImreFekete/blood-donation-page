@@ -17,15 +17,19 @@ const fetchUser = (user) => {
 const LoginPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [appointment, setAppointment] = useState(null);
+    console.log(appointment);
 
     const handleLoginUser = (user) => {
         console.log(user)
         setLoading(true);
 
         fetchUser(user)
-            .then(() => {
+            .then((data) => {
+                console.log(data);
+                setAppointment(data.id)
                 setLoading(false);
-                navigate("/");
+                navigate(`/user/${data.id}`);
             })
     };
 
