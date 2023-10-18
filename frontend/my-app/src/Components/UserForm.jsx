@@ -13,7 +13,7 @@ const UserForm = ({onSave, onCancel, disabled, user}) => {
         e.preventDefault();
 
         if (isEmpty(name) || isEmpty(password) || isEmpty(email)) {
-            return alert("Please fill in the registration fields correctly!")
+            return alert("Please fill in the fields correctly!")
         }
 
         if (user) {
