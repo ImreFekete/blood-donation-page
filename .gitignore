@@ -1,5 +1,4 @@
-imf-blood.mv.db
-imf-blood.trace.db
+*.db
 
 ### IntelliJ IDEA ###
 .idea
