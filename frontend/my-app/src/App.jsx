@@ -54,22 +54,23 @@ function App() {
         return <Loading />;
     }
 
-    return (
+    /*return (
         <>
-            <div>{user ? `Welcome ${user.email} !` : "Main Page"}</div>
+            <div className="mainTitle">{user ? `Welcome ${user.email} !` : "IMF LAB TESTS"}</div>
             {isLoggedIn && !appointment &&
                 <Link to={`/calendar/${id}`}>
                     <button className='reservationButton' type="button">Reserve an appointment</button>
                 </Link>}
             {!isLoggedIn &&
-                <>
+                <div className="buttonContainer">
                     <Link to="/login">
                         <button className='loginButton' type="button">Login</button>
                     </Link>
                     <Link to="/register">
                         <button className='registerButton' type="button">Register</button>
                     </Link>
-                </>
+
+                </div>
             }
             {appointment &&
                 <>
@@ -96,7 +97,73 @@ function App() {
                 </Link>
             }
         </>
-    )
+    )*/
+    return (
+        <div className="outerContainer">
+            <div className="headerContainer">
+                <div className="mainTitle">{user ? `Welcome ${user.email} !` : "IMF LAB TESTS"}</div>
+
+                {appointment &&
+                    <div className="message">
+                        {`You have a reserved appointment at: ${appointment.appointment}`}
+                    </div>
+                }
+
+                {!isLoggedIn &&
+                    <div className="buttonContainer">
+                        <Link to="/login">
+                            <button className='loginButton' type="button">Login</button>
+                        </Link>
+                        <Link to="/register">
+                            <button className='registerButton' type="button">Register</button>
+                        </Link>
+                    </div>
+                }
+
+                {isLoggedIn && !appointment &&
+                    <div className="buttonContainer">
+                        <Link to={`/calendar/${id}`}>
+                            <button className='reservationButton' type="button">Reserve an appointment</button>
+                        </Link>
+                        <Link to="/">
+                            <button className='logoutButton' type="button" onClick={() => {
+                                setUser(null);
+                                setAppointment(null);
+                                setIsLoggedIn(false);
+                            }}>
+                                Log Out
+                            </button>
+                        </Link>
+                    </div>
+                }
+
+                {appointment &&
+                    <div className="buttonContainer">
+                        <button className='deleteButton' type="button" onClick={() => {
+                            setAppointment(null);
+                            return deleteAppointment(appointment.id);
+                        }}>
+                            Delete Appointment
+                        </button>
+                        <Link to="/">
+                            <button className='logoutButton' type="button" onClick={() => {
+                                setUser(null);
+                                setAppointment(null);
+                                setIsLoggedIn(false);
+                            }}>
+                                Log Out
+                            </button>
+                        </Link>
+                    </div>
+                }
+            </div>
+            <div className="imageContainer">
+                <img src="/nurse1.jpg" alt="Nurse 1" className="nurseImage"/>
+                <img src="/nurse2.jpg" alt="Nurse 2" className="nurseImage"/>
+            </div>
+        </div>
+    );
+
 }
 
 export default App
