@@ -60,13 +60,24 @@ function App() {
                     <div>
                         {`You have a reserved appointment at: ${appointment.appointment}`}
                     </div>
-                    <button onClick={() => {
+                    <button className='deleteButton' type="button" onClick={() => {
                         setAppointment(null);
                         return deleteAppointment(appointment.id);
                     }}>
-                        DELETE APPOINTMENT
+                        Delete Appointment
                     </button>
                 </>
+            }
+            {isLoggedIn &&
+                <Link to="/">
+                    <button className='logoutButton' type="button" onClick={() => {
+                        setUser(null);
+                        setAppointment(null);
+                        setIsLoggedIn(false);
+                    }}>
+                        Log Out
+                    </button>
+                </Link>
             }
         </>
     )
