@@ -111,6 +111,7 @@ const CalendarComp = () => {
                         info={info}
                         setInfo={setInfo}
                         isSubmitted={isSubmitted}
+                        user={user}
                     />
                 </div>
             </div>
