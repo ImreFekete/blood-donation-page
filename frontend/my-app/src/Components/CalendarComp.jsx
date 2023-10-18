@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
 import {Link, useParams} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import CalendarBox from "./CalendarBox.jsx";
 import SubmitOrDeleteButton from "./SubmitOrDeleteButton.jsx";
 import SelectedDateInfo from "./SelectedDateInfo.jsx";
@@ -19,20 +20,27 @@ const fetchAppointmentsForDay = (year, month, day) => {
     });
 }
 
-const createAppointment = (time, id) => {
+const createAppointment = async (time, id) => {
     console.log("TIME IN CREATE", time);
     console.log("ID IN CREATE", id);
     const requestBody = {
         userId: id,
         appointment: time
     };
-    return fetch("/api/appointments/create", {
+
+    const response = await fetch("/api/appointments/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
-    }).then((res) => res.json());
+    })
+
+    if (!response.ok) {
+        throw new Error("Failed to create an appointment.");
+    }
+
+    return response.json();
 }
 
 const deleteAppointment = (id) => {
@@ -59,6 +67,7 @@ function getOnClickDay(handleSelectedDay, date, setShowTime) {
 }
 
 const CalendarComp = () => {
+    const navigate = useNavigate();
     const {id} = useParams();
 
     const [date, setDate] = useState(new Date());
@@ -124,17 +133,19 @@ const CalendarComp = () => {
             <div className="flexboxTime">
                 <SelectedDateInfo date={date}/>
                 <SetTextAppointment info={info} selectedTime={selectedTime}/>
-                <Link to={`/user/${id}`}>
-                    <SubmitOrDeleteButton info={info} onClick={() => {
+                    <SubmitOrDeleteButton info={info} onClick={async () => {
                         setIsSubmitted(!isSubmitted);
-                        console.log("DATE", date);
-                        console.log("SELECTED TIME", selectedTime);
                         date.setHours(6, 0, 0, 0);
                         let isoFormatTime = date.toISOString().substring(0, 11) + selectedTime + ":00";
-                        console.log("ISO FORMAT TIME:", isoFormatTime);
-                        return !isSubmitted ? createAppointment(isoFormatTime, id) : deleteAppointment(isoFormatTime);
+                        // return !isSubmitted ? createAppointment(isoFormatTime, id) : deleteAppointment(isoFormatTime);
+                        try {
+                            // TODO: Fix this mess...Create is faster than the fetch on the navigate page...
+                            const appointment = await createAppointment(isoFormatTime, id);
+                            navigate(`/user/${id}`, { state: { appointment: appointment } });
+                        } catch (error) {
+                            console.error("Error creating appointment:", error);
+                        }
                     }} submitted={isSubmitted}/>
-                </Link>
             </div>
 
             <Link to="/">

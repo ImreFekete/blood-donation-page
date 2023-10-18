@@ -1,8 +1,10 @@
 import './App.css'
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import Loading from "./Components/Loading";
+import { useLocation } from 'react-router-dom';
 
-const fetchAppointmentForUser = (id) => {
+const fetchUserById = (id) => {
     return fetch(`/api/users/${id}`).then((res) => {
         return res.json();
     });
@@ -16,23 +18,41 @@ function deleteAppointment(id) {
 
 function App() {
     const {id} = useParams();
+    const location = useLocation();
+
+    // TODO: Maybe this location is not necessary
+    const state = location.state;
+    console.log(state);
+    const stateApp = state && state.appointment;
+    console.log("APP:", stateApp);
+
+    const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     const [appointment, setAppointment] = useState(null);
+
+    console.log("APPOINTMENT:", appointment);
 
     if (id && !isLoggedIn) {
         setIsLoggedIn(true);
     }
 
     useEffect(() => {
+        setLoading(true);
         if (id !== undefined) {
-            fetchAppointmentForUser(id)
+            fetchUserById(id)
                 .then(({id, email, password, appointmentDTO}) => {
                     setUser({id, email, password, appointmentDTO});
                     setAppointment(appointmentDTO);
+                    setLoading(false);
                 });
         }
+        setLoading(false);
     }, [id]);
+
+    if (loading) {
+        return <Loading />;
+    }
 
     return (
         <>
