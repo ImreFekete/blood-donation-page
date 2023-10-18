@@ -1,5 +1,6 @@
 package com.codecool.imf.controller;
 
+import com.codecool.imf.dto.CheckUserEmailDTO;
 import com.codecool.imf.dto.NewUserDTO;
 import com.codecool.imf.dto.UserDTO;
 import com.codecool.imf.service.UserService;
@@ -33,5 +34,12 @@ public class UserController {
     public int addUser(@RequestBody NewUserDTO user) {
         userService.addUser(user);
         return HttpStatus.CREATED.value();
+    }
+
+    @PostMapping("/checkemail")
+    public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {
+        boolean b = userService.checkEmail(email);
+        System.out.println(b);
+        return b;
     }
 }

@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-const UserForm = ({onSave, onCancel, disabled, user}) => {
+const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
     const [name, setName] = useState(user?.name ?? "");
     const [password, setPassword] = useState(user?.password ?? "");
     const [email, setEmail] = useState(user?.email ?? "");
@@ -9,11 +9,16 @@ const UserForm = ({onSave, onCancel, disabled, user}) => {
         return !str.trim().length;
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         if (isEmpty(name) || isEmpty(password) || isEmpty(email)) {
             return alert("Please fill in the fields correctly!")
+        }
+
+        const emailExists = await checkEmail(email);
+        if (emailExists) {
+            return alert("The given E-mail address already exists!")
         }
 
         if (user) {

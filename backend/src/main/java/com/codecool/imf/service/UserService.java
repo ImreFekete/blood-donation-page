@@ -1,6 +1,7 @@
 package com.codecool.imf.service;
 
 import com.codecool.imf.dto.AppointmentDTO;
+import com.codecool.imf.dto.CheckUserEmailDTO;
 import com.codecool.imf.dto.NewUserDTO;
 import com.codecool.imf.dto.UserDTO;
 import com.codecool.imf.model.Appointment;
@@ -85,5 +86,10 @@ public class UserService {
                 .email(user.getEmail())
                 .build();
         userRepository.save(newUser);
+    }
+
+    public boolean checkEmail(CheckUserEmailDTO email) {
+        List<User> users = userRepository.findAll();
+        return users.stream().anyMatch(user -> user.getEmail().equals(email.getEmail()));
     }
 }
