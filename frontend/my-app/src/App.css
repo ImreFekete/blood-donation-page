@@ -1,12 +1,62 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  text-align: center;
+}
+/*.headerContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}*/
+.card {
+  padding: 2em;
+}
+.reservationButton,.loginButton, .reservationButton, .deleteButton{
+  margin: 15px;
+}
+.outerContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100vh;
+  width: 100vw;
+}
+.buttonContainer{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.message{
+  margin: 15px;
   text-align: center;
 }
 
-.card {
-  padding: 2em;
+.mainTitle{
+  background-color: #8d020b;
+  color: white;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10vh;
+
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 0;
+}
+
+.nurseImage {
+  max-width: 45%;
+  height: auto;
 }
 
 .flexboxCalendar {
