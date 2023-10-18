@@ -4,6 +4,8 @@ import './index.css'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import App from './App.jsx'
 import CalendarComp from "./Components/CalendarComp.jsx";
+import LoginPage from "./Pages/LoginPage.jsx";
+import RegisterPage from "./Pages/RegisterPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -16,9 +18,21 @@ const router = createBrowserRouter([
                 element: <App/>,
             },
             {
-                path: "/calendar",
+                path: "/calendar/:id",
                 element: <CalendarComp/>,
-            }
+            },
+            {
+                path: "/login",
+                element: <LoginPage/>,
+            },
+            {
+                path: "/register",
+                element: <RegisterPage/>,
+            },
+            {
+                path: "/user/:id",
+                element: <App />,
+            },
         ],
     },
 ]);
