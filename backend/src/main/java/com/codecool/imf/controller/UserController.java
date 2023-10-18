@@ -1,9 +1,11 @@
 package com.codecool.imf.controller;
 
-import com.codecool.imf.dto.AppointmentDTO;
+import com.codecool.imf.dto.CheckUserEmailDTO;
+import com.codecool.imf.dto.NewUserDTO;
 import com.codecool.imf.dto.UserDTO;
 import com.codecool.imf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,5 +28,18 @@ public class UserController {
     @PostMapping("/login")
     public UserDTO getUserAppointmentByEmail(@RequestBody UserDTO user) {
         return userService.getUserByEmail(user.getEmail());
+    }
+
+    @PostMapping("/register")
+    public int addUser(@RequestBody NewUserDTO user) {
+        userService.addUser(user);
+        return HttpStatus.CREATED.value();
+    }
+
+    @PostMapping("/checkemail")
+    public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {
+        boolean b = userService.checkEmail(email);
+        System.out.println(b);
+        return b;
     }
 }
