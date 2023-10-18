@@ -33,7 +33,7 @@ public class UserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             Optional<Appointment> optionalAppointment = appointmentRepository.findByUserId(user.getId());
-            if (optionalUser.isPresent()) {
+            if (optionalAppointment.isPresent()) {
                 Appointment appointment = optionalAppointment.get();
                 return UserDTO.builder()
                         .id(user.getId())

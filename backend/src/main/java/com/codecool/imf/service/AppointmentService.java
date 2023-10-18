@@ -1,14 +1,12 @@
 package com.codecool.imf.service;
 
 import com.codecool.imf.dto.AppointmentDTO;
-import com.codecool.imf.repository.AppointmentRepository;
 import com.codecool.imf.model.Appointment;
+import com.codecool.imf.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +30,17 @@ public class AppointmentService {
         // TODO: Fix method
         List<Appointment> appointmentDAOList = appointmentRepository.findAll();
         List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
+
         for (Appointment appointment : appointmentDAOList) {
             LocalDateTime localDateTime = appointment.getLocalDateTime();
-            if (localDateTime.getYear() == searchedDay.getYear() && localDateTime.getMonth() == searchedDay.getMonth()) {
-                System.out.println("HELLO");
+            if (localDateTime.getYear() == searchedDay.getYear() &&
+                    localDateTime.getMonth() == searchedDay.getMonth() &&
+                    localDateTime.getDayOfMonth() == searchedDay.getDayOfMonth()) {
+                System.out.println("getAllAppointmentsForDay");
+                appointmentDTOList.add(AppointmentDTO.builder()
+                        .id(appointment.getId())
+                        .appointment(appointment.getLocalDateTime())
+                        .build());
             }
         }
 

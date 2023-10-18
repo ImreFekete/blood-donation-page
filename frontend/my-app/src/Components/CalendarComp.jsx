@@ -14,9 +14,8 @@ const fetchAppointmentForUser = (id) => {
 }
 
 const fetchAppointmentsForDay = (year, month, day) => {
-    // FIXME: SELECTED DAY is not today!!!!???????
     return fetch(`/api/appointments/allforday?year=${year}&month=${month}&day=${day}`).then((res) => {
-        return res.json()
+        return res.json();
     });
 }
 
@@ -69,7 +68,6 @@ const CalendarComp = () => {
     const [bookedAppointments, setBookAppointments] = useState([]);
 
     console.log("BOOKED APP.:", userBookedAppointment);
-    console.log("SELECTED DAY:",  selectedDay.getFullYear().toString() + selectedDay.getMonth().toString() + selectedDay.getDay().toString());
 
     useEffect(() => {
         // TODO: Check double fetch order
@@ -79,10 +77,10 @@ const CalendarComp = () => {
                 setUserBookedAppointment(appointmentDTO.appointment);
             })
             .then(() =>
-                fetchAppointmentsForDay(selectedDay.getFullYear(), selectedDay.getMonth(), selectedDay.getDay())
+                fetchAppointmentsForDay(date.getFullYear(), date.getMonth() + 1, date.getDate())
                     .then((bookedAppointments) => {
                             console.log("BOOKED APPOINTMENTS", bookedAppointments);
-                            setBookAppointments(bookedAppointments)
+                            setBookAppointments(bookedAppointments);
                         }
                     ))
     }, [id, selectedDay]);
@@ -108,7 +106,7 @@ const CalendarComp = () => {
                     <Time
                         showTime={showTime}
                         date={date}
-                        bookedAppointments={userBookedAppointment}
+                        bookedAppointments={bookedAppointments}
                         handleSelectedTime={handleSelectedTime}
                         info={info}
                         setInfo={setInfo}
