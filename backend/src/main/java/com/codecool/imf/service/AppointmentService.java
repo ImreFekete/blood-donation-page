@@ -60,10 +60,9 @@ public class AppointmentService {
         return null;
     }
 
-    public boolean deleteAppointment(LocalDateTime id) {
+    public boolean deleteAppointment(Long id) {
         // TODO: Implement normally
-        appointmentRepository.deleteById(1L);
+        appointmentRepository.deleteById(id);
         return true;
-
     }
 }

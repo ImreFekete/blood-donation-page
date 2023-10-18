@@ -38,7 +38,7 @@ public class AppointmentController {
     }
 
     @DeleteMapping("/{appointmentId}")
-    public boolean deleteAppointment(@PathVariable LocalDateTime appointmentId) {
+    public boolean deleteAppointment(@PathVariable Long appointmentId) {
         return appointmentService.deleteAppointment(appointmentId);
     }
 }
