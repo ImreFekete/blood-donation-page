@@ -83,7 +83,7 @@ const CalendarComp = () => {
                             setBookAppointments(bookedAppointments);
                         }
                     ))
-    }, [id, selectedDay]);
+    }, [date, id]);
 
     const handleSelectedDay = (selectedDay) => {
         setSelectedDay(selectedDay);
