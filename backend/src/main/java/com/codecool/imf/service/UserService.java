@@ -35,6 +35,7 @@ public class UserService {
             Optional<Appointment> optionalAppointment = appointmentRepository.findByUserId(user.getId());
             if (optionalAppointment.isPresent()) {
                 Appointment appointment = optionalAppointment.get();
+                // IF USER HAS APPOINTMENT
                 return UserDTO.builder()
                         .id(user.getId())
                         .email(user.getEmail())
@@ -43,6 +44,14 @@ public class UserService {
                                 .id(appointment.getId())
                                 .appointment(appointment.getLocalDateTime())
                                 .build())
+                        .build();
+            } else {
+                // IF USER DOES NOT HAVE APPOINTMENT
+                return UserDTO.builder()
+                        .id(user.getId())
+                        .email(user.getEmail())
+                        .password(user.getPassword())
+                        .appointmentDTO(null)
                         .build();
             }
         }

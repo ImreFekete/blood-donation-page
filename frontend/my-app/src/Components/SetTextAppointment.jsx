@@ -1,4 +1,4 @@
-// import * as PropTypes from "prop-types";
+import * as PropTypes from "prop-types";
 
 function SetTextAppointment({info, selectedTime}) {
     return <div className="textAppointmentSet">
@@ -6,9 +6,9 @@ function SetTextAppointment({info, selectedTime}) {
     </div>;
 }
 
-// SetTextAppointment.propTypes = {
-//     info: PropTypes.bool,
-//     selectedTime: PropTypes.string
-// };
+SetTextAppointment.propTypes = {
+    info: PropTypes.bool,
+    selectedTime: PropTypes.string
+};
 
 export default SetTextAppointment;

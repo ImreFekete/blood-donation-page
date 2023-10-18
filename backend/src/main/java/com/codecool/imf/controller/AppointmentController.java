@@ -1,11 +1,11 @@
 package com.codecool.imf.controller;
 
 import com.codecool.imf.dto.AppointmentDTO;
+import com.codecool.imf.dto.NewAppointmentDTO;
 import com.codecool.imf.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -32,8 +32,9 @@ public class AppointmentController {
         return appointmentService.getAllAppointmentsForDay(year, month, day);
     }
 
-    @PostMapping("/allforday")
-    public List<AppointmentDTO> addNewAppointment(@RequestBody AppointmentDTO appointmentTimeSlot) {
+    // IT CREATES NEW APPOINTMENT
+    @PostMapping("/create")
+    public Boolean addNewAppointment(@RequestBody NewAppointmentDTO appointmentTimeSlot) {
         return appointmentService.addNewAppointment(appointmentTimeSlot);
     }
 

@@ -19,10 +19,6 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     const [appointment, setAppointment] = useState(null);
-    console.log("ID: ", id);
-    console.log("ISLOGGEDIN: ", isLoggedIn);
-    console.log("USER", user);
-    console.log("APPOINTMENT", appointment);
 
     if (id && !isLoggedIn) {
         setIsLoggedIn(true);

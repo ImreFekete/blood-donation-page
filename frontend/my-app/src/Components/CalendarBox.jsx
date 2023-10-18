@@ -1,5 +1,5 @@
 import Calendar from "react-calendar";
-// import * as PropTypes from "prop-types";
+import * as PropTypes from "prop-types";
 
 function CalendarBox({ onChange, value, onClickDay, tileDisabled}) {
     return <div className="calendarBox">
@@ -12,11 +12,11 @@ function CalendarBox({ onChange, value, onClickDay, tileDisabled}) {
     </div>;
 }
 
-// CalendarBox.propTypes = {
-//     onChange: PropTypes.func,
-//     value: PropTypes.any,
-//     onClickDay: PropTypes.func,
-//     tileDisabled: PropTypes.func
-// };
+CalendarBox.propTypes = {
+    onChange: PropTypes.func,
+    value: PropTypes.any,
+    onClickDay: PropTypes.func,
+    tileDisabled: PropTypes.func
+};
 
 export default CalendarBox;

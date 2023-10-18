@@ -22,7 +22,7 @@ public class Appointment {
 
     private LocalDateTime localDateTime;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private User user;
 

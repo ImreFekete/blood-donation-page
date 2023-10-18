@@ -19,9 +19,14 @@ const fetchAppointmentsForDay = (year, month, day) => {
     });
 }
 
-const createAppointment = (time) => {
-    const requestBody = {appointment: time};
-    return fetch("/api/appointments/allforday", {
+const createAppointment = (time, id) => {
+    console.log("TIME IN CREATE", time);
+    console.log("ID IN CREATE", id);
+    const requestBody = {
+        userId: id,
+        appointment: time
+    };
+    return fetch("/api/appointments/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -55,7 +60,6 @@ function getOnClickDay(handleSelectedDay, date, setShowTime) {
 
 const CalendarComp = () => {
     const {id} = useParams();
-    console.log("ID IN CALENDAR COMP.: ", id);
 
     const [date, setDate] = useState(new Date());
     const [showTime, setShowTime] = useState(false);
@@ -67,15 +71,16 @@ const CalendarComp = () => {
     const [user, setUser] = useState(null);
     const [bookedAppointments, setBookAppointments] = useState([]);
 
-    console.log("USER BOOKED APP.:", userBookedAppointment);
-    console.log("BOOKED APPOINTMENTS:", bookedAppointments);
+    console.log("USER:", user);
 
     useEffect(() => {
         // TODO: Check double fetch order
         fetchAppointmentForUser(id)
             .then(({email, password, appointmentDTO}) => {
                 setUser({email, password, appointmentDTO});
-                setUserBookedAppointment(appointmentDTO.appointment);
+                if (appointmentDTO) {
+                    setUserBookedAppointment(appointmentDTO.appointment);
+                }
             })
             .then(() =>
                 fetchAppointmentsForDay(date.getFullYear(), date.getMonth() + 1, date.getDate())
@@ -119,12 +124,17 @@ const CalendarComp = () => {
             <div className="flexboxTime">
                 <SelectedDateInfo date={date}/>
                 <SetTextAppointment info={info} selectedTime={selectedTime}/>
-                <SubmitOrDeleteButton info={info} onClick={() => {
-                    setIsSubmitted(!isSubmitted);
-                    const isoFormatTime = userBookedAppointment[0].appointment.substring(0, 11) + selectedTime + ":00";
-                    console.log("ISO FORMAT TIME:", isoFormatTime);
-                    return !isSubmitted ? createAppointment(isoFormatTime) : deleteAppointment(isoFormatTime);
-                }} submitted={isSubmitted}/>
+                <Link to={`/user/${id}`}>
+                    <SubmitOrDeleteButton info={info} onClick={() => {
+                        setIsSubmitted(!isSubmitted);
+                        console.log("DATE", date);
+                        console.log("SELECTED TIME", selectedTime);
+                        date.setHours(6, 0, 0, 0);
+                        let isoFormatTime = date.toISOString().substring(0, 11) + selectedTime + ":00";
+                        console.log("ISO FORMAT TIME:", isoFormatTime);
+                        return !isSubmitted ? createAppointment(isoFormatTime, id) : deleteAppointment(isoFormatTime);
+                    }} submitted={isSubmitted}/>
+                </Link>
             </div>
 
             <Link to="/">

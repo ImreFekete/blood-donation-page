@@ -28,7 +28,7 @@ class AppointmentServiceTest {
 
     @BeforeEach
     void setUp() {
-        appointmentService = new AppointmentService(mockAppointmentRepository);
+        appointmentService = new AppointmentService(mockAppointmentRepository, userRepository);
 
         bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 9, 0));
         bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 10, 30));

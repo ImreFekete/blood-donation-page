@@ -6,7 +6,6 @@ const times = ['08:30', '09:00', '09:30', '10:00', '10:30',
 
 function Times({showTime, date, bookedAppointments, handleSelectedTime, info, setInfo, isSubmitted, user}) {
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
-    console.log("USER IN TIMES", user.appointmentDTO.appointment);
 
     const bookedTimes = bookedAppointments.map(item => {
         return item.appointment.substring(11, 16);
@@ -23,7 +22,7 @@ function Times({showTime, date, bookedAppointments, handleSelectedTime, info, se
         <div className="times">
             <div>
                 {
-                    (!user.appointmentDTO.appointment ?
+                    (!user.appointmentDTO ?
                         ((!isSubmitted) ?
                             (availableTimes.map(time => {
                                 return (

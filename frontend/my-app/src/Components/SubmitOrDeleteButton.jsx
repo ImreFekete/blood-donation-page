@@ -1,4 +1,4 @@
-// import * as PropTypes from "prop-types";
+import * as PropTypes from "prop-types";
 
 function SubmitOrDeleteButton({info ,onClick, submitted}) {
     return <div className="submitOrDeleteButton">
@@ -12,10 +12,10 @@ function SubmitOrDeleteButton({info ,onClick, submitted}) {
     </div>;
 }
 
-// SubmitOrDeleteButton.propTypes = {
-//     info: PropTypes.bool,
-//     onClick: PropTypes.func,
-//     submitted: PropTypes.bool
-// };
+SubmitOrDeleteButton.propTypes = {
+    info: PropTypes.bool,
+    onClick: PropTypes.func,
+    submitted: PropTypes.bool
+};
 
 export default SubmitOrDeleteButton;
