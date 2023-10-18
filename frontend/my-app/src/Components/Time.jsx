@@ -1,15 +1,16 @@
 import Times from "./Times.jsx";
 
-function Time({showTime, date, bookedAppointments, handleSelectedTime, info, setInfo, isSubmitted}) {
+function Time({showTime, date, bookedAppointments, handleSelectedTime, info, setInfo, isSubmitted, user}) {
     return (
         <div>
             {showTime ? <Times
                 date={date}
-                bookedAppointments = {bookedAppointments}
-                handleSelectedTime = {handleSelectedTime}
+                bookedAppointments={bookedAppointments}
+                handleSelectedTime={handleSelectedTime}
                 info={info}
                 setInfo={setInfo}
-                isSubmitted = {isSubmitted}
+                isSubmitted={isSubmitted}
+                user={user}
             /> : null}
         </div>
     )
