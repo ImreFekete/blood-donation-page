@@ -67,7 +67,8 @@ const CalendarComp = () => {
     const [user, setUser] = useState(null);
     const [bookedAppointments, setBookAppointments] = useState([]);
 
-    console.log("BOOKED APP.:", userBookedAppointment);
+    console.log("USER BOOKED APP.:", userBookedAppointment);
+    console.log("BOOKED APPOINTMENTS:", bookedAppointments);
 
     useEffect(() => {
         // TODO: Check double fetch order
@@ -79,7 +80,6 @@ const CalendarComp = () => {
             .then(() =>
                 fetchAppointmentsForDay(date.getFullYear(), date.getMonth() + 1, date.getDate())
                     .then((bookedAppointments) => {
-                            console.log("BOOKED APPOINTMENTS", bookedAppointments);
                             setBookAppointments(bookedAppointments);
                         }
                     ))
@@ -121,6 +121,7 @@ const CalendarComp = () => {
                 <SubmitOrDeleteButton info={info} onClick={() => {
                     setIsSubmitted(!isSubmitted);
                     const isoFormatTime = userBookedAppointment[0].appointment.substring(0, 11) + selectedTime + ":00";
+                    console.log("ISO FORMAT TIME:", isoFormatTime);
                     return !isSubmitted ? createAppointment(isoFormatTime) : deleteAppointment(isoFormatTime);
                 }} submitted={isSubmitted}/>
             </div>
