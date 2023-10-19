@@ -45,7 +45,12 @@ public class UserController {
 
     @PatchMapping("/update/{id}")
     public boolean updateUserById(@PathVariable("id") Long id, @RequestBody UserDTO updatedUser) {
-        System.out.println("CONTROLLER: " + updatedUser);
         return userService.updateUserById(id, updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteUserById(@PathVariable("id") Long id) {
+        System.out.println("CONTROLLER DELETE ID: " + id);
+        return userService.deleteUserById(id);
     }
 }
