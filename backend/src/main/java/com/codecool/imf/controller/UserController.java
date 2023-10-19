@@ -42,4 +42,10 @@ public class UserController {
         System.out.println(b);
         return b;
     }
+
+    @PatchMapping("/update/{id}")
+    public boolean updateUserById(@PathVariable("id") Long id, @RequestBody UserDTO updatedUser) {
+        System.out.println("CONTROLLER: " + updatedUser);
+        return userService.updateUserById(id, updatedUser);
+    }
 }

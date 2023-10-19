@@ -40,6 +40,7 @@ public class UserService {
                 // IF USER HAS APPOINTMENT
                 return UserDTO.builder()
                         .id(user.getId())
+                        .name(user.getName())
                         .email(user.getEmail())
                         .password(user.getPassword())
                         .appointmentDTO(AppointmentDTO.builder()
@@ -51,6 +52,7 @@ public class UserService {
                 // IF USER DOES NOT HAVE APPOINTMENT
                 return UserDTO.builder()
                         .id(user.getId())
+                        .name(user.getName())
                         .email(user.getEmail())
                         .password(user.getPassword())
                         .appointmentDTO(null)
@@ -100,5 +102,19 @@ public class UserService {
     public boolean checkEmail(CheckUserEmailDTO email) {
         List<User> users = userRepository.findAll();
         return users.stream().anyMatch(user -> user.getEmail().equals(email.getEmail()));
+    }
+
+    public boolean updateUserById(Long id, UserDTO updatedUser) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        System.out.println("SERVICE OPTIONAL USER: " + optionalUser);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setName(updatedUser.getName());
+            user.setPassword(updatedUser.getPassword());
+            user.setEmail(updatedUser.getEmail());
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 }

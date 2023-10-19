@@ -41,8 +41,8 @@ function App() {
         setLoading(true);
         if (id !== undefined) {
             fetchUserById(id)
-                .then(({id, email, password, appointmentDTO}) => {
-                    setUser({id, email, password, appointmentDTO});
+                .then(({id, name, email, password, appointmentDTO}) => {
+                    setUser({id, name, email, password, appointmentDTO});
                     setAppointment(appointmentDTO);
                     setLoading(false);
                 });
@@ -101,7 +101,7 @@ function App() {
     return (
         <div className="outerContainer">
             <div className="headerContainer">
-                <div className="mainTitle">{user ? `Welcome ${user.email} !` : "IMF LAB TESTS"}</div>
+                <div className="mainTitle">{user ? `Welcome ${user.name} !` : "IMF LAB TESTS"}</div>
 
                 {appointment &&
                     <div className="message">
@@ -116,6 +116,14 @@ function App() {
                         </Link>
                         <Link to="/register">
                             <button className='registerButton' type="button">Register</button>
+                        </Link>
+                    </div>
+                }
+
+                {isLoggedIn &&
+                    <div className="buttonContainer">
+                        <Link to={`/update/${id}`}>
+                            <button className='updateButton' type="button">Update Account</button>
                         </Link>
                     </div>
                 }
