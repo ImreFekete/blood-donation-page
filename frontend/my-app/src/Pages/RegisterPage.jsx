@@ -16,7 +16,7 @@ const createUser = (user) => {
 const checkEmail = (email) => {
     const emailObject = {
         email: email
-    }
+    };
     return fetch("/api/users/checkemail", {
         method: "POST",
         headers: {
@@ -37,7 +37,7 @@ const RegisterPage = () => {
             .then(() => {
                 setLoading(false);
                 navigate("/");
-            })
+            });
     };
 
     const handleCheckEmail = async (email) => {

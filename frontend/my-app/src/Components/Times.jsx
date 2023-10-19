@@ -11,6 +11,7 @@ function Times({showTime, date, bookedAppointments, handleSelectedTime, info, se
         return item.appointment.substring(11, 16);
     });
 
+    // TODO: Remove times from today when those timeslots have already passed
     const availableTimes = times.filter(time => !bookedTimes.includes(time));
 
     function displayInfo(e) {

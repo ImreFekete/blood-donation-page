@@ -2,36 +2,22 @@ import './App.css'
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Loading from "./Components/Loading";
-import { useLocation } from 'react-router-dom';
 
 const fetchUserById = (id) => {
-    return fetch(`/api/users/${id}`).then((res) => {
-        return res.json();
-    });
+    return fetch(`/api/users/${id}`).then((res) => res.json());
 };
 
 function deleteAppointment(id) {
-    console.log("DELETE ID: ", id);
-    return fetch(`/api/appointments/${id}`, {method: "DELETE"}).then((res) =>
-        res.json());
+    return fetch(`/api/appointments/${id}`, {method: "DELETE"}).then((res) => res.json());
 }
 
 function App() {
     const {id} = useParams();
-    const location = useLocation();
-
-    // TODO: Maybe this location is not necessary
-    const state = location.state;
-    console.log(state);
-    const stateApp = state && state.appointment;
-    console.log("APP:", stateApp);
 
     const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     const [appointment, setAppointment] = useState(null);
-
-    console.log("APPOINTMENT:", appointment);
 
     if (id && !isLoggedIn) {
         setIsLoggedIn(true);
