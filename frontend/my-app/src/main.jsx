@@ -31,7 +31,7 @@ const router = createBrowserRouter([
                 element: <RegisterPage/>,
             },
             {
-                path: "/update",
+                path: "/update/:id",
                 element: <UpdatePage/>,
             },
             {
