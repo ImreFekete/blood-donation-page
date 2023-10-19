@@ -6,6 +6,7 @@ import App from './App.jsx'
 import CalendarComp from "./Components/CalendarComp.jsx";
 import LoginPage from "./Pages/LoginPage.jsx";
 import RegisterPage from "./Pages/RegisterPage.jsx";
+import UpdatePage from "./Pages/UpdatePage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <RegisterPage/>,
+            },
+            {
+                path: "/update",
+                element: <UpdatePage/>,
             },
             {
                 path: "/user/:id",
