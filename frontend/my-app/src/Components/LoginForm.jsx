@@ -15,10 +15,15 @@ const LoginForm = ({ onSave, disabled, onCancel }) => {
     };
 
     return (
+        <div className="outerContainer">
+        <div className="mainTitle">{"IMF LAB TESTS"}</div>
         <form className="LoginForm" onSubmit={onSubmit}>
+            <div className="formBox">
+
             <div className="control">
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="email">Email: </label>
                 <input
+                    className="field"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     name="email"
@@ -27,25 +32,28 @@ const LoginForm = ({ onSave, disabled, onCancel }) => {
             </div>
 
             <div className="control">
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">Password: </label>
                 <input
+                    className="field"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     name="password"
                     id="password"
                 />
             </div>
+            </div>
 
-            <div className="buttons">
-                <button type="submit" disabled={disabled}>
+            <div className="buttonContainer">
+                <button className='loginButton' type="submit" disabled={disabled}>
                     Login
                 </button>
 
-                <button type="button" onClick={onCancel}>
+                <button className='backButton' type="button" onClick={onCancel}>
                     Back
                 </button>
             </div>
         </form>
+        </div>
     );
 };
 
