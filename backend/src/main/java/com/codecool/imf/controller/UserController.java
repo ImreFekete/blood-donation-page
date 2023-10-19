@@ -21,7 +21,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable("id") Long id) {
-        System.out.println("ID IN GET USER BY ID: " + id);
         return userService.getUserById(id);
     }
 
@@ -38,9 +37,7 @@ public class UserController {
 
     @PostMapping("/checkemail")
     public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {
-        boolean b = userService.checkEmail(email);
-        System.out.println(b);
-        return b;
+        return userService.checkEmail(email);
     }
 
     @PatchMapping("/update/{id}")
@@ -50,7 +47,6 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public boolean deleteUserById(@PathVariable("id") Long id) {
-        System.out.println("CONTROLLER DELETE ID: " + id);
         return userService.deleteUserById(id);
     }
 }

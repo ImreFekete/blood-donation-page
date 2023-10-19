@@ -40,9 +40,6 @@ class AppointmentServiceTest {
             // FIXME: new repository was given, this test is out dated
             bookedAppointments.add(new Appointment(bookedAppointmentsLocalDate));
         }
-
-        System.out.println(bookedAppointmentsLocalDates);
-        System.out.println(bookedAppointments);
     }
 
     @Test

@@ -34,7 +34,6 @@ public class UserService {
     public UserDTO getUserById(Long id) {
         // TODO: Need to be refactored + exception handling
         Optional<User> optionalUser = userRepository.findById(id);
-        System.out.println("____________" + optionalUser.isPresent());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             Optional<Appointment> optionalAppointment = appointmentRepository.findByUserId(user.getId());
@@ -68,7 +67,6 @@ public class UserService {
 
     public UserDTO getUserByEmail(String email) {
         Optional<User> optionalUser = userRepository.getUserByEmail(email);
-        System.out.println(optionalUser);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             return UserDTO.builder()
@@ -78,20 +76,6 @@ public class UserService {
 //      TODO: exception handling
         return null;
     }
-
-//    public AppointmentDTO getUserAppointmentByEmail(String email) {
-//        Optional<Appointment> appointmentOptional = userRepository.getUserAppointmentByEmail(email);
-//        System.out.println(appointmentOptional);
-//        if (appointmentOptional.isPresent()) {
-//            Appointment appointment = appointmentOptional.get();
-//            return AppointmentDTO.builder()
-//                    .id(appointment.getId())
-//                    .appointment(appointment.getLocalDateTime())
-//                    .build();
-//        }
-////        TODO: exception handling
-//        return null;
-//    }
 
     public void addUser(NewUserDTO user) {
         User newUser = User.builder()
@@ -109,7 +93,6 @@ public class UserService {
 
     public boolean updateUserById(Long id, UserDTO updatedUser) {
         Optional<User> optionalUser = userRepository.findById(id);
-        System.out.println("SERVICE OPTIONAL USER: " + optionalUser);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setName(updatedUser.getName());
@@ -126,11 +109,9 @@ public class UserService {
             Optional<Appointment> optionalAppointment = appointmentRepository.findByUserId(id);
             if (optionalAppointment.isPresent()) {
                 Appointment appointment = optionalAppointment.get();
-                System.out.println("SERVICE APPOINTMENT DELETE: " + appointment);
                 appointmentRepository.delete(appointment);
             }
             userRepository.deleteById(id);
-            System.out.println("TRUE");
             return true;
         } catch (EntityNotFoundException e) {
             log.error(e.toString());

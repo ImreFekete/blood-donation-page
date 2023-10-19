@@ -26,9 +26,6 @@ public class AppointmentController {
             @RequestParam String month,
             @RequestParam String day
     ) {
-        System.out.println("YEAR: " + year);
-        System.out.println("MONTH: " + month);
-        System.out.println("DAY: " + day);
         return appointmentService.getAllAppointmentsForDay(year, month, day);
     }
 
