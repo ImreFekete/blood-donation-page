@@ -4,7 +4,7 @@ import UserForm from "../Components/UserForm.jsx";
 import Loading from "../Components/Loading";
 
 const updateUser = (user) => {
-    return fetch(`/api/users/${user.id}`, {
+    return fetch(`/api/users/update/${user.id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const UpdatePage = () => {
         updateUser(user)
             .then(() => {
                 setUpdateLoading(false);
-                navigate("/");
+                navigate(`/user/${id}`);
             });
     }
 
