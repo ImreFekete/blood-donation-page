@@ -52,7 +52,7 @@ const UpdatePage = () => {
             user={user}
             onSave={handleUpdateUser}
             disabled={updateLoading}
-            onCancel={() => navigate("/")}
+            onCancel={() => navigate(`/user/${id}`)}
         />
     );
 }
