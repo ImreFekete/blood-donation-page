@@ -46,11 +46,11 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
 
     return (
         <div className="outerContainer">
-            <div className="mainTitle">{"IMF LAB TESTS"}</div>
+            <div className="mainTitle">{"IMF REDLABS BLOOD DONATION"}</div>
         <form className="UserForm" onSubmit={onSubmit}>
             <div className="formBox">
             <div className="control">
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">Name: </label>
                 <input
                     className="field"
                     value={name}
@@ -61,7 +61,7 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
             </div>
 
             <div className="control">
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">Password: </label>
                 <input
                     className="field"
                     value={password}
@@ -72,7 +72,7 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
             </div>
 
             <div className="control">
-                <label htmlFor="email">E-Mail address:</label>
+                <label htmlFor="email">E-Mail address: </label>
                 <input
                     className="field"
                     value={email}

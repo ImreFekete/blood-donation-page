@@ -50,7 +50,7 @@ function App() {
     return (
         <div className="outerContainer">
             <div className="headerContainer">
-                <div className="mainTitle">{user ? `Welcome ${user.name} !` : "IMF LAB TESTS"}</div>
+                <div className="mainTitle">{user ? `Welcome ${user.name} !` : "IMF REDLABS BLOOD DONATION"}</div>
 
                 {appointment &&
                     <div className="message">
