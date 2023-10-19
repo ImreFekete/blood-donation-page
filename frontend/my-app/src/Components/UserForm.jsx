@@ -16,9 +16,11 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
             return alert("Please fill in the fields correctly!")
         }
 
-        const emailExists = await checkEmail(email);
-        if (emailExists) {
-            return alert("The given E-mail address already exists!")
+        if (!user) {
+            const emailExists = await checkEmail(email);
+            if (emailExists) {
+                return alert("The given E-mail address already exists!")
+            }
         }
 
         if (user) {
