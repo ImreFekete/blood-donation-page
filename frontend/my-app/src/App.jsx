@@ -1,5 +1,5 @@
 import './App.css'
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Loading from "./Components/Loading";
 
@@ -11,8 +11,15 @@ function deleteAppointment(id) {
     return fetch(`/api/appointments/${id}`, {method: "DELETE"}).then((res) => res.json());
 }
 
+const deleteUser = (id) => {
+    return fetch(`/api/users/${id}`, {method: "DELETE"}).then((res) =>
+        res.json()
+    );
+}
+
 function App() {
     const {id} = useParams();
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,57 +44,13 @@ function App() {
     }, [id]);
 
     if (loading) {
-        return <Loading />;
+        return <Loading/>;
     }
 
-    /*return (
-        <>
-            <div className="mainTitle">{user ? `Welcome ${user.email} !` : "IMF LAB TESTS"}</div>
-            {isLoggedIn && !appointment &&
-                <Link to={`/calendar/${id}`}>
-                    <button className='reservationButton' type="button">Reserve an appointment</button>
-                </Link>}
-            {!isLoggedIn &&
-                <div className="buttonContainer">
-                    <Link to="/login">
-                        <button className='loginButton' type="button">Login</button>
-                    </Link>
-                    <Link to="/register">
-                        <button className='registerButton' type="button">Register</button>
-                    </Link>
-
-                </div>
-            }
-            {appointment &&
-                <>
-                    <div>
-                        {`You have a reserved appointment at: ${appointment.appointment}`}
-                    </div>
-                    <button className='deleteButton' type="button" onClick={() => {
-                        setAppointment(null);
-                        return deleteAppointment(appointment.id);
-                    }}>
-                        Delete Appointment
-                    </button>
-                </>
-            }
-            {isLoggedIn &&
-                <Link to="/">
-                    <button className='logoutButton' type="button" onClick={() => {
-                        setUser(null);
-                        setAppointment(null);
-                        setIsLoggedIn(false);
-                    }}>
-                        Log Out
-                    </button>
-                </Link>
-            }
-        </>
-    )*/
     return (
         <div className="outerContainer">
             <div className="headerContainer">
-                <div className="mainTitle">{user ? `Welcome ${user.name} !` : "IMF LAB TESTS"}</div>
+                <div className="mainTitle">{user ? `Welcome ${user.name} !` : "IMF REDLABS BLOOD DONATION"}</div>
 
                 {appointment &&
                     <div className="message">
@@ -111,6 +74,17 @@ function App() {
                         <Link to={`/update/${id}`}>
                             <button className='updateButton' type="button">Update Account</button>
                         </Link>
+                        <button className='removeButton' type='button' onClick={() => {
+                            if (window.confirm("Are you sure you want to delete your account?")) {
+                                deleteUser(id)
+                                    .then(() => {
+                                        setIsLoggedIn(false);
+                                        setUser(null);
+                                        navigate("/");
+                                    })
+                            }
+                        }}>Remove Account
+                        </button>
                     </div>
                 }
 

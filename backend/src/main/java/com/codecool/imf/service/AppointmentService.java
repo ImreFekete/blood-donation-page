@@ -33,7 +33,6 @@ public class AppointmentService {
         int monthValue = Integer.parseInt(month);
         int dayValue = Integer.parseInt(day);
         LocalDateTime searchedDay = LocalDateTime.of(yearValue, monthValue, dayValue, 12, 0, 0);
-        System.out.println(searchedDay);
 
         List<Appointment> appointmentDAOList = appointmentRepository.findAll();
         List<AppointmentDTO> appointmentDTOList = new ArrayList<>();
@@ -43,7 +42,6 @@ public class AppointmentService {
             if (localDateTime.getYear() == searchedDay.getYear() &&
                     localDateTime.getMonth() == searchedDay.getMonth() &&
                     localDateTime.getDayOfMonth() == searchedDay.getDayOfMonth()) {
-                System.out.println("getAllAppointmentsForDay");
                 appointmentDTOList.add(AppointmentDTO.builder()
                         .id(appointment.getId())
                         .appointment(appointment.getLocalDateTime())
