@@ -40,6 +40,7 @@ public class UserService {
                 // IF USER HAS APPOINTMENT
                 return UserDTO.builder()
                         .id(user.getId())
+                        .name(user.getName())
                         .email(user.getEmail())
                         .password(user.getPassword())
                         .appointmentDTO(AppointmentDTO.builder()
@@ -51,6 +52,7 @@ public class UserService {
                 // IF USER DOES NOT HAVE APPOINTMENT
                 return UserDTO.builder()
                         .id(user.getId())
+                        .name(user.getName())
                         .email(user.getEmail())
                         .password(user.getPassword())
                         .appointmentDTO(null)
