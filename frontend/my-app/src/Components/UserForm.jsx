@@ -45,10 +45,14 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
     }
 
     return (
+        <div className="outerContainer">
+            <div className="mainTitle">{"IMF LAB TESTS"}</div>
         <form className="UserForm" onSubmit={onSubmit}>
+            <div className="formBox">
             <div className="control">
                 <label htmlFor="name">Name:</label>
                 <input
+                    className="field"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     name="name"
@@ -59,6 +63,7 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
             <div className="control">
                 <label htmlFor="password">Password:</label>
                 <input
+                    className="field"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     name="password"
@@ -69,13 +74,15 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
             <div className="control">
                 <label htmlFor="email">E-Mail address:</label>
                 <input
+                    className="field"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     name="email"
                     id="email"
                 />
             </div>
-
+            </div>
+            <div className="buttonContainer">
             <div className="buttons">
                 <button type="submit" disabled={disabled}>
                     {user ? "Update User" : "Submit"}
@@ -85,7 +92,9 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                     Cancel
                 </button>
             </div>
+            </div>
         </form>
+        </div>
     );
 };
 

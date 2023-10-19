@@ -12,7 +12,7 @@
 .card {
   padding: 2em;
 }
-.reservationButton,.loginButton, .reservationButton, .deleteButton{
+.reservationButton,.loginButton, .reservationButton, .deleteButton, .backButton{
   margin: 15px;
 }
 .outerContainer{
@@ -30,9 +30,26 @@
   align-items: center;
 
 }
+.field{
+  border-radius: 5px;
+
+}
 .message{
   margin: 15px;
   text-align: center;
+}
+.LoginForm, .UserForm{
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.formBox{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
 }
 
 .mainTitle{
@@ -58,6 +75,7 @@
   max-width: 45%;
   height: auto;
 }
+
 
 .flexboxCalendar {
   height: 300px;
