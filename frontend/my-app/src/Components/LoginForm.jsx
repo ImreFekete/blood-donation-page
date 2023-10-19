@@ -8,6 +8,11 @@ const LoginForm = ({ onSave, disabled, onCancel }) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        const regexPattern = /[\w.]+@\w+\.\w{2,4}[a-z.]{0,3}/g;
+        if (!regexPattern.test(email)) {
+            return alert("The given E-mail format is not valid!")
+        }
+
         return onSave({
             email,
             password

@@ -16,6 +16,11 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
             return alert("Please fill in the fields correctly!")
         }
 
+        const regexPattern = /[\w.]+@\w+\.\w{2,4}[a-z.]{0,3}/g;
+        if (!regexPattern.test(email)) {
+            return alert("The given E-mail format is not valid!")
+        }
+
         const emailExists = await checkEmail(email);
         if (emailExists) {
             return alert("The given E-mail address already exists!")
