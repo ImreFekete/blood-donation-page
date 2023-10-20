@@ -21,7 +21,11 @@ const LoginForm = ({ onSave, disabled, onCancel }) => {
 
     return (
         <div className="outerContainer">
-        <div className="mainTitle">{"IMF LAB TESTS"}</div>
+            <div className="mainTitle">
+                <img src="/imf_logo.png" alt="IMF logo" className="ImfLogo"/>
+                {"IMF REDLABS BLOOD DONATION"}
+            </div>
+
         <form className="LoginForm" onSubmit={onSubmit}>
             <div className="formBox">
 
