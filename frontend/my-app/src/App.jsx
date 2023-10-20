@@ -2,6 +2,9 @@ import './App.css'
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Loading from "./Components/Loading";
+import moment from 'moment';
+
+
 
 const fetchUserById = (id) => {
     return fetch(`/api/users/${id}`).then((res) => res.json());
@@ -46,15 +49,18 @@ function App() {
     if (loading) {
         return <Loading/>;
     }
-
+//TODO: Header component
     return (
         <div className="outerContainer">
             <div className="headerContainer">
-                <div className="mainTitle">{user ? `Welcome ${user.name} !` : "IMF REDLABS BLOOD DONATION"}</div>
+                <div className="mainTitle">
+                    <img src="/imf_logo.png" alt="IMF logo" className="ImfLogo"/>
+                    {user ? `Welcome ${user.name} !` : "IMF REDLABS BLOOD DONATION"}
+                </div>
 
                 {appointment &&
                     <div className="message">
-                        {`You have a reserved appointment at: ${appointment.appointment}`}
+                        {`You have a reserved appointment at: ${moment(appointment.appointment).format('YYYY.MM.DD HH:mm')}`}
                     </div>
                 }
 

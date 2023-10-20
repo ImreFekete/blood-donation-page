@@ -2,6 +2,7 @@
   margin: 0 auto;
   text-align: center;
 }
+
 /*.headerContainer{
   display: flex;
   flex-direction: column;
@@ -50,7 +51,10 @@
   align-items: flex-end;
   flex-direction: column;
 }
-
+.ImfLogo{
+  height: 8vh;
+  margin-right: 20px;
+}
 .mainTitle{
   background-color: #8d020b;
   color: white;
