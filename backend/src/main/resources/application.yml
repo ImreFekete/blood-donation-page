@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/imfblood
     username: postgres
-    password: shinedown
+    password: C@psl0ck
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
