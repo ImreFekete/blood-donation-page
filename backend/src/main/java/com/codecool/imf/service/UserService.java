@@ -9,12 +9,11 @@ import com.codecool.imf.model.User;
 import com.codecool.imf.repository.AppointmentRepository;
 import com.codecool.imf.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +65,7 @@ public class UserService {
     }
 
     public UserDTO getUserByEmail(String email) {
-        Optional<User> optionalUser = userRepository.getUserByEmail(email);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             return UserDTO.builder()
@@ -104,6 +103,7 @@ public class UserService {
         return false;
     }
 
+    @Transactional
     public boolean deleteUserById(Long id) {
         try {
             Optional<Appointment> optionalAppointment = appointmentRepository.findByUserId(id);

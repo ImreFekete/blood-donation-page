@@ -19,7 +19,6 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-
     @GetMapping("/allforday")
     public List<AppointmentDTO> getAllAppointmentsForDay(
             @RequestParam String year,
