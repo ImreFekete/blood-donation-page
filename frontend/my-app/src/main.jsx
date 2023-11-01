@@ -7,6 +7,7 @@ import CalendarComp from "./Components/CalendarComp.jsx";
 import LoginPage from "./Pages/LoginPage.jsx";
 import RegisterPage from "./Pages/RegisterPage.jsx";
 import UpdatePage from "./Pages/UpdatePage.jsx";
+import AdminPage from "./Pages/AdminPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: "/user/:id",
                 element: <App />,
+            },
+            {
+                path: "/admin",
+                element: <AdminPage />,
             },
         ],
     },

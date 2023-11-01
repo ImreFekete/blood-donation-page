@@ -1,5 +1,6 @@
 package com.codecool.imf.security;
 
+import com.codecool.imf.model.Role;
 import io.swagger.v3.oas.models.PathItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST,"/users/**")
                 .permitAll()
+                .requestMatchers(HttpMethod.GET, "/users").hasRole(Role.ADMIN.toString())
                 .anyRequest()
                 .authenticated()
                 .and()

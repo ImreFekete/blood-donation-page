@@ -79,6 +79,10 @@ function App() {
                     {user ? `Welcome ${user.name} !` : "IMF REDLABS BLOOD DONATION"}
                 </div>
 
+                <Link to="/admin">
+                    <button className='adminButton' type="button">List all users</button>
+                </Link>
+
                 {appointment &&
                     <div className="message">
                         {`You have a reserved appointment at: ${moment(appointment.appointment).format('YYYY.MM.DD HH:mm')}`}
@@ -122,9 +126,7 @@ function App() {
                         </Link>
                         <Link to="/">
                             <button className='logoutButton' type="button" onClick={() => {
-                                console.log(localStorage.getItem('jwtToken'))
                                 localStorage.removeItem('jwtToken');
-                                console.log(localStorage.getItem('jwtToken'))
                                 setUser(null);
                                 setAppointment(null);
                                 setIsLoggedIn(false);
@@ -145,6 +147,7 @@ function App() {
                         </button>
                         <Link to="/">
                             <button className='logoutButton' type="button" onClick={() => {
+                                localStorage.removeItem('jwtToken');
                                 setUser(null);
                                 setAppointment(null);
                                 setIsLoggedIn(false);

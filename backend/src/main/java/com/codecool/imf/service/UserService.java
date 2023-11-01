@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,18 @@ public class UserService {
         this.userRepository = userRepository;
         this.appointmentRepository = appointmentRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public List<UserDTO> getAllUsers() {
+        List<User> allUsers = userRepository.findAll();
+        List<UserDTO> allUsersDTO = new ArrayList<>();
+        for (User user : allUsers) {
+            allUsersDTO.add(UserDTO.builder()
+                    .name(user.getName())
+                    .email(user.getEmail())
+                    .build());
+        }
+        return allUsersDTO;
     }
 
     public UserDTO getUserById(Long id) {

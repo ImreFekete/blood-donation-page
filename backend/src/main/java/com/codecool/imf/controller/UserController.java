@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -22,6 +24,11 @@ public class UserController {
     public UserController(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
+    }
+
+    @GetMapping
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
