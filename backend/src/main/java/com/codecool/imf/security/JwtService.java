@@ -59,11 +59,10 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJwt(token) // TODO: deprecated
-                .getBody(); // TODO: deprecated
+                .parser() // TODO: deprecated
+                .setSigningKey(getSignInKey()) // TODO: deprecated
+                .parseClaimsJws(token) // TODO: changed method from Nelson's
+                .getBody();
     }
 
     private Key getSignInKey() {

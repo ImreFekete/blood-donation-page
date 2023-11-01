@@ -9,6 +9,7 @@ import SetTextAppointment from "./SetTextAppointment.jsx";
 
 const fetchAppointmentForUser = (id) => {
     const token = localStorage.getItem('jwtToken');
+    console.log("TOKEN IN CALENDAR COMP. fetchAppointmentForUser: ", token)
     return fetch(`/api/users/${id}`, {
         method: 'GET',
         headers: {
@@ -22,6 +23,7 @@ const fetchAppointmentForUser = (id) => {
 
 const fetchAppointmentsForDay = (year, month, day) => {
     const token = localStorage.getItem('jwtToken');
+    console.log("TOKEN IN CALENDAR COMP. fetchAppointmentsForDay: ", token)
     return fetch(`/api/appointments/allforday?year=${year}&month=${month}&day=${day}`, {
         method: 'GET',
         headers: {
@@ -35,20 +37,26 @@ const fetchAppointmentsForDay = (year, month, day) => {
 };
 
 const createAppointment = async (time, id) => {
+    const token = localStorage.getItem('jwtToken');
+    console.log("TOKEN IN CALENDAR COMP. createAppointment: ", token)
     const requestBody = {
         userId: id,
         appointment: time
     };
+
     const response = await fetch("/api/appointments/create", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestBody),
     })
+
     if (!response.ok) {
         throw new Error("Failed to create an appointment.");
     }
+
     return response.json();
 };
 
@@ -156,7 +164,7 @@ const CalendarComp = () => {
                 }} submitted={isSubmitted}/>
             </div>
 
-            <Link to="/">
+            <Link to={`/user/${id}`}>
                 <button className='backButton' type="button">BACK</button>
             </Link>
         </div>

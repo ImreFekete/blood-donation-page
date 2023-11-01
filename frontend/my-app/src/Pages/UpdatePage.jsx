@@ -4,17 +4,28 @@ import UserForm from "../Components/UserForm.jsx";
 import Loading from "../Components/Loading";
 
 const updateUser = (user) => {
+    const token = localStorage.getItem('jwtToken');
     return fetch(`/api/users/update/${user.id}`, {
         method: "PATCH",
         headers: {
-            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(user),
     }).then((res) => res.json());
 };
 
 const fetchUser = (id) => {
-    return fetch(`/api/users/${id}`).then((res) => res.json());
+    const token = localStorage.getItem('jwtToken');
+    console.log("TOKEN IN UPDATE USER: ", token);
+    return fetch(`/api/users/${id}`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        }
+    ).then((res) => res.json());
 };
 
 const UpdatePage = () => {
@@ -44,7 +55,7 @@ const UpdatePage = () => {
     }
 
     if (userLoading) {
-        return <Loading />;
+        return <Loading/>;
     }
 
     return (

@@ -23,7 +23,7 @@ public class Appointment {
     private LocalDateTime localDateTime;
 
     // @OneToOne(cascade = CascadeType.MERGE)
-    @OneToOne(cascade = CascadeType.REMOVE) // TODO: Check this cascade needed or not?
+    @OneToOne // TODO: Check this cascade needed or not?
     @JoinColumn(name = "user_id")
     private User user;
 

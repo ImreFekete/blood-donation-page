@@ -5,7 +5,6 @@ import Loading from "./Components/Loading";
 import moment from 'moment';
 
 
-
 const fetchUserById = (id) => {
     const token = localStorage.getItem('jwtToken');
     console.log("TOKEN", token);
@@ -19,11 +18,25 @@ const fetchUserById = (id) => {
 };
 
 function deleteAppointment(id) {
-    return fetch(`/api/appointments/${id}`, {method: "DELETE"}).then((res) => res.json());
+    const token = localStorage.getItem('jwtToken');
+    return fetch(`/api/appointments/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    }).then((res) => res.json());
 }
 
 const deleteUser = (id) => {
-    return fetch(`/api/users/${id}`, {method: "DELETE"}).then((res) =>
+    const token = localStorage.getItem('jwtToken');
+    return fetch(`/api/users/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    }).then((res) =>
         res.json()
     );
 }
@@ -57,7 +70,7 @@ function App() {
     if (loading) {
         return <Loading/>;
     }
-//TODO: Header component
+    //TODO: Header component
     return (
         <div className="outerContainer">
             <div className="headerContainer">

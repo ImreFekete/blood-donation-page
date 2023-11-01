@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-
     private final AuthenticationService authenticationService;
 
     @Autowired
@@ -39,6 +38,7 @@ public class UserController {
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
+
    /* @PostMapping("/login")
     public UserDTO getUserAppointmentByEmail(@RequestBody UserDTO user) {
         return userService.getUserByEmail(user.getEmail());
