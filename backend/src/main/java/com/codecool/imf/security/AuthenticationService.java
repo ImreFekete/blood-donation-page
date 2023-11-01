@@ -5,9 +5,12 @@ import com.codecool.imf.model.User;
 import com.codecool.imf.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,20 +38,32 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .id(user.getId())
-                .build();
+        try { // TODO: How to handle exception???
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+            Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                var jwtToken = jwtService.generateToken(user);
+                return AuthenticationResponse.builder()
+                        .token(jwtToken)
+                        .id(user.getId())
+                        .build();
+            } else {
+                return AuthenticationResponse.builder()
+                        .token(null)
+                        .id(null)
+                        .build();
+            }
+        } catch (BadCredentialsException e) {
+            return AuthenticationResponse.builder()
+                    .token(null)
+                    .id(null)
+                    .build();
+        }
     }
 }

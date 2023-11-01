@@ -23,11 +23,16 @@ const LoginPage = () => {
 
         fetchUser(user)
             .then((data) => {
-                const token = data.token
-                setAppointment(data.id)
-                localStorage.setItem('jwtToken', token);
-                setLoading(false);
-                navigate(`/user/${data.id}`);
+                if (data.id !== null) {
+                    const token = data.token
+                    setAppointment(data.id)
+                    localStorage.setItem('jwtToken', token);
+                    setLoading(false);
+                    navigate(`/user/${data.id}`);
+                } else {
+                    setLoading(false);
+                    navigate("/");
+                }
             });
     };
 
