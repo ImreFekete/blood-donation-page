@@ -9,6 +9,7 @@ import com.codecool.imf.security.RegisterRequest;
 import com.codecool.imf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +27,11 @@ public class UserController {
         this.authenticationService = authenticationService;
     }
 
-    @GetMapping
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
-    }
+//    @GetMapping
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public List<UserDTO> getAllUsers() {
+//        return userService.getAllUsers();
+//    }
 
     @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable("id") Long id) {

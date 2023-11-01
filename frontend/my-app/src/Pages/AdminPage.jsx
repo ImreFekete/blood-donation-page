@@ -4,7 +4,7 @@ import Loading from "../Components/Loading/index.js";
 
 const fetchUsers = () => {
     const token = localStorage.getItem('jwtToken');
-    return fetch("/api/users", {
+    return fetch("/api/admin", {
         method: "GET",
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -34,7 +34,7 @@ const AdminPage = () => {
         <>
             {users.map((user, index) => {
                 return <div key={index}>
-                    <>{user.name}</>
+                    {user.name}
                 </div>
             })}
             <Link to="/">
