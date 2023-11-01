@@ -2,8 +2,11 @@ package com.codecool.imf.controller;
 
 import com.codecool.imf.dto.AppointmentDTO;
 import com.codecool.imf.dto.NewAppointmentDTO;
+import com.codecool.imf.security.AuthenticationRequest;
+import com.codecool.imf.security.AuthenticationResponse;
 import com.codecool.imf.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +30,7 @@ public class AppointmentController {
     ) {
         return appointmentService.getAllAppointmentsForDay(year, month, day);
     }
+
 
     // IT CREATES NEW APPOINTMENT
     @PostMapping("/create")

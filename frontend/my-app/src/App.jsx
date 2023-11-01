@@ -7,7 +7,15 @@ import moment from 'moment';
 
 
 const fetchUserById = (id) => {
-    return fetch(`/api/users/${id}`).then((res) => res.json());
+    const token = localStorage.getItem('jwtToken');
+    console.log("TOKEN", token);
+    return fetch(`/api/users/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    }).then((res) => res.json());
 };
 
 function deleteAppointment(id) {

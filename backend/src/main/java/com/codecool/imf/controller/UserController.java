@@ -1,11 +1,14 @@
 package com.codecool.imf.controller;
 
 import com.codecool.imf.dto.CheckUserEmailDTO;
-import com.codecool.imf.dto.NewUserDTO;
 import com.codecool.imf.dto.UserDTO;
+import com.codecool.imf.security.AuthenticationRequest;
+import com.codecool.imf.security.AuthenticationResponse;
+import com.codecool.imf.security.AuthenticationService;
+import com.codecool.imf.security.RegisterRequest;
 import com.codecool.imf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,9 +17,12 @@ public class UserController {
 
     private final UserService userService;
 
+    private final AuthenticationService authenticationService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
+        this.authenticationService = authenticationService;
     }
 
     @GetMapping("/{id}")
@@ -24,16 +30,19 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/login")
-    public UserDTO getUserAppointmentByEmail(@RequestBody UserDTO user) {
-        return userService.getUserByEmail(user.getEmail());
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authenticationService.register(request));
     }
 
-    @PostMapping("/register")
-    public int addUser(@RequestBody NewUserDTO user) {
-        userService.addUser(user);
-        return HttpStatus.CREATED.value();
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(authenticationService.authenticate(request));
     }
+   /* @PostMapping("/login")
+    public UserDTO getUserAppointmentByEmail(@RequestBody UserDTO user) {
+        return userService.getUserByEmail(user.getEmail());
+    }*/
 
     @PostMapping("/checkemail")
     public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {

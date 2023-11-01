@@ -48,6 +48,7 @@ const LoginForm = ({ onSave, disabled, onCancel }) => {
                     onChange={(e) => setPassword(e.target.value)}
                     name="password"
                     id="password"
+                    type="password"
                 />
             </div>
             </div>

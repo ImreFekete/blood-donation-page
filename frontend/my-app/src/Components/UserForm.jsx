@@ -68,6 +68,7 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                     onChange={(e) => setPassword(e.target.value)}
                     name="password"
                     id="password"
+                    type="password"
                 />
             </div>
 

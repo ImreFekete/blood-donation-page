@@ -8,13 +8,27 @@ import SelectedDateInfo from "./SelectedDateInfo.jsx";
 import SetTextAppointment from "./SetTextAppointment.jsx";
 
 const fetchAppointmentForUser = (id) => {
-    return fetch(`/api/users/${id}`).then((res) => {
+    const token = localStorage.getItem('jwtToken');
+    return fetch(`/api/users/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    }).then((res) => {
         return res.json();
     });
 };
 
 const fetchAppointmentsForDay = (year, month, day) => {
-    return fetch(`/api/appointments/allforday?year=${year}&month=${month}&day=${day}`)
+    const token = localStorage.getItem('jwtToken');
+    return fetch(`/api/appointments/allforday?year=${year}&month=${month}&day=${day}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
         .then((res) => {
             return res.json();
         });

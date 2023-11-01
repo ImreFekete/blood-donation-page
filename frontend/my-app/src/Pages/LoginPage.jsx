@@ -23,7 +23,9 @@ const LoginPage = () => {
 
         fetchUser(user)
             .then((data) => {
+                const token = data.token
                 setAppointment(data.id)
+                localStorage.setItem('jwtToken', token);
                 setLoading(false);
                 navigate(`/user/${data.id}`);
             });
