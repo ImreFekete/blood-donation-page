@@ -12,6 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +24,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final AppointmentRepository appointmentRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, AppointmentRepository appointmentRepository) {
+    public UserService(UserRepository userRepository, AppointmentRepository appointmentRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.appointmentRepository = appointmentRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDTO getUserById(Long id) {
@@ -43,7 +46,6 @@ public class UserService {
                         .id(user.getId())
                         .name(user.getName())
                         .email(user.getEmail())
-                        .password(user.getPassword())
                         .appointmentDTO(AppointmentDTO.builder()
                                 .id(appointment.getId())
                                 .appointment(appointment.getLocalDateTime())
@@ -55,7 +57,6 @@ public class UserService {
                         .id(user.getId())
                         .name(user.getName())
                         .email(user.getEmail())
-                        .password(user.getPassword())
                         .appointmentDTO(null)
                         .build();
             }
@@ -95,7 +96,7 @@ public class UserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setName(updatedUser.getName());
-            user.setPassword(updatedUser.getPassword());
+            user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
             user.setEmail(updatedUser.getEmail());
             userRepository.save(user);
             return true;
