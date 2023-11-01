@@ -122,6 +122,9 @@ function App() {
                         </Link>
                         <Link to="/">
                             <button className='logoutButton' type="button" onClick={() => {
+                                console.log(localStorage.getItem('jwtToken'))
+                                localStorage.removeItem('jwtToken');
+                                console.log(localStorage.getItem('jwtToken'))
                                 setUser(null);
                                 setAppointment(null);
                                 setIsLoggedIn(false);
