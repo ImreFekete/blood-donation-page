@@ -4,6 +4,7 @@ import com.codecool.imf.model.Role;
 import com.codecool.imf.model.User;
 import com.codecool.imf.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -21,20 +23,20 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
-                .name(request.getName())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .email(request.getEmail())
-                .role(Role.USER)
-                .build();
-
-        userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user); // TODO: Do we need token when register???
-
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+    public Boolean register(RegisterRequest request) {
+        try {
+            var user = User.builder()
+                    .name(request.getName())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .email(request.getEmail())
+                    .role(Role.USER)
+                    .build();
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            log.error("Could not save user to database");
+            return false;
+        }
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
