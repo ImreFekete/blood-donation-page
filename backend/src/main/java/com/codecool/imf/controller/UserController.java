@@ -8,11 +8,10 @@ import com.codecool.imf.security.AuthenticationService;
 import com.codecool.imf.security.RegisterRequest;
 import com.codecool.imf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -27,31 +26,25 @@ public class UserController {
         this.authenticationService = authenticationService;
     }
 
-//    @GetMapping
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public List<UserDTO> getAllUsers() {
-//        return userService.getAllUsers();
-//    }
-
     @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authenticationService.register(request));
+    public ResponseEntity<HttpStatusCode> register(@RequestBody RegisterRequest request) {
+        Boolean response = authenticationService.register(request);
+        if (response) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
-
-   /* @PostMapping("/login")
-    public UserDTO getUserAppointmentByEmail(@RequestBody UserDTO user) {
-        return userService.getUserByEmail(user.getEmail());
-    }*/
 
     @PostMapping("/checkemail")
     public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {

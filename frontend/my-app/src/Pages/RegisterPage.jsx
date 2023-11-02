@@ -10,7 +10,7 @@ const createUser = (user) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
-    }).then((res) => res.json());
+    });
 };
 
 const checkEmail = (email) => {
