@@ -33,11 +33,16 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<HttpStatusCode> register(@RequestBody RegisterRequest request) {
-        Boolean response = authenticationService.register(request);
-        if (response) {
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+        boolean isEmailReserved = userService.checkEmail(new CheckUserEmailDTO(request.getEmail()));
+        if (isEmailReserved) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            boolean isRegistered = authenticationService.register(request);
+            if (isRegistered) {
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         }
     }
 
@@ -46,10 +51,10 @@ public class UserController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @PostMapping("/checkemail")
-    public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {
-        return userService.checkEmail(email);
-    }
+//    @PostMapping("/checkemail")
+//    public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {
+//        return userService.checkEmail(email);
+//    }
 
     @PatchMapping("/update/{id}")
     public boolean updateUserById(@PathVariable("id") Long id, @RequestBody UserDTO updatedUser) {
