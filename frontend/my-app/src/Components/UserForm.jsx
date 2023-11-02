@@ -60,7 +60,8 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                 />
             </div>
 
-            <div className="control">
+                {!user &&
+                    <div className="control">
                 <label htmlFor="password">Password: </label>
                 <input
                     className="field"
@@ -70,7 +71,7 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                     id="password"
                     type="password"
                 />
-            </div>
+            </div>}
 
             <div className="control">
                 <label htmlFor="email">E-Mail address: </label>
