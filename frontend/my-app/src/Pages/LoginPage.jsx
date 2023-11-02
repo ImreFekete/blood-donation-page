@@ -32,6 +32,7 @@ const LoginPage = () => {
                 } else {
                     setLoading(false);
                     navigate("/");
+                    alert("Invalid e-mail/password!")
                 }
             });
     };
