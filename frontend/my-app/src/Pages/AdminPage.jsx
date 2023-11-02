@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import Loading from "../Components/Loading/index.js";
+import {useLocation} from "react-router-dom";
 
 const fetchUsers = () => {
     const token = localStorage.getItem('jwtToken');
@@ -17,12 +18,15 @@ const AdminPage = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+    const location = useLocation();
+    const {from} = location.state;
 
     useEffect(() => {
         fetchUsers()
             .then((users) => {
                 setLoading(false);
                 setUsers(users);
+                console.log(users)
             })
     }, []);
 
@@ -57,7 +61,7 @@ const AdminPage = () => {
                     Log Out
                 </button>
             </Link>
-            <button className='backButton' type="button" onClick={() => navigate("/")}>
+            <button className='backButton' type="button" onClick={() => navigate(`/user/${from}`)}>
                 Back
             </button>
         </div>
