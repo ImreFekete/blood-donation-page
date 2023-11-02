@@ -1,5 +1,6 @@
 package com.codecool.imf.dto;
 
+import com.codecool.imf.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,4 +18,5 @@ public class UserDTO {
     private String email;
     private String password;
     private AppointmentDTO appointmentDTO;
+    private Role role;
 }
