@@ -41,6 +41,7 @@ public class UserService {
             allUsersDTO.add(UserDTO.builder()
                     .name(user.getName())
                     .email(user.getEmail())
+                    .role(user.getRole())
                     .build());
         }
         return allUsersDTO;

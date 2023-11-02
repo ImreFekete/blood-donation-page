@@ -85,7 +85,7 @@ function App() {
 
                 {isLoggedIn && isAdmin &&
                     <div>
-                    <Link to="/admin">
+                    <Link to="/admin" state={{ from: `${id}` }}>
                         <button className='adminButton' type="button">List all users</button>
                     </Link>
                     </div>
