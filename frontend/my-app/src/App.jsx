@@ -167,8 +167,8 @@ function App() {
                 }
             </div>
             <div className="imageContainer">
-                <img src="/nurse1.jpg" alt="Nurse 1" className="nurseImage"/>
-                <img src="/nurse2.jpg" alt="Nurse 2" className="nurseImage"/>
+                <img src="/NurseTom.png" alt="Nurse 1" className="nurseImage"/>
+                <img src="/NurseTom2.png" alt="Nurse 2" className="nurseImage"/>
             </div>
         </div>
     );
