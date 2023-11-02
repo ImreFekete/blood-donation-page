@@ -1,6 +1,5 @@
 package com.codecool.imf.security;
 
-import com.codecool.imf.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
