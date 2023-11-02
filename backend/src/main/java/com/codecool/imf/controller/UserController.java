@@ -37,8 +37,8 @@ public class UserController {
         if (isEmailReserved) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } else {
-            boolean response = authenticationService.register(request);
-            if (response) {
+            boolean isRegistered = authenticationService.register(request);
+            if (isRegistered) {
                 return ResponseEntity.status(HttpStatus.CREATED).build();
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
