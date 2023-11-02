@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Loading from "./Components/Loading";
 import moment from 'moment';
+import Header from "./Components/Header.jsx";
 
 const fetchUserById = (id) => {
     const token = localStorage.getItem('jwtToken');
@@ -78,10 +79,10 @@ function App() {
     return (
         <div className="outerContainer">
             <div className="headerContainer">
-                <div className="mainTitle">
-                    <img src="/imf_logo.png" alt="IMF logo" className="ImfLogo"/>
-                    {user ? `Welcome ${user.name} !` : "IMF REDLABS BLOOD DONATION"}
-                </div>
+                <Header
+                user={user}
+                />
+
 
                 {isLoggedIn && isAdmin &&
                     <div>
