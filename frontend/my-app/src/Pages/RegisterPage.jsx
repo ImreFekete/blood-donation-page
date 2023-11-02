@@ -10,9 +10,13 @@ const createUser = (user) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
+    }).then((res) => {
+        console.log(res);
+        return res.status;
     });
 };
 
+// TODO: It is switched of right now, email check done by createUser() fetch
 const checkEmail = (email) => {
     const emailObject = {
         email: email
@@ -34,9 +38,18 @@ const RegisterPage = () => {
         setLoading(true);
 
         createUser(user)
-            .then(() => {
-                setLoading(false);
-                navigate("/");
+            .then((statusCode) => {
+                console.log(statusCode);
+                if (statusCode === 400) {
+                    setLoading(false);
+                    return alert("The given E-mail address already exists!")
+                } else if (statusCode === 500) {
+                    setLoading(false);
+                    return alert("Server error")
+                } else if (statusCode === 201) {
+                    setLoading(false);
+                    navigate("/");
+                }
             });
     };
 
