@@ -44,6 +44,9 @@ const AdminPage = () => {
                     Log Out
                 </button>
             </Link>
+            <button className='backButton' type="button" onClick={() => navigate("/")}>
+                Back
+            </button>
         </>
     )
 
