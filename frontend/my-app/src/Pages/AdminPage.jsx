@@ -31,12 +31,25 @@ const AdminPage = () => {
     }
 
     return (
-        <>
-            {users.map((user, index) => {
-                return <div key={index}>
-                    {user.name}
-                </div>
-            })}
+        <div className="UserTable">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>E-Mail</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                {users.map((user, index) => (
+                    <tr key={index}>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.role}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
             <Link to="/">
                 <button className='logoutButton' type="button" onClick={() => {
                     localStorage.removeItem('jwtToken');
@@ -47,9 +60,8 @@ const AdminPage = () => {
             <button className='backButton' type="button" onClick={() => navigate("/")}>
                 Back
             </button>
-        </>
+        </div>
     )
-
 }
 
 export default AdminPage;
