@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import Loading from "./Components/Loading";
 import moment from 'moment';
 
-
 const fetchUserById = (id) => {
     const token = localStorage.getItem('jwtToken');
     console.log("TOKEN", token);
@@ -49,6 +48,7 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     const [appointment, setAppointment] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     if (id && !isLoggedIn) {
         setIsLoggedIn(true);
@@ -58,8 +58,11 @@ function App() {
         setLoading(true);
         if (id !== undefined) {
             fetchUserById(id)
-                .then(({id, name, email, password, appointmentDTO}) => {
-                    setUser({id, name, email, password, appointmentDTO});
+                .then(({id, name, email, password, role, appointmentDTO}) => {
+                    setUser({id, name, email, password, role, appointmentDTO});
+                    if (role === "ADMIN") {
+                        setIsAdmin(true);
+                    }
                     setAppointment(appointmentDTO);
                     setLoading(false);
                 });
@@ -70,6 +73,7 @@ function App() {
     if (loading) {
         return <Loading/>;
     }
+
     //TODO: Header component
     return (
         <div className="outerContainer">
@@ -79,9 +83,13 @@ function App() {
                     {user ? `Welcome ${user.name} !` : "IMF REDLABS BLOOD DONATION"}
                 </div>
 
-                <Link to="/admin">
-                    <button className='adminButton' type="button">List all users</button>
-                </Link>
+                {isLoggedIn && isAdmin &&
+                    <div>
+                    <Link to="/admin">
+                        <button className='adminButton' type="button">List all users</button>
+                    </Link>
+                    </div>
+                }
 
                 {appointment &&
                     <div className="message">

@@ -59,6 +59,7 @@ public class UserService {
                         .id(user.getId())
                         .name(user.getName())
                         .email(user.getEmail())
+                        .role(user.getRole())
                         .appointmentDTO(AppointmentDTO.builder()
                                 .id(appointment.getId())
                                 .appointment(appointment.getLocalDateTime())
@@ -70,6 +71,7 @@ public class UserService {
                         .id(user.getId())
                         .name(user.getName())
                         .email(user.getEmail())
+                        .role(user.getRole())
                         .appointmentDTO(null)
                         .build();
             }
