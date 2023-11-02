@@ -8,6 +8,7 @@ import LoginPage from "./Pages/LoginPage.jsx";
 import RegisterPage from "./Pages/RegisterPage.jsx";
 import UpdatePage from "./Pages/UpdatePage.jsx";
 import AdminPage from "./Pages/AdminPage.jsx";
+import {UserProvider} from "./Pages/UserContext.jsx";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <RouterProvider router={router}/>
+        <UserProvider>
+            <RouterProvider router={router}/>
+        </UserProvider>
     </React.StrictMode>
 );

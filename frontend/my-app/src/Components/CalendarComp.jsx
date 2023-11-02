@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
@@ -6,6 +6,8 @@ import CalendarBox from "./CalendarBox.jsx";
 import SubmitOrDeleteButton from "./SubmitOrDeleteButton.jsx";
 import SelectedDateInfo from "./SelectedDateInfo.jsx";
 import SetTextAppointment from "./SetTextAppointment.jsx";
+import UserContext from "../Pages/UserContext.jsx";
+import Header from "./Header.jsx";
 
 const fetchAppointmentForUser = (id) => {
     const token = localStorage.getItem('jwtToken');
@@ -90,7 +92,8 @@ const CalendarComp = () => {
     const [selectedTime, setSelectedTime] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [info, setInfo] = useState(false);
-    const [user, setUser] = useState(null);
+    const { user, setUser } = React.useContext(UserContext);
+   // const [user, setUser] = useState(null);
     const [bookedAppointments, setBookAppointments] = useState([]);
 
     useEffect(() => {
@@ -125,7 +128,8 @@ const CalendarComp = () => {
 
     return (
         <div className="calendar">
-            <h2 className="header">IMF Blood Calendar</h2>
+            <Header/>
+            <h3 className="header">Reserve an appointment</h3>
             <div className="flexboxCalendar">
                 <CalendarBox
                     onChange={setDate}
@@ -142,7 +146,6 @@ const CalendarComp = () => {
                         info={info}
                         setInfo={setInfo}
                         isSubmitted={isSubmitted}
-                        user={user}
                     />
                 </div>
             </div>

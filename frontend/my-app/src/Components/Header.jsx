@@ -1,6 +1,8 @@
 import React from 'react';
+import UserContext from "../Pages/UserContext.jsx";
 
-const Header = ({user}) => {
+const Header = () => {
+    const { user, setUser } = React.useContext(UserContext);
     return (
         <header>
             <div className="mainTitle">

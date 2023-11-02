@@ -1,7 +1,9 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import UserForm from "../Components/UserForm.jsx";
 import Loading from "../Components/Loading";
+import UserContext from "./UserContext.jsx";
+import Header from "../Components/Header.jsx";
 
 const updateUser = (user) => {
     const token = localStorage.getItem('jwtToken');
@@ -31,8 +33,9 @@ const fetchUser = (id) => {
 const UpdatePage = () => {
     const {id} = useParams();
     const navigate = useNavigate();
+    const { user, setUser } = React.useContext(UserContext);
 
-    const [user, setUser] = useState(null);
+    //const [user, setUser] = useState(null);
     const [userLoading, setUserLoading] = useState(false);
     const [updateLoading, setUpdateLoading] = useState(false);
 
@@ -59,12 +62,16 @@ const UpdatePage = () => {
     }
 
     return (
+        <>
+        <Header/>
+
         <UserForm
             user={user}
             onSave={handleUpdateUser}
             disabled={updateLoading}
             onCancel={() => navigate(`/user/${id}`)}
         />
+            </>
     );
 }
 

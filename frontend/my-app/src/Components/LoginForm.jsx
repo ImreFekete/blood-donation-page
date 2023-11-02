@@ -1,9 +1,11 @@
 import {useState} from "react";
+import Header from "./Header.jsx";
 
 
 const LoginForm = ({ onSave, disabled, onCancel }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -21,10 +23,7 @@ const LoginForm = ({ onSave, disabled, onCancel }) => {
 
     return (
         <div className="outerContainer">
-            <div className="mainTitle">
-                <img src="/imf_logo.png" alt="IMF logo" className="ImfLogo"/>
-                {"IMF REDLABS BLOOD DONATION"}
-            </div>
+           <Header/>
 
         <form className="LoginForm" onSubmit={onSubmit}>
             <div className="formBox">

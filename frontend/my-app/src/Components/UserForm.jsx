@@ -1,4 +1,5 @@
 import {useState} from "react";
+import Header from "./Header.jsx";
 
 const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
     const [name, setName] = useState(user?.name ?? "");
@@ -46,7 +47,7 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
 
     return (
         <div className="outerContainer">
-            <div className="mainTitle">{"IMF REDLABS BLOOD DONATION"}</div>
+
         <form className="UserForm" onSubmit={onSubmit}>
             <div className="formBox">
             <div className="control">
