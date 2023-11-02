@@ -8,35 +8,35 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AdminCreator {
+public class UserCreator {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void initialize() {
-        User malni = User.builder()
-                .name("Malni")
+        User ethan = User.builder()
+                .name("Ethan")
                 .password(passwordEncoder.encode("1234"))
-                .email("malni@imf.com")
-                .role(Role.ADMIN)
+                .email("ethan@citromail.com")
+                .role(Role.USER)
                 .build();
-        userRepository.save(malni);
+        userRepository.save(ethan);
 
-        User milan = User.builder()
-                .name("Milan")
+        User luther = User.builder()
+                .name("Luther")
                 .password(passwordEncoder.encode("1234"))
-                .email("milan@imf.com")
-                .role(Role.ADMIN)
+                .email("luther@freemail.com")
+                .role(Role.USER)
                 .build();
-        userRepository.save(milan);
+        userRepository.save(luther);
 
-        User mark = User.builder()
-                .name("Mark")
+        User benji = User.builder()
+                .name("Benji")
                 .password(passwordEncoder.encode("1234"))
-                .email("mark@imf.com")
-                .role(Role.ADMIN)
+                .email("benji@hotmail.com")
+                .role(Role.USER)
                 .build();
-        userRepository.save(mark);
+        userRepository.save(benji);
     }
 }

@@ -2,7 +2,6 @@ package com.codecool.imf.service;
 
 import com.codecool.imf.dto.AppointmentDTO;
 import com.codecool.imf.dto.CheckUserEmailDTO;
-import com.codecool.imf.dto.NewUserDTO;
 import com.codecool.imf.dto.UserDTO;
 import com.codecool.imf.model.Appointment;
 import com.codecool.imf.model.User;
@@ -79,27 +78,6 @@ public class UserService {
         }
 
         return null;
-    }
-
-    public UserDTO getUserByEmail(String email) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            return UserDTO.builder()
-                    .id(user.getId())
-                    .build();
-        }
-//      TODO: exception handling
-        return null;
-    }
-
-    public void addUser(NewUserDTO user) {
-        User newUser = User.builder()
-                .name(user.getName())
-                .password(user.getPassword())
-                .email(user.getEmail())
-                .build();
-        userRepository.save(newUser);
     }
 
     public boolean checkEmail(CheckUserEmailDTO email) {

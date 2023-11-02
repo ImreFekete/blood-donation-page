@@ -13,8 +13,14 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (isEmpty(name) || isEmpty(password) || isEmpty(email)) {
-            return alert("Please fill in the fields correctly!")
+        if (!user) {
+            if (isEmpty(name) || isEmpty(password) || isEmpty(email)) {
+                return alert("Please fill in the fields correctly!")
+            }
+        } else {
+            if (isEmpty(name) || isEmpty(email)) {
+                return alert("Please fill in the fields correctly!")
+            }
         }
 
         const regexPattern = /[\w.]+@\w+\.\w{2,4}[a-z.]{0,3}/g;
@@ -22,12 +28,12 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
             return alert("The given E-mail format is not valid!")
         }
 
-        if (!user) {
-            const emailExists = await checkEmail(email);
-            if (emailExists) {
-                return alert("The given E-mail address already exists!")
-            }
-        }
+        // if (!user) {
+        //     const emailExists = await checkEmail(email);
+        //     if (emailExists) {
+        //         return alert("The given E-mail address already exists!")
+        //     }
+        // }
 
         if (user) {
             return onSave({
@@ -61,41 +67,56 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                 />
             </div>
 
-            <div className="control">
-                <label htmlFor="password">Password: </label>
-                <input
-                    className="field"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    name="password"
-                    id="password"
-                    type="password"
-                />
-            </div>
+                    {!user &&
+                        <div className="control">
+                            <label htmlFor="password">Password: </label>
+                            <input
+                                className="field"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                name="password"
+                                id="password"
+                                type="password"
+                            />
+                        </div>}
 
-            <div className="control">
-                <label htmlFor="email">E-Mail address: </label>
-                <input
-                    className="field"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    name="email"
-                    id="email"
-                />
-            </div>
-            </div>
-            <div className="buttonContainer">
-            <div className="buttons">
-                <button type="submit" disabled={disabled}>
-                    {user ? "Update User" : "Submit"}
-                </button>
+                    {!user ? (
+                        <div className="control">
+                        <label htmlFor="email">E-Mail address: </label>
+                        <input
+                            className="field"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            name="email"
+                            id="email"
+                        />
+                    </div>
+                        ) : (
+                        <div className="control">
+                            <label htmlFor="email">E-Mail address: </label>
+                            <input
+                                className="field"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                name="email"
+                                id="email"
+                                disabled
+                            />
+                        </div>
+                        )}
+                </div>
+                <div className="buttonContainer">
+                    <div className="buttons">
+                        <button type="submit" disabled={disabled}>
+                            {user ? "Update User" : "Submit"}
+                        </button>
 
-                <button type="button" onClick={onCancel}>
-                    Cancel
-                </button>
-            </div>
-            </div>
-        </form>
+                        <button type="button" onClick={onCancel}>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     );
 };

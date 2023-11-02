@@ -1,10 +1,3 @@
--- Add Users
--- INSERT INTO USERS (EMAIL, NAME, PASSWORD)
--- VALUES ('malni@imf.com', 'Malni', '1234');
--- INSERT INTO USERS (EMAIL, NAME, PASSWORD)
--- VALUES ('milan@imf.com', 'Milan', '1234');
--- INSERT INTO USERS (EMAIL, NAME, PASSWORD)
--- VALUES ('mark@imf.com', 'Mark', '1234');
 -- Add Appointments
 INSERT INTO APPOINTMENTS (LOCAL_DATE_TIME, USER_ID)
 VALUES ('2023-11-03T08:30:00.000000', 1);

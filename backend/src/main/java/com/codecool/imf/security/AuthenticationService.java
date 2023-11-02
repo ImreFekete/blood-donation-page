@@ -23,7 +23,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public Boolean register(RegisterRequest request) {
+    public boolean register(RegisterRequest request) {
         try {
             var user = User.builder()
                     .name(request.getName())
