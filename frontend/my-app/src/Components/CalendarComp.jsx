@@ -100,8 +100,8 @@ const CalendarComp = () => {
         // TODO: Check this double fetch and its error handling with mentor (refactored)
         const fetchData = async () => {
             try {
-                const {email, password, appointmentDTO} = await fetchAppointmentForUser(id);
-                setUser({email, password, appointmentDTO});
+                const {name, email, password, appointmentDTO} = await fetchAppointmentForUser(id);
+                setUser({name, email, password, appointmentDTO});
                 if (appointmentDTO) {
                     setUserBookedAppointment(appointmentDTO.appointment);
                 }
@@ -127,8 +127,9 @@ const CalendarComp = () => {
     }
 
     return (
-        <div className="calendar">
+        <div className="outerContainer">
             <Header/>
+        <div className="calendar">
             <h3 className="header">Reserve an appointment</h3>
             <div className="flexboxCalendar">
                 <CalendarBox
@@ -165,11 +166,15 @@ const CalendarComp = () => {
                         console.error("Error creating appointment:", error);
                     }
                 }} submitted={isSubmitted}/>
+                <div>
+                <Link to={`/user/${id}`}>
+                    <button className='backButton' type="button">BACK</button>
+                </Link>
+                </div>
             </div>
+        </div>
 
-            <Link to={`/user/${id}`}>
-                <button className='backButton' type="button">BACK</button>
-            </Link>
+
         </div>
     );
 };

@@ -23,7 +23,6 @@ const LoginForm = ({ onSave, disabled, onCancel }) => {
 
     return (
         <div className="outerContainer">
-           <Header/>
 
         <form className="LoginForm" onSubmit={onSubmit}>
             <div className="formBox">
