@@ -30,7 +30,7 @@ public class AuthenticationService {
                 .build();
 
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user); // TODO: Do we need token when register???
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
