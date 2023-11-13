@@ -45,7 +45,7 @@ const RegisterPage = () => {
                     return alert("The given E-mail address already exists!")
                 } else if (statusCode === 500) {
                     setLoading(false);
-                    return alert("Server error")
+                    return alert("Server error") // TODO: change alerts to some (error) component
                 } else if (statusCode === 201) {
                     setLoading(false);
                     navigate("/");
