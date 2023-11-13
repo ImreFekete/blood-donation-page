@@ -92,7 +92,7 @@ function App() {
                     </div>
                 }
 
-                {appointment &&
+                {appointment && isLoggedIn &&
                     <div className="message">
                         {`You have a reserved appointment at: ${moment(appointment.appointment).format('YYYY.MM.DD HH:mm')}`}
                     </div>
@@ -146,7 +146,7 @@ function App() {
                     </div>
                 }
 
-                {appointment &&
+                {appointment && isLoggedIn &&
                     <div className="buttonContainer">
                         <button className='deleteButton' type="button" onClick={() => {
                             setAppointment(null);
