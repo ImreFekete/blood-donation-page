@@ -1,12 +1,15 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres:14-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=C@psl0ck
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=imfblood
     ports:
       - 5432:5432
     volumes:
       - ~/apps/postgres:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=
-      - POSTGRES_USER=
-      - POSTGRES_DB=
-      -
+

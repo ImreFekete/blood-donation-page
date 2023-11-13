@@ -1,15 +1,21 @@
-FROM node:18.14.0-alpine as reactbuild
-WORKDIR /react_build
-COPY ../frontend/my-app/package*.json /react_build
+# BUILD REACT FRONTEND:
+FROM node:18.14.0-alpine as frontend
+WORKDIR /app/frontend
+COPY package.json ./
+COPY package-lock.json ./
 RUN npm install
-COPY ../frontend /react_build
+COPY . .
 RUN npm run build
 
-FROM node:18.14.0-alpine as serverbuild
-WORKDIR /feserver
-COPY feserver/package.json ./
+# BUILD EXPRESS FRONTEND SERVER:
+FROM node:18.14.0-alpine as express-server
+WORKDIR /app/express-server
+COPY frontendexpressserver/package.json ./
+COPY frontendexpressserver/package-lock.json ./
 RUN npm install
-COPY feserver/ .
-COPY --from=reactbuild febuild/build/ ./static
+COPY frontendexpressserver/server.js .
+COPY --from=frontend /app/frontend/build ./static
 EXPOSE 3000
 CMD ["node", "server.js"]
+
+
