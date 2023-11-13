@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import 'react-calendar/dist/Calendar.css';
 import Time from "./Time.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
@@ -6,6 +6,8 @@ import CalendarBox from "./CalendarBox.jsx";
 import SubmitOrDeleteButton from "./SubmitOrDeleteButton.jsx";
 import SelectedDateInfo from "./SelectedDateInfo.jsx";
 import SetTextAppointment from "./SetTextAppointment.jsx";
+import UserContext from "../Pages/UserContext.jsx";
+import Header from "./Header.jsx";
 
 const fetchAppointmentForUser = (id) => {
     const token = localStorage.getItem('jwtToken');
@@ -90,15 +92,16 @@ const CalendarComp = () => {
     const [selectedTime, setSelectedTime] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [info, setInfo] = useState(false);
-    const [user, setUser] = useState(null);
+    const { user, setUser } = React.useContext(UserContext);
+   // const [user, setUser] = useState(null);
     const [bookedAppointments, setBookAppointments] = useState([]);
 
     useEffect(() => {
         // TODO: Check this double fetch and its error handling with mentor (refactored)
         const fetchData = async () => {
             try {
-                const {email, password, appointmentDTO} = await fetchAppointmentForUser(id);
-                setUser({email, password, appointmentDTO});
+                const {name, email, password, appointmentDTO} = await fetchAppointmentForUser(id);
+                setUser({name, email, password, appointmentDTO});
                 if (appointmentDTO) {
                     setUserBookedAppointment(appointmentDTO.appointment);
                 }
@@ -124,8 +127,10 @@ const CalendarComp = () => {
     }
 
     return (
+        <div className="outerContainer">
+            <Header/>
         <div className="calendar">
-            <h2 className="header">IMF Blood Calendar</h2>
+            <h3 className="header">Reserve an appointment</h3>
             <div className="flexboxCalendar">
                 <CalendarBox
                     onChange={setDate}
@@ -142,7 +147,6 @@ const CalendarComp = () => {
                         info={info}
                         setInfo={setInfo}
                         isSubmitted={isSubmitted}
-                        user={user}
                     />
                 </div>
             </div>
@@ -162,11 +166,15 @@ const CalendarComp = () => {
                         console.error("Error creating appointment:", error);
                     }
                 }} submitted={isSubmitted}/>
+                <div>
+                <Link to={`/user/${id}`}>
+                    <button className='backButton' type="button">BACK</button>
+                </Link>
+                </div>
             </div>
+        </div>
 
-            <Link to={`/user/${id}`}>
-                <button className='backButton' type="button">BACK</button>
-            </Link>
+
         </div>
     );
 };

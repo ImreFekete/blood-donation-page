@@ -1,7 +1,9 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import UserForm from "../Components/UserForm.jsx";
 import Loading from "../Components/Loading/index.js";
+import UserContext from "./UserContext.jsx";
+import Header from "../Components/Header.jsx";
 
 const createUser = (user) => {
     return fetch("/api/users/register", {
@@ -33,6 +35,7 @@ const checkEmail = (email) => {
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { user, setUser } = React.useContext(UserContext);
 
     const handleCreateUser = (user) => {
         setLoading(true);
@@ -45,7 +48,7 @@ const RegisterPage = () => {
                     return alert("The given E-mail address already exists!")
                 } else if (statusCode === 500) {
                     setLoading(false);
-                    return alert("Server error")
+                    return alert("Server error") // TODO: change alerts to some (error) component
                 } else if (statusCode === 201) {
                     setLoading(false);
                     navigate("/");
@@ -69,12 +72,15 @@ const RegisterPage = () => {
     }
 
     return (
+        <>
+        <Header/>
         <UserForm
             onSave={handleCreateUser}
             checkEmail={handleCheckEmail}
             disabled={loading}
             onCancel={() => navigate("/")}
         />
+            </>
     )
 }
 

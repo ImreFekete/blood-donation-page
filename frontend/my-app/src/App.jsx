@@ -1,8 +1,10 @@
 import './App.css'
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Loading from "./Components/Loading";
 import moment from 'moment';
+import Header from "./Components/Header.jsx";
+import UserContext from "./Pages/UserContext.jsx";
 
 const fetchUserById = (id) => {
     const token = localStorage.getItem('jwtToken');
@@ -46,7 +48,8 @@ function App() {
 
     const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null);
+    const { user, setUser } = React.useContext(UserContext);
+    //const [user, setUser] = useState(null);
     const [appointment, setAppointment] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -78,10 +81,8 @@ function App() {
     return (
         <div className="outerContainer">
             <div className="headerContainer">
-                <div className="mainTitle">
-                    <img src="/imf_logo.png" alt="IMF logo" className="ImfLogo"/>
-                    {user ? `Welcome ${user.name} !` : "IMF REDLABS BLOOD DONATION"}
-                </div>
+                <Header/>
+
 
                 {isLoggedIn && isAdmin &&
                     <div>

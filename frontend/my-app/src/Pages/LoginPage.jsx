@@ -1,7 +1,9 @@
 import LoginForm from "../Components/LoginForm.jsx";
 import Loading from "../Components/Loading";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
+import UserContext from "./UserContext.jsx";
+import Header from "../Components/Header.jsx";
 
 const fetchUser = (user) => {
     return fetch("/api/users/login", {
@@ -17,6 +19,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [appointment, setAppointment] = useState(null);
+    const { user, setUser } = React.useContext(UserContext);
 
     const handleLoginUser = (user) => {
         setLoading(true);
@@ -42,11 +45,15 @@ const LoginPage = () => {
     }
 
     return (
+        <>
+
+        <Header/>
         <LoginForm
             onCancel={() => navigate("/")}
             disabled={loading}
             onSave={handleLoginUser}
         />
+        </>
     );
 };
 

@@ -1,4 +1,5 @@
 import {useState} from "react";
+import Header from "./Header.jsx";
 
 const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
     const [name, setName] = useState(user?.name ?? "");
@@ -52,19 +53,19 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
 
     return (
         <div className="outerContainer">
-            <div className="mainTitle">{"IMF REDLABS BLOOD DONATION"}</div>
-            <form className="UserForm" onSubmit={onSubmit}>
-                <div className="formBox">
-                    <div className="control">
-                        <label htmlFor="name">Name: </label>
-                        <input
-                            className="field"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            name="name"
-                            id="name"
-                        />
-                    </div>
+
+        <form className="UserForm" onSubmit={onSubmit}>
+            <div className="formBox">
+            <div className="control">
+                <label htmlFor="name">Name: </label>
+                <input
+                    className="field"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    name="name"
+                    id="name"
+                />
+            </div>
 
                     {!user &&
                         <div className="control">
