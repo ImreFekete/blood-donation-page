@@ -14,7 +14,7 @@ COPY frontendexpressserver/package.json ./
 COPY frontendexpressserver/package-lock.json ./
 RUN npm install
 COPY frontendexpressserver/server.js .
-COPY --from=frontend /app/frontend/build ./static
+COPY --from=frontend /app/frontend/dist ./static
 EXPOSE 3000
 CMD ["node", "server.js"]
 
