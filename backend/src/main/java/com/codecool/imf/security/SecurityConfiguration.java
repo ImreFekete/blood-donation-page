@@ -29,7 +29,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
-                                .requestMatchers(HttpMethod.POST, "/users/**")
+                                .requestMatchers(HttpMethod.POST, "/api/users/**")
                                 .permitAll()
 //                        .requestMatchers("/admin").hasAnyAuthority("ADMIN") // Instead used @PreAuthorize
                                 .anyRequest()
