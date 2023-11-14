@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.static('./static'));
 
-app.use("/api", createProxyMiddleware({target: "http://backend:8080/", changeOrigin: true}));
+app.use("/api", createProxyMiddleware({target: "http://backend:8080/"}));
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'static', 'index.html'));
