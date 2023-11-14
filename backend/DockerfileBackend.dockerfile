@@ -4,7 +4,7 @@
 #COPY . .
 #RUN mvn clean install -DskipTests
 #
-#FROM openjdk:17-jdk
+#FROM openjdk:17-jre # changed to JRE
 #WORKDIR /app
 #COPY --from=backend /app/target/imf-0.0.1-SNAPSHOT.jar ./app.jar
 #
