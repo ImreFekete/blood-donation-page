@@ -58,11 +58,6 @@ public class UserController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-//    @PostMapping("/checkemail")
-//    public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {
-//        return userService.checkEmail(email);
-//    }
-
     @PatchMapping("/update/{id}")
     public boolean updateUserById(@PathVariable("id") Long id, @RequestBody UserDTO updatedUser) {
         return userService.updateUserById(id, updatedUser);
