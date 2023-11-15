@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      - POSTGRES_PASSWORD=C@psl0ck
+      - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_USER=postgres
       - POSTGRES_DB=imfblood
     ports:
@@ -31,8 +31,7 @@ services:
     environment:
       - DB_PATH=jdbc:postgresql://postgres:5432/imfblood
       - DB_USER=postgres
-      - DB_PASS=C@psl0ck
-      - SECRET_KEY=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      - PASSWORD=${DB_PASS}
+      - SECRET_KEY=${SECRET_KEY}
     depends_on:
       - postgres
-
