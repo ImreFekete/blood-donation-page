@@ -20,7 +20,11 @@ WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 RUN chmod +x mvnw
-RUN ./mvnw dependency:resolve
+RUN apt-get update \
+    && apt-get install -y dos2unix \
+    && dos2unix ./mvnw \
+    && chmod +x ./mvnw \
+    && ./mvnw dependency:resolve
 
 COPY src ./src
 
