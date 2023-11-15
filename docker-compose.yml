@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=imfblood
+    ports:
+      - "5433:5432"
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ./frontend/my-app/
+      dockerfile: DockerfileFrontend.dockerfile
+    environment:
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: DockerfileBackend.dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_PATH=jdbc:postgresql://postgres:5432/imfblood
+      - DB_USER=postgres
+      - PASSWORD=${DB_PASS}
+      - SECRET_KEY=${SECRET_KEY}
+    depends_on:
+      - postgres

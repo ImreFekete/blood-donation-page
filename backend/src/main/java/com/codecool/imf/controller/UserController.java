@@ -13,8 +13,10 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -29,6 +31,11 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id);
+    }
+
+    @GetMapping
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @PostMapping("/register")
@@ -50,11 +57,6 @@ public class UserController {
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
-
-//    @PostMapping("/checkemail")
-//    public boolean checkEmail(@RequestBody CheckUserEmailDTO email) {
-//        return userService.checkEmail(email);
-//    }
 
     @PatchMapping("/update/{id}")
     public boolean updateUserById(@PathVariable("id") Long id, @RequestBody UserDTO updatedUser) {

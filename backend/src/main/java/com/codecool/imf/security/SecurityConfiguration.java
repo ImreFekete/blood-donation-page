@@ -27,12 +27,13 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers(HttpMethod.POST, "/users/**")
-                        .permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/users/**")
+                                .permitAll()
 //                        .requestMatchers("/admin").hasAnyAuthority("ADMIN") // Instead used @PreAuthorize
-                        .anyRequest()
-                        .authenticated()
+                                .anyRequest()
+                                .authenticated()
                 )
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
