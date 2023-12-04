@@ -46,7 +46,6 @@ const LoginPage = () => {
 
     return (
         <>
-
         <Header/>
         <LoginForm
             onCancel={() => navigate("/")}

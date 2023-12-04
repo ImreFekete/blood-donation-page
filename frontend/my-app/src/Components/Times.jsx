@@ -7,7 +7,7 @@ const times = ['08:30', '09:00', '09:30', '10:00', '10:30',
 
 function Times({showTime, date, bookedAppointments, handleSelectedTime, info, setInfo, isSubmitted}) {
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
-    const { user, setUser } = React.useContext(UserContext);
+    const {user, setUser} = React.useContext(UserContext);
 
     const bookedTimes = bookedAppointments.map(item => {
         return item.appointment.substring(11, 16);
@@ -24,8 +24,7 @@ function Times({showTime, date, bookedAppointments, handleSelectedTime, info, se
     return (
         <div className="times">
             <div>
-                {
-                    (!user.appointmentDTO ?
+                {(!user.appointmentDTO ?
                         ((!isSubmitted) ?
                             (availableTimes.map(time => {
                                 return (
@@ -45,14 +44,13 @@ function Times({showTime, date, bookedAppointments, handleSelectedTime, info, se
                                     {selectedTimeSlot}
                                 </button>
                             </div>))
-                            :
-                            (<div>
-                                <button onClick={(e) => displayInfo(e)}>
-                                    {user.appointmentDTO.appointment.substring(11, 16)}
-                                </button>
-                            </div>)
-                    )
-                }
+                        :
+                        (<div>
+                            <button onClick={(e) => displayInfo(e)}>
+                                {user.appointmentDTO.appointment.substring(11, 16)}
+                            </button>
+                        </div>)
+                )}
             </div>
         </div>
     )

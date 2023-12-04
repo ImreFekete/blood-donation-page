@@ -1,11 +1,9 @@
 import {useState} from "react";
-import Header from "./Header.jsx";
 
 
-const LoginForm = ({ onSave, disabled, onCancel }) => {
+const LoginForm = ({onSave, disabled, onCancel}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -24,43 +22,43 @@ const LoginForm = ({ onSave, disabled, onCancel }) => {
     return (
         <div className="outerContainer">
 
-        <form className="LoginForm" onSubmit={onSubmit}>
-            <div className="formBox">
+            <form className="LoginForm" onSubmit={onSubmit}>
+                <div className="formBox">
 
-            <div className="control">
-                <label htmlFor="email">Email: </label>
-                <input
-                    className="field"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    name="email"
-                    id="email"
-                />
-            </div>
+                    <div className="control">
+                        <label htmlFor="email">Email: </label>
+                        <input
+                            className="field"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            name="email"
+                            id="email"
+                        />
+                    </div>
 
-            <div className="control">
-                <label htmlFor="password">Password: </label>
-                <input
-                    className="field"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    name="password"
-                    id="password"
-                    type="password"
-                />
-            </div>
-            </div>
+                    <div className="control">
+                        <label htmlFor="password">Password: </label>
+                        <input
+                            className="field"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            name="password"
+                            id="password"
+                            type="password"
+                        />
+                    </div>
+                </div>
 
-            <div className="buttonContainer">
-                <button className='loginButton' type="submit" disabled={disabled}>
-                    Login
-                </button>
+                <div className="buttonContainer">
+                    <button className='loginButton' type="submit" disabled={disabled}>
+                        Login
+                    </button>
 
-                <button className='backButton' type="button" onClick={onCancel}>
-                    Back
-                </button>
-            </div>
-        </form>
+                    <button className='backButton' type="button" onClick={onCancel}>
+                        Back
+                    </button>
+                </div>
+            </form>
         </div>
     );
 };
