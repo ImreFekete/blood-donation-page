@@ -19,7 +19,6 @@ const updateUser = (user) => {
 
 const fetchUser = (id) => {
     const token = localStorage.getItem('jwtToken');
-    console.log("TOKEN IN UPDATE USER: ", token);
     return fetch(`/api/users/${id}`, {
             method: "GET",
             headers: {
@@ -33,9 +32,8 @@ const fetchUser = (id) => {
 const UpdatePage = () => {
     const {id} = useParams();
     const navigate = useNavigate();
-    const { user, setUser } = React.useContext(UserContext);
+    const {user, setUser} = React.useContext(UserContext);
 
-    //const [user, setUser] = useState(null);
     const [userLoading, setUserLoading] = useState(false);
     const [updateLoading, setUpdateLoading] = useState(false);
 
@@ -63,15 +61,14 @@ const UpdatePage = () => {
 
     return (
         <>
-        <Header/>
-
-        <UserForm
-            user={user}
-            onSave={handleUpdateUser}
-            disabled={updateLoading}
-            onCancel={() => navigate(`/user/${id}`)}
-        />
-            </>
+            <Header/>
+            <UserForm
+                user={user}
+                onSave={handleUpdateUser}
+                disabled={updateLoading}
+                onCancel={() => navigate(`/user/${id}`)}
+            />
+        </>
     );
 }
 

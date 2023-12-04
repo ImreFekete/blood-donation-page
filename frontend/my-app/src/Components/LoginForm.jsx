@@ -21,10 +21,8 @@ const LoginForm = ({onSave, disabled, onCancel}) => {
 
     return (
         <div className="outerContainer">
-
             <form className="LoginForm" onSubmit={onSubmit}>
                 <div className="formBox">
-
                     <div className="control">
                         <label htmlFor="email">Email: </label>
                         <input
@@ -35,7 +33,6 @@ const LoginForm = ({onSave, disabled, onCancel}) => {
                             id="email"
                         />
                     </div>
-
                     <div className="control">
                         <label htmlFor="password">Password: </label>
                         <input
@@ -48,7 +45,6 @@ const LoginForm = ({onSave, disabled, onCancel}) => {
                         />
                     </div>
                 </div>
-
                 <div className="buttonContainer">
                     <button className='loginButton' type="submit" disabled={disabled}>
                         Login

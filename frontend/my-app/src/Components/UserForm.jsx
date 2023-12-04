@@ -45,7 +45,6 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
 
     return (
         <div className="outerContainer">
-
             <form className="UserForm" onSubmit={onSubmit}>
                 <div className="formBox">
                     <div className="control">
@@ -70,7 +69,6 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                                 type="password"
                             />
                         </div>}
-
                     {!user ? (
                         <div className="control">
                             <label htmlFor="email">E-Mail address: </label>

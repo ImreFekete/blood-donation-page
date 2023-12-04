@@ -92,7 +92,6 @@ const CalendarComp = () => {
     const [bookedAppointments, setBookAppointments] = useState([]);
 
     useEffect(() => {
-        // TODO: Check this double fetch and its error handling with mentor (refactored)
         const fetchData = async () => {
             try {
                 const {name, email, password, appointmentDTO} = await fetchAppointmentForUser(id);
@@ -111,12 +110,13 @@ const CalendarComp = () => {
                 return alert("Invalid user!");
             }
         };
-        fetchData();
+        fetchData().then();
     }, [date, id, setUser]);
 
     const handleSelectedDay = (selectedDay) => {
         setSelectedDay(selectedDay);
     }
+
     const handleSelectedTime = (selectedTime) => {
         setSelectedTime(selectedTime);
     }
@@ -124,7 +124,6 @@ const CalendarComp = () => {
     return (
         <div className="outerContainer">
             <Header/>
-
             <div className="calendar">
                 <h3 className="header">Reserve an appointment</h3>
                 <div className="flexboxCalendar">
@@ -146,7 +145,6 @@ const CalendarComp = () => {
                         />
                     </div>
                 </div>
-
                 <div className="flexboxTime">
                     <SelectedDateInfo date={date}/>
                     <SetTextAppointment info={info} selectedTime={selectedTime}/>

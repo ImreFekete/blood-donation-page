@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import Loading from "../Components/Loading/index.js";
-import {useLocation} from "react-router-dom";
 
 const fetchUsers = () => {
     const token = localStorage.getItem('jwtToken');

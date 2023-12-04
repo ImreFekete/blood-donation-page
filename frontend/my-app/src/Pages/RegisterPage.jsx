@@ -23,6 +23,7 @@ const checkEmail = (email) => {
     const emailObject = {
         email: email
     };
+
     return fetch("/api/users/checkemail", {
         method: "POST",
         headers: {
@@ -35,7 +36,7 @@ const checkEmail = (email) => {
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const { user, setUser } = React.useContext(UserContext);
+    const {user, setUser} = React.useContext(UserContext);
 
     const handleCreateUser = (user) => {
         setLoading(true);
@@ -73,14 +74,14 @@ const RegisterPage = () => {
 
     return (
         <>
-        <Header/>
-        <UserForm
-            onSave={handleCreateUser}
-            checkEmail={handleCheckEmail}
-            disabled={loading}
-            onCancel={() => navigate("/")}
-        />
-            </>
+            <Header/>
+            <UserForm
+                onSave={handleCreateUser}
+                checkEmail={handleCheckEmail}
+                disabled={loading}
+                onCancel={() => navigate("/")}
+            />
+        </>
     )
 }
 
