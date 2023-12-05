@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import 'react-calendar/dist/Calendar.css';
-import Time from "./Time.jsx";
+import Time from "../Components/Time.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import CalendarBox from "./CalendarBox.jsx";
-import SubmitOrDeleteButton from "./SubmitOrDeleteButton.jsx";
-import SelectedDateInfo from "./SelectedDateInfo.jsx";
-import SetTextAppointment from "./SetTextAppointment.jsx";
-import UserContext from "../Pages/UserContext.jsx";
-import Header from "./Header.jsx";
+import CalendarBox from "../Components/CalendarBox.jsx";
+import SubmitOrDeleteButton from "../Components/SubmitOrDeleteButton.jsx";
+import SelectedDateInfo from "../Components/SelectedDateInfo.jsx";
+import SetTextAppointment from "../Components/SetTextAppointment.jsx";
+import UserContext from "./UserContext.jsx";
+import Header from "../Components/Header.jsx";
 
 const fetchAppointmentForUser = (id) => {
     const token = localStorage.getItem('jwtToken');
@@ -77,7 +77,7 @@ function getOnClickDay(handleSelectedDay, date, setShowTime) {
     };
 }
 
-const CalendarComp = () => {
+const CalendarPage = () => {
     const navigate = useNavigate();
     const {id} = useParams();
 
@@ -171,4 +171,4 @@ const CalendarComp = () => {
     );
 };
 
-export default CalendarComp;
+export default CalendarPage;
