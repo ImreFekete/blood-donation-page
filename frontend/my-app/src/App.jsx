@@ -48,8 +48,7 @@ function App() {
 
     const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { user, setUser } = React.useContext(UserContext);
-    //const [user, setUser] = useState(null);
+    const {user, setUser} = React.useContext(UserContext);
     const [appointment, setAppointment] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -71,7 +70,7 @@ function App() {
                 });
         }
         setLoading(false);
-    }, [id]);
+    }, [id, setUser]);
 
     if (loading) {
         return <Loading/>;
@@ -83,12 +82,11 @@ function App() {
             <div className="headerContainer">
                 <Header/>
 
-
                 {isLoggedIn && isAdmin &&
                     <div>
-                    <Link to="/admin" state={{ from: `${id}` }}>
-                        <button className='adminButton' type="button">List all users</button>
-                    </Link>
+                        <Link to="/admin" state={{from: `${id}`}}>
+                            <button className='adminButton' type="button">List all users</button>
+                        </Link>
                     </div>
                 }
 
@@ -167,13 +165,14 @@ function App() {
                     </div>
                 }
             </div>
+
             <div className="imageContainer">
                 <img src="/NurseTom.png" alt="Nurse 1" className="nurseImage"/>
                 <img src="/NurseTom3.png" alt="Nurse 2" className="nurseImage"/>
             </div>
+
         </div>
     );
-
 }
 
 export default App
