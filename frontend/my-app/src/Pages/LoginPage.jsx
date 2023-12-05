@@ -2,7 +2,6 @@ import LoginForm from "../Components/LoginForm.jsx";
 import Loading from "../Components/Loading";
 import {useNavigate} from "react-router-dom";
 import React, {useState} from "react";
-import UserContext from "./UserContext.jsx";
 import Header from "../Components/Header.jsx";
 
 const fetchUser = (user) => {

@@ -1,6 +1,6 @@
 import './App.css'
 import {Link, useNavigate, useParams} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Loading from "./Components/Loading";
 import moment from 'moment';
 import Header from "./Components/Header.jsx";
@@ -42,12 +42,12 @@ const deleteUser = (id) => {
 }
 
 function App() {
+    const {user, setUser} = useContext(UserContext);
     const {id} = useParams();
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const {user, setUser} = React.useContext(UserContext);
     const [appointment, setAppointment] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -75,7 +75,6 @@ function App() {
         return <Loading/>;
     }
 
-    //TODO: Header component
     return (
         <div className="outerContainer">
             <div className="headerContainer">
