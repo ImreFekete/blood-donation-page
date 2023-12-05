@@ -44,7 +44,7 @@ const UpdatePage = () => {
                 setUser(user);
                 setUserLoading(false);
             });
-    }, [id]);
+    }, [id, setUser]);
 
     const handleUpdateUser = (user) => {
         setUpdateLoading(true);

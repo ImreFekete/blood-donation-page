@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
+const UserForm = ({onSave, onCancel, disabled, user}) => {
     const [name, setName] = useState(user?.name ?? "");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState(user?.email ?? "");
@@ -99,7 +99,6 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                         <button type="submit" disabled={disabled}>
                             {user ? "Update User" : "Submit"}
                         </button>
-
                         <button type="button" onClick={onCancel}>
                             Cancel
                         </button>
