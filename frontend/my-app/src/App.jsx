@@ -8,7 +8,6 @@ import UserContext from "./Pages/UserContext.jsx";
 
 const fetchUserById = (id) => {
     const token = localStorage.getItem('jwtToken');
-    console.log("TOKEN", token);
     return fetch(`/api/users/${id}`, {
         method: 'GET',
         headers: {
@@ -170,7 +169,6 @@ function App() {
                 <img src="/NurseTom.png" alt="Nurse 1" className="nurseImage"/>
                 <img src="/NurseTom3.png" alt="Nurse 2" className="nurseImage"/>
             </div>
-
         </div>
     );
 }

@@ -19,7 +19,6 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [appointment, setAppointment] = useState(null);
-    const {user, setUser} = React.useContext(UserContext);
 
     const handleLoginUser = (user) => {
         setLoading(true);
