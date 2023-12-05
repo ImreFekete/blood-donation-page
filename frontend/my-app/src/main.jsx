@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import App from './App.jsx'
-import CalendarComp from "./Components/CalendarComp.jsx";
+import CalendarPage from "./Pages/CalendarPage.jsx";
 import LoginPage from "./Pages/LoginPage.jsx";
 import RegisterPage from "./Pages/RegisterPage.jsx";
 import UpdatePage from "./Pages/UpdatePage.jsx";
@@ -13,8 +13,6 @@ import {UserProvider} from "./Pages/UserContext.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
-        // element: <Layout />,
-        // errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
@@ -22,7 +20,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/calendar/:id",
-                element: <CalendarComp/>,
+                element: <CalendarPage/>,
             },
             {
                 path: "/login",
@@ -38,11 +36,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/user/:id",
-                element: <App />,
+                element: <App/>,
             },
             {
                 path: "/admin",
-                element: <AdminPage />,
+                element: <AdminPage/>,
             },
         ],
     },
