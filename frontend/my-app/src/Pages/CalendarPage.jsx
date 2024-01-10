@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
 import 'react-calendar/dist/Calendar.css';
-import Time from "./Time.jsx";
+import Time from "../Components/Time.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import CalendarBox from "./CalendarBox.jsx";
-import SubmitOrDeleteButton from "./SubmitOrDeleteButton.jsx";
-import SelectedDateInfo from "./SelectedDateInfo.jsx";
-import SetTextAppointment from "./SetTextAppointment.jsx";
-import UserContext from "../Pages/UserContext.jsx";
-import Header from "./Header.jsx";
+import CalendarBox from "../Components/CalendarBox.jsx";
+import SubmitOrDeleteButton from "../Components/SubmitOrDeleteButton.jsx";
+import SelectedDateInfo from "../Components/SelectedDateInfo.jsx";
+import SetTextAppointment from "../Components/SetTextAppointment.jsx";
+import UserContext from "./UserContext.jsx";
+import Header from "../Components/Header.jsx";
 
 const fetchAppointmentForUser = (id) => {
     const token = localStorage.getItem('jwtToken');
-    console.log("TOKEN IN CALENDAR COMP. fetchAppointmentForUser: ", token)
     return fetch(`/api/users/${id}`, {
         method: 'GET',
         headers: {
@@ -25,22 +24,19 @@ const fetchAppointmentForUser = (id) => {
 
 const fetchAppointmentsForDay = (year, month, day) => {
     const token = localStorage.getItem('jwtToken');
-    console.log("TOKEN IN CALENDAR COMP. fetchAppointmentsForDay: ", token)
     return fetch(`/api/appointments/allforday?year=${year}&month=${month}&day=${day}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         }
-    })
-        .then((res) => {
-            return res.json();
-        });
+    }).then((res) => {
+        return res.json();
+    });
 };
 
 const createAppointment = async (time, id) => {
     const token = localStorage.getItem('jwtToken');
-    console.log("TOKEN IN CALENDAR COMP. createAppointment: ", token)
     const requestBody = {
         userId: id,
         appointment: time
@@ -81,7 +77,7 @@ function getOnClickDay(handleSelectedDay, date, setShowTime) {
     };
 }
 
-const CalendarComp = () => {
+const CalendarPage = () => {
     const navigate = useNavigate();
     const {id} = useParams();
 
@@ -92,12 +88,10 @@ const CalendarComp = () => {
     const [selectedTime, setSelectedTime] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [info, setInfo] = useState(false);
-    const { user, setUser } = React.useContext(UserContext);
-   // const [user, setUser] = useState(null);
+    const {user, setUser} = React.useContext(UserContext);
     const [bookedAppointments, setBookAppointments] = useState([]);
 
     useEffect(() => {
-        // TODO: Check this double fetch and its error handling with mentor (refactored)
         const fetchData = async () => {
             try {
                 const {name, email, password, appointmentDTO} = await fetchAppointmentForUser(id);
@@ -116,12 +110,13 @@ const CalendarComp = () => {
                 return alert("Invalid user!");
             }
         };
-        fetchData();
-    }, [date, id]);
+        fetchData().then();
+    }, [date, id, setUser]);
 
     const handleSelectedDay = (selectedDay) => {
         setSelectedDay(selectedDay);
     }
+
     const handleSelectedTime = (selectedTime) => {
         setSelectedTime(selectedTime);
     }
@@ -129,54 +124,51 @@ const CalendarComp = () => {
     return (
         <div className="outerContainer">
             <Header/>
-        <div className="calendar">
-            <h3 className="header">Reserve an appointment</h3>
-            <div className="flexboxCalendar">
-                <CalendarBox
-                    onChange={setDate}
-                    value={date}
-                    onClickDay={getOnClickDay(handleSelectedDay, date, setShowTime)}
-                    tileDisabled={getDisabledTiles()}
-                />
-                <div className="showTime">
-                    <Time
-                        showTime={showTime}
-                        date={date}
-                        bookedAppointments={bookedAppointments}
-                        handleSelectedTime={handleSelectedTime}
-                        info={info}
-                        setInfo={setInfo}
-                        isSubmitted={isSubmitted}
+            <div className="calendar">
+                <h3 className="header">Reserve an appointment</h3>
+                <div className="flexboxCalendar">
+                    <CalendarBox
+                        onChange={setDate}
+                        value={date}
+                        onClickDay={getOnClickDay(handleSelectedDay, date, setShowTime)}
+                        tileDisabled={getDisabledTiles()}
                     />
+                    <div className="showTime">
+                        <Time
+                            showTime={showTime}
+                            date={date}
+                            bookedAppointments={bookedAppointments}
+                            handleSelectedTime={handleSelectedTime}
+                            info={info}
+                            setInfo={setInfo}
+                            isSubmitted={isSubmitted}
+                        />
+                    </div>
+                </div>
+                <div className="flexboxTime">
+                    <SelectedDateInfo date={date}/>
+                    <SetTextAppointment info={info} selectedTime={selectedTime}/>
+                    <SubmitOrDeleteButton info={info} onClick={async () => {
+                        setIsSubmitted(!isSubmitted);
+                        date.setHours(6, 0, 0, 0);
+                        let isoFormatTime = date.toISOString().substring(0, 11) + selectedTime + ":00";
+                        try {
+                            // TODO: Check this await whether it works correctly
+                            await createAppointment(isoFormatTime, id);
+                            navigate(`/user/${id}`);
+                        } catch (error) {
+                            console.error("Error creating appointment:", error);
+                        }
+                    }} submitted={isSubmitted}/>
+                    <div>
+                        <Link to={`/user/${id}`}>
+                            <button className='backButton' type="button">BACK</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
-
-            <div className="flexboxTime">
-                <SelectedDateInfo date={date}/>
-                <SetTextAppointment info={info} selectedTime={selectedTime}/>
-                <SubmitOrDeleteButton info={info} onClick={async () => {
-                    setIsSubmitted(!isSubmitted);
-                    date.setHours(6, 0, 0, 0);
-                    let isoFormatTime = date.toISOString().substring(0, 11) + selectedTime + ":00";
-                    try {
-                        // TODO: Check this await whether it works correctly
-                        await createAppointment(isoFormatTime, id);
-                        navigate(`/user/${id}`);
-                    } catch (error) {
-                        console.error("Error creating appointment:", error);
-                    }
-                }} submitted={isSubmitted}/>
-                <div>
-                <Link to={`/user/${id}`}>
-                    <button className='backButton' type="button">BACK</button>
-                </Link>
-                </div>
-            </div>
-        </div>
-
-
         </div>
     );
 };
 
-export default CalendarComp;
+export default CalendarPage;

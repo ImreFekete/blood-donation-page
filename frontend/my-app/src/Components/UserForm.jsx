@@ -1,7 +1,6 @@
 import {useState} from "react";
-import Header from "./Header.jsx";
 
-const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
+const UserForm = ({onSave, onCancel, disabled, user}) => {
     const [name, setName] = useState(user?.name ?? "");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState(user?.email ?? "");
@@ -28,13 +27,6 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
             return alert("The given E-mail format is not valid!")
         }
 
-        // if (!user) {
-        //     const emailExists = await checkEmail(email);
-        //     if (emailExists) {
-        //         return alert("The given E-mail address already exists!")
-        //     }
-        // }
-
         if (user) {
             return onSave({
                 ...user,
@@ -53,20 +45,18 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
 
     return (
         <div className="outerContainer">
-
-        <form className="UserForm" onSubmit={onSubmit}>
-            <div className="formBox">
-            <div className="control">
-                <label htmlFor="name">Name: </label>
-                <input
-                    className="field"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    name="name"
-                    id="name"
-                />
-            </div>
-
+            <form className="UserForm" onSubmit={onSubmit}>
+                <div className="formBox">
+                    <div className="control">
+                        <label htmlFor="name">Name: </label>
+                        <input
+                            className="field"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            name="name"
+                            id="name"
+                        />
+                    </div>
                     {!user &&
                         <div className="control">
                             <label htmlFor="password">Password: </label>
@@ -79,19 +69,18 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                                 type="password"
                             />
                         </div>}
-
                     {!user ? (
                         <div className="control">
-                        <label htmlFor="email">E-Mail address: </label>
-                        <input
-                            className="field"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            name="email"
-                            id="email"
-                        />
-                    </div>
-                        ) : (
+                            <label htmlFor="email">E-Mail address: </label>
+                            <input
+                                className="field"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                name="email"
+                                id="email"
+                            />
+                        </div>
+                    ) : (
                         <div className="control">
                             <label htmlFor="email">E-Mail address: </label>
                             <input
@@ -103,14 +92,13 @@ const UserForm = ({onSave, checkEmail, onCancel, disabled, user}) => {
                                 disabled
                             />
                         </div>
-                        )}
+                    )}
                 </div>
                 <div className="buttonContainer">
                     <div className="buttons">
                         <button type="submit" disabled={disabled}>
                             {user ? "Update User" : "Submit"}
                         </button>
-
                         <button type="button" onClick={onCancel}>
                             Cancel
                         </button>

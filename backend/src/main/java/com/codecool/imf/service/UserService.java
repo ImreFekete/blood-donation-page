@@ -87,10 +87,11 @@ public class UserService {
 
     public boolean updateUserById(Long id, UserDTO updatedUser) {
         Optional<User> optionalUser = userRepository.findById(id);
+
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setName(updatedUser.getName());
-            user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+            user.setPassword(user.getPassword()); // To keep old password
             user.setEmail(updatedUser.getEmail());
             userRepository.save(user);
             return true;

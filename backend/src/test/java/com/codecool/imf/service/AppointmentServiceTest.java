@@ -1,31 +1,26 @@
 package com.codecool.imf.service;
 
-import com.codecool.imf.dto.AppointmentDTO;
-import com.codecool.imf.repository.AppointmentRepository;
 import com.codecool.imf.model.Appointment;
-import org.junit.jupiter.api.BeforeEach;
+import com.codecool.imf.repository.AppointmentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AppointmentServiceTest {
 
+    private final List<Appointment> bookedAppointments = new ArrayList<>();
+    private final List<LocalDateTime> bookedAppointmentsLocalDates = new ArrayList<>();
     @Mock
     private AppointmentRepository mockAppointmentRepository;
     private AppointmentService appointmentService;
-    private final List<Appointment> bookedAppointments = new ArrayList<>();
-    private final List<LocalDateTime> bookedAppointmentsLocalDates = new ArrayList<>();
 
+    // FIXME: new repository was given, this test is out dated
 //    @BeforeEach
 //    void setUp() {
 //        appointmentService = new AppointmentService(mockAppointmentRepository, userRepository);
@@ -37,7 +32,6 @@ class AppointmentServiceTest {
 //        bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 16, 0));
 //
 //        for (LocalDateTime bookedAppointmentsLocalDate : bookedAppointmentsLocalDates) {
-//            // FIXME: new repository was given, this test is out dated
 //            bookedAppointments.add(new Appointment(bookedAppointmentsLocalDate));
 //        }
 //    }

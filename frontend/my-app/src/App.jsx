@@ -1,6 +1,6 @@
 import './App.css'
 import {Link, useNavigate, useParams} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Loading from "./Components/Loading";
 import moment from 'moment';
 import Header from "./Components/Header.jsx";
@@ -8,7 +8,6 @@ import UserContext from "./Pages/UserContext.jsx";
 
 const fetchUserById = (id) => {
     const token = localStorage.getItem('jwtToken');
-    console.log("TOKEN", token);
     return fetch(`/api/users/${id}`, {
         method: 'GET',
         headers: {
@@ -43,13 +42,12 @@ const deleteUser = (id) => {
 }
 
 function App() {
+    const {user, setUser} = useContext(UserContext);
     const {id} = useParams();
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { user, setUser } = React.useContext(UserContext);
-    //const [user, setUser] = useState(null);
     const [appointment, setAppointment] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
 
@@ -71,24 +69,22 @@ function App() {
                 });
         }
         setLoading(false);
-    }, [id]);
+    }, [id, setUser]);
 
     if (loading) {
         return <Loading/>;
     }
 
-    //TODO: Header component
     return (
         <div className="outerContainer">
             <div className="headerContainer">
                 <Header/>
 
-
                 {isLoggedIn && isAdmin &&
                     <div>
-                    <Link to="/admin" state={{ from: `${id}` }}>
-                        <button className='adminButton' type="button">List all users</button>
-                    </Link>
+                        <Link to="/admin" state={{from: `${id}`}}>
+                            <button className='adminButton' type="button">List all users</button>
+                        </Link>
                     </div>
                 }
 
@@ -167,13 +163,13 @@ function App() {
                     </div>
                 }
             </div>
+
             <div className="imageContainer">
                 <img src="/NurseTom.png" alt="Nurse 1" className="nurseImage"/>
                 <img src="/NurseTom3.png" alt="Nurse 2" className="nurseImage"/>
             </div>
         </div>
     );
-
 }
 
 export default App

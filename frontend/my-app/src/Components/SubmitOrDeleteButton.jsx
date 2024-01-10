@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-function SubmitOrDeleteButton({info ,onClick, submitted}) {
+function SubmitOrDeleteButton({info, onClick, submitted}) {
     return <div className="submitOrDeleteButton">
         {info ?
             <button type="submit" onClick={onClick}>
