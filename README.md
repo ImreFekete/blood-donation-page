@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/nagmil2077/stackoverflow-tw">
+  <a href="https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-BerryBusiness">
     <img src="images/imf_logo.png" alt="Logo" width="20%" height="20%">
   </a>
 
@@ -23,7 +23,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/nagmil2077/stackoverflow-tw)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-BerryBusiness)
 
 This study project involves creating a system with a primary focus on backend development using Java and SQL. 
 The objective is to establish an SQL database to manage project data, using authentication Spring Security 
