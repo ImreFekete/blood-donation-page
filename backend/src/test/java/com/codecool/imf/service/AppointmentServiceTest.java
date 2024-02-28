@@ -3,7 +3,6 @@ package com.codecool.imf.service;
 import com.codecool.imf.dto.AppointmentDTO;
 import com.codecool.imf.model.Appointment;
 import com.codecool.imf.repository.AppointmentRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
