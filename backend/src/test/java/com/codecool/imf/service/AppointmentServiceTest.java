@@ -1,59 +1,48 @@
 package com.codecool.imf.service;
 
+import com.codecool.imf.dto.AppointmentDTO;
 import com.codecool.imf.model.Appointment;
 import com.codecool.imf.repository.AppointmentRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AppointmentServiceTest {
-
-    private final List<Appointment> bookedAppointments = new ArrayList<>();
-    private final List<LocalDateTime> bookedAppointmentsLocalDates = new ArrayList<>();
     @Mock
-    private AppointmentRepository mockAppointmentRepository;
+    private AppointmentRepository appointmentRepository;
+    @InjectMocks
     private AppointmentService appointmentService;
 
-    // FIXME: new repository was given, this test is out dated
-//    @BeforeEach
-//    void setUp() {
-//        appointmentService = new AppointmentService(mockAppointmentRepository, userRepository);
-//
-//        bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 9, 0));
-//        bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 10, 30));
-//        bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 11, 30));
-//        bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 15, 30));
-//        bookedAppointmentsLocalDates.add(LocalDateTime.of(2023, Month.OCTOBER, 6, 16, 0));
-//
-//        for (LocalDateTime bookedAppointmentsLocalDate : bookedAppointmentsLocalDates) {
-//            bookedAppointments.add(new Appointment(bookedAppointmentsLocalDate));
-//        }
-//    }
-
-//    @Test
-//    void getAllAppointmentsForDay() {
-//        // ARRANGE
-//        String test = "test";
-//        when(mockAppointmentRepository.getAllForDay(test)).thenReturn(bookedAppointments);
-//        // ACT
-//        List<AppointmentDTO> result = appointmentService.getAllAppointmentsForDay(test);
-//        int expected = bookedAppointments.size();
-//        // ASSERT
-//        assertNotNull(result);
-//        assertEquals(expected, result.size());
-//    }
-
     @Test
-    void addNewAppointment() {
-    }
+    void getAllAppointmentsForDay() {
+        // Arrange
+        LocalDateTime searchedDay = LocalDateTime.of(2024, 2, 28, 12, 0, 0);
+        List<Appointment> appointments = Arrays.asList(
+                Appointment.builder().id(1L).localDateTime(searchedDay).build(),
+                Appointment.builder().id(2L).localDateTime(searchedDay).build(),
+                Appointment.builder().id(3L).localDateTime(searchedDay.plusDays(1)).build()
+        );
+        when(appointmentRepository.findAll()).thenReturn(appointments);
 
-    @Test
-    void deleteAppointment() {
+        // Act
+        List<AppointmentDTO> result = appointmentService.getAllAppointmentsForDay("2024", "2", "28");
+
+        // Assert
+        assertEquals(2, result.size());
+        assertEquals(1L, result.get(0).getId().longValue());
+        assertEquals(searchedDay, result.get(0).getAppointment());
+        assertEquals(2L, result.get(1).getId().longValue());
+        assertEquals(searchedDay, result.get(1).getAppointment());
     }
 }
