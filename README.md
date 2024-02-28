@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-BerryBusiness">
+  <a href="https://github.com/markveszelka/blood-donation-page/">
     <img src="images/imf_logo.png" alt="Logo" width="20%" height="20%">
   </a>
 
@@ -12,7 +12,7 @@
   <p align="center">
     Study project - Teamwork
     <br />
-    <a href="https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-BerryBusiness"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/markveszelka/blood-donation-page/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
@@ -65,7 +65,20 @@ You can clone the project and install it to see it in action.
 
 ### Prerequisites
 
-This is an example of how to list things needed to use the software and how to install them.
+[![Maven][Maven]][Maven-url]
+
+To build and manage the project dependencies, Maven is required. You can install Maven by following the steps below:
+
+* On macOS
+  ```sh
+  brew install maven
+  ```
+* On Windows
+  ```sh
+  choco install maven
+  ```
+  
+[![NPM][NPM]][NPM-url]
 
 * npm
   ```sh
@@ -74,24 +87,24 @@ This is an example of how to list things needed to use the software and how to i
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repo using SSH
    ```sh
-   git clone https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-BerryBusiness.git
+   git clone git@github.com:markveszelka/blood-donation-page.git
    ```
 2. Navigate to frontend folder and install NPM packages
    ```sh
    npm install
    ```
 3. Navigate to backend folder and build the backend project using Maven, run the code from the backend folder
-   ```shell
+   ```sh
    mvn clean install
    ```
 4. Run the backend using Maven from the backend directory
-   ```shell
+   ```sh
     mvn spring-boot:run
     ```
 5. Run the frontend from the frontend directory
-   ```shell
+   ```sh
    npm run dev
    ```
 
@@ -101,22 +114,20 @@ This is an example of how to list things needed to use the software and how to i
 <!-- USAGE EXAMPLES -->
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+[//]: # (<p align="right">&#40;<a href="#readme-top">back to top</a>&#41;</p>)
 
 
 <!-- CONTACT -->
 
 ## Contact
 
-Ágnes Gurmai-Málnás - [github](https://github.com/BerryBusiness) - [linkedin](https://www.linkedin.com/in/agnes-gurmai-malnas/) - agnes.malnas@gmail.com\
-Milan Nagy - [github](https://github.com/nagmil2077) - [linkedin](https://www.linkedin.com/in/milan-nagy-a76b1416a/) - corey321@gmail.com\
 Mark Veszelka - [github](https://github.com/markveszelka) - [linkedin](https://www.linkedin.com/in/mark-veszelka/) - mark.veszelka@gmail.com
 
-Project Link: https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-BerryBusiness
+Project Link: https://github.com/markveszelka/blood-donation-page/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+[//]: # (<p align="right">&#40;<a href="#readme-top">back to top</a>&#41;</p>)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -165,4 +176,8 @@ Project Link: https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java
 [HTML5-url]: https://en.wikipedia.org/wiki/HTML5
 [Vite]: https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white&labelColor=8C72FE&color=8C72FE
 [Vite-url]: https://vitejs.dev/
+[NPM]: https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white
+[NPM-url]: https://www.npmjs.com
+[Maven]:    https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white
+[Maven-url]: https://maven.apache.org
 
